@@ -1,0 +1,16 @@
+*.o
+*.d
+*.bin
+tags
+.vs/
+.*.swp
+lib*.a
+lib*.so
+lib*.so.*
+*.vcxproj.user
+src/build/
+src/build-test/
+src/docstmp/
+src/corpus-*/
+src/crash-*
+src/fuzz-*

@@ -1,0 +1,132 @@
+name: GS1 Syntax Dictionary CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  #
+  #  CI jobs
+  #
+
+  ci-clang:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: clang CI
+      run: |
+        make -C src -j `nproc` test CC=clang SANITIZE=yes SLOW_TESTS=yes
+        make -C src -j `nproc` lib CC=clang SANITIZE=yes
+
+  ci-gcc:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: gcc CI
+      run: |
+        make -C src -j `nproc` test CC=gcc SLOW_TESTS=yes
+        make -C src -j `nproc` lib CC=gcc
+
+  ci-msvc:
+
+    runs-on: windows-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1
+
+    - name: MSVC CI
+      working-directory: src
+      run: |
+        msbuild /t:Restore,Build /p:Configuration=release /p:Platform="x86" gs1syntaxdictionary.sln
+        build\test\Win32\Release\gs1syntaxdictionary-test.exe
+
+  ci-macos:
+
+    runs-on: macos-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: clang CI
+      run: |
+        make -C src -j `sysctl -n hw.logicalcpu` test SANITIZE=noleak SLOW_TESTS=yes
+        make -C src -j `sysctl -n hw.logicalcpu` lib SANITIZE=noleak
+
+  ci-scan-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: clang static analyser CI
+      run: |
+        sudo apt-get update
+        sudo apt-get -y --no-install-recommends install clang-tools
+        scan-build -o plist make -C src -j `nproc` test CC=clang SLOW_TESTS=yes
+        scan-build -o plist make -C src -j `nproc` lib CC=clang
+        [ "$(find plist/ -name *.html)" = '' ];
+
+    - name: "clang static analyzer: Store assets on failure"
+      uses: actions/upload-artifact@v2
+      with:
+        name: clang-scan.tgz
+        path: plist/**/*.html
+        retention-days: 30
+      if: ${{ failure() }}
+
+    - name: check includes for the linters with IWYU
+      working-directory: src
+      run: |
+        sudo apt-get -y --no-install-recommends install iwyu clang-9
+        find -name 'lint_*.c' -print0 | xargs -0 -n1 -i bash -c 'iwyu -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN {}; [[ $? = 2 ]] || false'
+
+
+  #
+  #  Create a release for each tagged commit
+  #
+  create-release:
+
+    if: startsWith(github.ref, 'refs/tags/')
+
+    needs:
+      - ci-clang
+      - ci-gcc
+      - ci-msvc
+      - ci-macos
+      - ci-scan-build
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Get version
+      id: get_version
+      run: |
+        VERSION=${GITHUB_REF/refs\/tags\//}
+        echo ::set-output name=VERSION::$VERSION
+
+    - name: Create GitHub release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: ${{ steps.get_version.outputs.VERSION }}
+        draft: true
+        prerelease: false
