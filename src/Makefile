@@ -241,7 +241,7 @@ docs:
 	cp docstmp/gs1syntaxdictionary_8h.html ../docs
 	cp docstmp/lint__*.html ../docs
 	cp docstmp/doxygen.css ../docs
-	cp docstmp/doxygen.png ../docs
+	cp docstmp/doxygen.svg ../docs
 	cp docstmp/dynsections.js ../docs
 	cp docstmp/jquery.js ../docs
 	cp docstmp/menu.js ../docs
