@@ -44,7 +44,7 @@
 #
 #       "N5"    - length == 5
 #       "N..20" - 1 <= length <= 20
-#       "[...]" - optional component
+#       "[...]" - optional final component
 #
 #     Each Linter is the name of a reference procedure that performs content
 #     validation of the component.
