@@ -5,10 +5,10 @@ The **"Syntax Dictionary"** is a text file that is both human-readable and
 machine-readable, which consists of a set of entries describing each currently
 assigned GS1 Application Identifier in terms of its constituent components.
 
-The latest version of the Syntax Dictionary can be viewed and downloaded
+The current revision of the Syntax Dictionary can be viewed and downloaded
 from here:
 
-<https://raw.githubusercontent.com/gs1/gs1-syntax-dictionary/main/gs1-syntax-dictionary.txt>
+<https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-dictionary/>
 
 The contents of the dictionary are intentionally straightforward, however it is
 sufficient to facilitate certain activities that are essential for processing
@@ -86,7 +86,7 @@ The **GS1 Syntax Engine** is a library that provides one such framework
 implementation of the Syntax Dictionary and Linters, and serves as an example
 of how to use this project effectively:
 
-<https://github.com/gs1/gs1-syntax-engine/>
+<https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-engine/>
 
 The GS1 Syntax Engine builds the Linter routines into its library code and
 demonstrates two distinct approaches to integrating with the Syntax Dictionary:
