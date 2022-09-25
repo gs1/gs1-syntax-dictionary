@@ -37,10 +37,6 @@ are given in the following article:
 
 <https://www.linkedin.com/pulse/gs1-application-identifier-syntax-dictionary-terry-burton/>
 
-
-Documentation
--------------
-
 This repository contains the following key artifacts:
 
 | Artifact                    | Purpose                                                                                                              |
@@ -49,14 +45,18 @@ This repository contains the following key artifacts:
 | `src/lint_<name>.c`         | Source for the reference Linters, which includes unit tests                                                          |
 | `src/gs1syntaxdictionary.h` | Headers file with Linter function declarations and Linter error code definitions                                     |
 | `src/gs1syntaxdictionary.c` | Optional implementations for mapping Linter names to functions and Linter error codes to error message strings       |
-| `docs/`                     | Linter function descriptions in HTML format. Also available online at <https://gs1.github.io/gs1-syntax-dictionary/> |
+| `docs/`                     | Linter function descriptions in HTML format                                                                          |
+
+
+Documentation
+-------------
 
 The structure of the Syntax Dictionary is defined in detail by its introductory comments.
 
 The reference Linters are extensively documented in the code, with the documentation being
 made available online here:
 
-<https://gs1.github.io/gs1-syntax-dictionary/>
+<https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-tests/>
 
 
 Using the Syntax Dictionary and Linters
