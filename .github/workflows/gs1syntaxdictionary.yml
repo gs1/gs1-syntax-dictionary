@@ -92,7 +92,7 @@ jobs:
     - name: check includes for the linters with IWYU
       working-directory: src
       run: |
-        sudo apt-get -y --no-install-recommends install iwyu clang-9
+        sudo apt-get -y --no-install-recommends install iwyu
         find -name 'lint_*.c' -print0 | xargs -0 -n1 -i bash -c 'iwyu -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN {}; [[ $? = 2 ]] || false'
 
 
