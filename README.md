@@ -99,8 +99,9 @@ Either of these approaches may be used to enhance the capabilities of an
 application to facilitate transformation and validation of GS1 AI-based data.
 
 Alternatively developers may choose to program their application to use the
-Syntax Engine library directly to entirely avoid implementing the Syntax
-Dictionary and Linter framework themselves.
+Syntax Engine library directly (by vendoring in the source or linking the C
+library, possibly using one of the language bindings) to entirely avoid
+implementing the Syntax Dictionary and Linter framework themselves.
 
 
 ### Building the Linters on Windows
