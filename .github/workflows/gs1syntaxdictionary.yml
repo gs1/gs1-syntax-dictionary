@@ -82,7 +82,7 @@ jobs:
         [ "$(find plist/ -name *.html)" = '' ];
 
     - name: "clang static analyzer: Store assets on failure"
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: clang-scan.tgz
         path: plist/**/*.html
