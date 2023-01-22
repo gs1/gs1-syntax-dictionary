@@ -20,6 +20,10 @@ jobs:
 
     - name: clang CI
       run: |
+
+        # For llvm-symbolizer
+        sudo apt-get -y --no-install-recommends install llvm
+
         make -C src -j `nproc` test CC=clang SANITIZE=yes SLOW_TESTS=yes
         make -C src -j `nproc` lib CC=clang SANITIZE=yes
 
