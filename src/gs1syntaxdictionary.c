@@ -222,4 +222,10 @@ void test_name_function_map_is_sorted(void)
 
 }
 
+void test_gs1_linter_from_name(void)
+{
+	TEST_CHECK(gs1_linter_from_name("key") == gs1_lint_key);
+	TEST_CHECK(gs1_linter_from_name("dummy") == NULL);
+}
+
 #endif  /* UNIT_TESTS */

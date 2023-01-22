@@ -77,6 +77,7 @@ void test_lint_couponposoffer(void);
 void test_lint_latlong(void);
 
 void test_name_function_map_is_sorted(void);
+void test_gs1_linter_from_name(void);
 
 
 TEST_LIST = {
@@ -111,6 +112,7 @@ TEST_LIST = {
 	{ "lint_latlong", test_lint_latlong },
 
 	{ "name_function_map_is_sorted", test_name_function_map_is_sorted },
+	{ "gs1_linter_from_name", test_gs1_linter_from_name },
 
 	{ NULL, NULL }
 
