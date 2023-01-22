@@ -65,18 +65,20 @@ const struct name_function_s name_function_map[] = {
  */
 gs1_linter_t gs1_linter_from_name(const char *name) {
 
-	size_t s = 0, e = sizeof(name_function_map) / sizeof(name_function_map[0]), m;
-	int cmp;
+	size_t s = 0, e = sizeof(name_function_map) / sizeof(name_function_map[0]);
 
 	while (s < e) {
-		m = s + (e - s) / 2;
-		cmp = strcmp(name_function_map[m].name, name);
+
+		size_t m = s + (e - s) / 2;
+		int cmp = strcmp(name_function_map[m].name, name);
+
 		if (cmp == 0)
 			return name_function_map[m].fn;
 		if (cmp < 0)
 			s = m + 1;
 		else
 			e = m;
+
 	}
 
 	return NULL;
