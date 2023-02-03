@@ -79,7 +79,7 @@ $(function() {
       </table>
 </div><div class="memdoc">
 <p>Used to validate that an AI component is an ISO 3166 "num-3" country code.</p>
-<dl class="section note"><dt>Note</dt><dd>The default lookup function provided by this linter is a linear search over a static list this is maintained in this file. </dd>
+<dl class="section note"><dt>Note</dt><dd>The default lookup function provided by this linter is a binary search over a static list this is maintained in this file. </dd>
 <dd>
 To enable this linter to hook into an alternative ISO 3166 "num-3" lookup function (provided by the user) the GS1_LINTER_CUSTOM_ISO3166_LOOKUP_H macro may be set to the name of a header file to be included that defines a custom <code>GS1_LINTER_CUSTOM_ISO3166_LOOKUP</code> macro. </dd>
 <dd>
