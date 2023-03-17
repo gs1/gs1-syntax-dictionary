@@ -139,6 +139,7 @@
     <ClCompile Include="lint_iso4217.c" />
     <ClCompile Include="lint_key.c" />
     <ClCompile Include="lint_latlong.c" />
+    <ClCompile Include="lint_mediatype.c" />
     <ClCompile Include="lint_mmoptss.c" />
     <ClCompile Include="lint_nonzero.c" />
     <ClCompile Include="lint_nozeroprefix.c" />

@@ -39,6 +39,9 @@
     <ClCompile Include="lint_latlong.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_mediatype.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_winding.c">
       <Filter>Source Files</Filter>
     </ClCompile>
