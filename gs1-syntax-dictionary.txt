@@ -76,7 +76,7 @@
 #
 # Reference implementations of the Linter procedures are available here:
 #
-#   - https://github.com/gs1/gs1-syntax-dictionary/tree/main/src
+#   - https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-tests/implementation/
 #
 # A framework that demonstrates how to use the Syntax Dictionary and associated
 # Linters is provided here:
@@ -86,7 +86,7 @@
 #
 # Copyright (c) 2020-2021 BWIPP project. https://bwipp.terryburton.co.uk/
 # Copyright (c) 2020-2021 Zint Project. https://zint.org.uk/
-# Copyright (c) 2021-2022 GS1 AISBL
+# Copyright (c) 2021-2023 GS1 AISBL
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
