@@ -21,9 +21,9 @@
  *
  * @brief This header contains the declarations for the reference linter
  * functions of type ::gs1_linter_t referred to in the [GS1 Syntax
- * Dictionary](https://github.com/gs1/gs1-syntax-dictionary/), as well as the
- * list of all possible return codes with a description of the indicated error
- * conditions.
+ * Dictionary](https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-dictionary/),
+ * as well as the list of all possible return codes with a description of the
+ * indicated error conditions.
  *
  * The reference linter return codes of type ::gs1_lint_err_t are described
  * below.
