@@ -81,7 +81,7 @@
 # A framework that demonstrates how to use the Syntax Dictionary and associated
 # Linters is provided here:
 #
-#   - https://github.com/gs1/gs1-syntax-engine
+#   - https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-engine/
 #
 #
 # Copyright (c) 2020-2021 BWIPP project. https://bwipp.terryburton.co.uk/
