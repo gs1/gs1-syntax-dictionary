@@ -13,7 +13,7 @@ This documentation describes the actions of the set of reference linters that
 are provided by GS1 for use with the Syntax Dictionary, which are available
 here:
 
-<https://github.com/gs1/gs1-syntax-dictionary>
+<https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-tests/implementation/>
 
 
 @remark
