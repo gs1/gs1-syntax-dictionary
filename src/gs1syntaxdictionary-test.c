@@ -1,7 +1,7 @@
 /**
  * GS1 Syntax Dictionary
  *
- * @author Copyright (c) 2022 GS1 AISBL.
+ * @author Copyright (c) 2022-2023 GS1 AISBL.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,8 @@ void test_lint_pieceoftotal(void);
 void test_lint_pcenc(void);
 void test_lint_couponcode(void);
 void test_lint_couponposoffer(void);
-void test_lint_latlong(void);
+void test_lint_latitude(void);
+void test_lint_longitude(void);
 void test_lint_mediatype(void);
 
 void test_name_function_map_is_sorted(void);
@@ -110,7 +111,8 @@ TEST_LIST = {
 	{ "lint_pcenc", test_lint_pcenc },
 	{ "lint_couponcode", test_lint_couponcode },
 	{ "lint_couponposoffer", test_lint_couponposoffer },
-	{ "lint_latlong", test_lint_latlong },
+	{ "lint_latitude", test_lint_latitude },
+	{ "lint_longitude", test_lint_longitude },
 	{ "lint_mediatype", test_lint_mediatype },
 
 	{ "name_function_map_is_sorted", test_name_function_map_is_sorted },
