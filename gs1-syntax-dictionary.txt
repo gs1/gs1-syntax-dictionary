@@ -296,6 +296,7 @@
 8019        N..10                req=8017,8018                      # SRIN
 8020        X..25                req=415                            # REF No.
 8026        N14,csum N4,pieceoftotal  req=37 ex=02,8006             # ITIP CONTENT
+8030        Z..90,digsig  req=00,01,253,255,8003,8004,8006,8010,8017,8018  # DIGSIG
 8110        X..70,couponcode
 8111        N4                   req=255                            # POINTS
 8112        X..70,couponposoffer
