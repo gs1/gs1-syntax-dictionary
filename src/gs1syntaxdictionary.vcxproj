@@ -125,6 +125,7 @@
     <ClCompile Include="lint_couponcode.c" />
     <ClCompile Include="lint_couponposoffer.c" />
     <ClCompile Include="lint_cset39.c" />
+    <ClCompile Include="lint_cset64.c" />
     <ClCompile Include="lint_cset82.c" />
     <ClCompile Include="lint_csetnumeric.c" />
     <ClCompile Include="lint_csum.c" />

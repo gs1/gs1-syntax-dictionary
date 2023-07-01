@@ -49,6 +49,7 @@
 
 void test_lint_cset82(void);
 void test_lint_cset39(void);
+void test_lint_cset64(void);
 void test_lint_csetnumeric(void);
 void test_lint_csum(void);
 void test_lint_csumalpha(void);
@@ -87,6 +88,7 @@ TEST_LIST = {
 	{ "lint_csetnumeric", test_lint_csetnumeric },
 	{ "lint_cset82", test_lint_cset82 },
 	{ "lint_cset39", test_lint_cset39 },
+	{ "lint_cset64", test_lint_cset64 },
 	{ "lint_csum", test_lint_csum },
 	{ "lint_csumalpha", test_lint_csumalpha },
 	{ "lint_key", test_lint_key },

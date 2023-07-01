@@ -21,6 +21,9 @@
     <ClCompile Include="lint_cset82.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_cset64.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_csetnumeric.c">
       <Filter>Source Files</Filter>
     </ClCompile>

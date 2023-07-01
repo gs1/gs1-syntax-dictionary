@@ -170,6 +170,8 @@ typedef enum
 	GS1_LINTER_INVALID_MEDIA_TYPE,					///< A valid AIDC media type is required.
 	GS1_LINTER_LATITUDE_INVALID_LENGTH,				///< The latitude value must be 10 digits.
 	GS1_LINTER_LONGITUDE_INVALID_LENGTH,				///< The longitude value must be 10 digits.
+	GS1_LINTER_INVALID_CSET64_CHARACTER,				///< A non-CSET 64 character was found where a CSET 64 character is expected.
+	GS1_LINTER_INVALID_CSET64_PADDING,				///< Incorrect number of CSET 64 pad characters.
 	__GS1_LINTER_NUM_ERRS						//  Keep this as the last element which captures the size of this enumeration.
 } gs1_lint_err_t;
 
@@ -193,6 +195,7 @@ extern "C" {
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csetnumeric(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_cset82(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_cset39(const char *data, size_t *err_pos, size_t *err_len);
+GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_cset64(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_key(const char *data, size_t *err_pos, size_t *err_len);

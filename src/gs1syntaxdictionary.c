@@ -205,6 +205,8 @@ const char *gs1_lint_err_str[__GS1_LINTER_NUM_ERRS] = {
 	"A valid AIDC media type is required.",
 	"The latitude must be 10 digits.",
 	"The longitude must be 10 digits.",
+	"A non-CSET 64 character was found where a CSET 64 character is expected.",
+	"Incorrect number of CSET 64 pad characters.",
 };
 
 #endif  /* GS1_LINTER_ERR_STR_EN */
