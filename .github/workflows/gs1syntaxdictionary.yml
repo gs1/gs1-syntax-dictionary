@@ -53,7 +53,7 @@ jobs:
     - name: MSVC CI
       working-directory: src
       run: |
-        msbuild /t:Restore,Build /p:Configuration=release /p:Platform="x86" gs1syntaxdictionary.sln
+        msbuild /t:Restore,Build /p:Configuration=release /p:Platform="x86" /warnaserror gs1syntaxdictionary.sln
         build\test\Win32\Release\gs1syntaxdictionary-test.exe
 
   ci-macos:
