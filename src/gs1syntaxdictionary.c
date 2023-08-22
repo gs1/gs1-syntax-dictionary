@@ -30,6 +30,7 @@ const struct name_function_s name_function_map[] = {
 	{ .name = "couponcode",		.fn = gs1_lint_couponcode },
 	{ .name = "couponposoffer",	.fn = gs1_lint_couponposoffer },
 	{ .name = "cset39",		.fn = gs1_lint_cset39 },
+	{ .name = "cset64",		.fn = gs1_lint_cset64 },
 	{ .name = "cset82",		.fn = gs1_lint_cset82 },
 	{ .name = "csetnumeric",	.fn = gs1_lint_csetnumeric },
 	{ .name = "csum",		.fn = gs1_lint_csum },
