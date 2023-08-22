@@ -57,6 +57,9 @@
     <ClCompile Include="lint_zero.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_hyphen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_cset39.c">
       <Filter>Source Files</Filter>
     </ClCompile>
