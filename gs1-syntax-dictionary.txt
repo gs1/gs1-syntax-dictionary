@@ -51,8 +51,9 @@
 #
 #   KeyVal:
 #
-#     "req=01,02,8006,8026" - Mandatory association with one of the listed AIs
-#     "ex=02,255,37"        - Invalid to pair with any of the listed AIs, and vice versa
+#     "req=01,02,8006,8026" - Mandatory association with one of the listed AIs or patterns
+#     "ex=8111,394n"        - Invalid to pair with any of the listed AIs or patterns
+#                           - Note: An AI is not be exclusive of itself if a pattern matches
 #     "dlpkey"              - GS1 Digital Link primary key, no qualifiers accepted
 #     "dlpkey=22,10,21"     - As above, with ordered, optional qualifier AIs
 #                             i.e. "https://../01/../22/../10/../21/.." - valid
