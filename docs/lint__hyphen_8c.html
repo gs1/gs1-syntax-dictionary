@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GS1 Syntax Dictionary: Linter reference: lint_zero.c File Reference</title>
+<title>GS1 Syntax Dictionary: Linter reference: lint_hyphen.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -40,20 +40,20 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">lint_zero.c File Reference</div>  </div>
+<div class="title">lint_hyphen.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Purpose</h2>
-<div class="textblock"><p>The <code>zero</code> linter ensures that the given data has a zero value. </p>
+<div class="textblock"><p>The <code>hyphen</code> linter ensures that the given data contains only hyphens. </p>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="aa35d8ff6af4f7e5c099c198f454572cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa35d8ff6af4f7e5c099c198f454572cd">&#9670;&nbsp;</a></span>gs1_lint_zero()</h2>
+<a id="a278e19d80973292c0be2ba25538e92c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a278e19d80973292c0be2ba25538e92c4">&#9670;&nbsp;</a></span>gs1_lint_hyphen()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_zero </td>
+          <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_hyphen </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -77,7 +77,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Used to validate that an AI component has a zero value.</p>
+<p>Used to validate that an AI component contains only hyphens.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
@@ -88,7 +88,7 @@ $(function() {
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa547bfc39831f2cb45bd257f507733af3" title="A zero value is required.">GS1_LINTER_NOT_ZERO</a> if the data does not contain a zero value. </dd></dl>
+<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa586098b2045d576d2f77cc4e8c334557" title="Only hyphens are permitted.">GS1_LINTER_NOT_HYPHEN</a> if the data contains a non-hyphen character. </dd></dl>
 <div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">size_t</span> len;</div>
@@ -100,23 +100,23 @@ $(function() {
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> (*data == <span class="charliteral">&#39;\0&#39;</span>) {</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = 0;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa547bfc39831f2cb45bd257f507733af3">GS1_LINTER_NOT_ZERO</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa586098b2045d576d2f77cc4e8c334557">GS1_LINTER_NOT_HYPHEN</a>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        }</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">         * Data must not contain a non-zero character</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">         * Data must not contain a non-hyphen character</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">         *</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">if</span> (strspn(data, <span class="stringliteral">&quot;0&quot;</span>) != len) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">if</span> (strspn(data, <span class="stringliteral">&quot;-&quot;</span>) != len) {</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa547bfc39831f2cb45bd257f507733af3">GS1_LINTER_NOT_ZERO</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa586098b2045d576d2f77cc4e8c334557">GS1_LINTER_NOT_HYPHEN</a>;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa547bfc39831f2cb45bd257f507733af3"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa547bfc39831f2cb45bd257f507733af3">GS1_LINTER_NOT_ZERO</a></div><div class="ttdeci">@ GS1_LINTER_NOT_ZERO</div><div class="ttdoc">A zero value is required.</div><div class="ttdef"><b>Definition:</b> gs1syntaxdictionary.h:82</div></div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa586098b2045d576d2f77cc4e8c334557"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa586098b2045d576d2f77cc4e8c334557">GS1_LINTER_NOT_HYPHEN</a></div><div class="ttdeci">@ GS1_LINTER_NOT_HYPHEN</div><div class="ttdoc">Only hyphens are permitted.</div><div class="ttdef"><b>Definition:</b> gs1syntaxdictionary.h:175</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition:</b> gs1syntaxdictionary.h:66</div></div>
 </div><!-- fragment -->
 </div>
