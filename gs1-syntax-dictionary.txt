@@ -53,17 +53,17 @@
 #
 #     "req=01,02,8006,8026" - Mandatory association with one of the listed AIs or patterns
 #     "ex=8111,394n"        - Invalid to pair with any of the listed AIs or patterns
-#                           - Note: An AI is not be exclusive of itself if a pattern matches
+#                           - Note: An AI is not exclusive of itself even if it matches a pattern
 #     "dlpkey"              - GS1 Digital Link primary key, no qualifiers accepted
 #     "dlpkey=22,10,21"     - As above, with ordered, optional qualifier AIs
 #                             i.e. "https://../01/../22/../10/../21/.." - valid
-#                                  "https://../01/../22/../21/.."       - valid (options)
-#                                  "https://../01/../10/.."             - valid (options)
-#                                  "https://../01/../10/../22/.."       - invalid (order)
+#                                  "https://../01/../22/../21/.."       - valid (good order)
+#                                  "https://../01/../10/.."             - valid (good order)
+#                                  "https://../01/../10/../22/.."       - invalid (bad order)
 #     "dlpkey=22,10,21|235" - As above, but alternative sequences: "22,10,21" or "235",
 #                             i.e. "https://../01/../22/../10/../21/.."  - valid (1st alternative)
 #                                  "https://../01/../235/.."             - valid (2nd alternative)
-#                                  "https://../01/../22/../10/../235/.." - invalid (exclusive)
+#                                  "https://../01/../22/../10/../235/.." - invalid (don't mix)
 #
 #     Note: Duplicated keys indicate repeated application of each instance of
 #     the key
