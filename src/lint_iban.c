@@ -65,13 +65,15 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char *data, size_t 
 
 	char cc[3] = {0};
 	gs1_lint_err_t ret;
-	size_t len = strlen(data), pos;
+	size_t len, pos;
 	const char *p;
 	unsigned int csum;
 
 	static const char *csetiban = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	assert(data);
+
+	len = strlen(data);
 
 	if (len <= IBAN_MIN_LENGTH) {
 		if (err_pos) *err_pos = 0;

@@ -102,12 +102,13 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char *data, si
 	 */
 	static const char *cset32 = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 
-	size_t i, pos;
+	size_t i, pos, len;
 	unsigned int sum = 0;
-	size_t len = strlen(data);
 	const unsigned int *p;
 
 	assert(data);
+
+	len = strlen(data);
 
 	/*
 	 * Data must include at least the check character pair.
