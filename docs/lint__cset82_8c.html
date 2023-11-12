@@ -48,8 +48,8 @@ $(function() {
 <dl class="section remark"><dt>Remarks</dt><dd>CSET 82 is defined in the <a href="https://www.gs1.org/genspecs">GS1 General Specifications</a> table "GS1 AI encodable
 character set 82". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a35f3bdb6a1c0569300d99dda0189f7a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35f3bdb6a1c0569300d99dda0189f7a8">&#9670;&nbsp;</a></span>gs1_lint_cset82()</h2>
+<a id="a1b53ec0f983fc86ed7751feba3cc948e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b53ec0f983fc86ed7751feba3cc948e">&#9670;&nbsp;</a></span>gs1_lint_cset82()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -57,19 +57,19 @@ character set 82". </dd></dl>
         <tr>
           <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_cset82 </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramtype">size_t *const&#160;</td>
           <td class="paramname"><em>err_pos</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramtype">size_t *const&#160;</td>
           <td class="paramname"><em>err_len</em>&#160;</td>
         </tr>
         <tr>
@@ -98,7 +98,7 @@ character set 82". </dd></dl>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">         * All characters in &quot;CSET 82&quot;, the 82 character alphabet.</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">         *</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *cset82 =</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> cset82 =</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="stringliteral">&quot;!\&quot;%&amp;&#39;()*+,-./0123456789:;&lt;=&gt;?ABCDEFGHIJKLMNOPQRS&quot;</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="stringliteral">&quot;TUVWXYZ_abcdefghijklmnopqrstuvwxyz&quot;</span>;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>

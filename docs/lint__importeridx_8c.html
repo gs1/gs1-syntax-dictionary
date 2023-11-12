@@ -48,8 +48,8 @@ $(function() {
 <dl class="section remark"><dt>Remarks</dt><dd>The Facility ID and Machine ID data elements used in the EU 2018/574 system are described in the <a href="https://www.gs1.org/genspecs">GS1 General Specification</a> section "European Regulation
 2018/574, traceability of tobacco products". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a6271f77780e867dab7fe269de4ff2b5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6271f77780e867dab7fe269de4ff2b5b">&#9670;&nbsp;</a></span>gs1_lint_importeridx()</h2>
+<a id="a3333be1d8e9ca0fb0885ce6e2a244170"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3333be1d8e9ca0fb0885ce6e2a244170">&#9670;&nbsp;</a></span>gs1_lint_importeridx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -57,19 +57,19 @@ $(function() {
         <tr>
           <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_importeridx </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramtype">size_t *const&#160;</td>
           <td class="paramname"><em>err_pos</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramtype">size_t *const&#160;</td>
           <td class="paramname"><em>err_len</em>&#160;</td>
         </tr>
         <tr>
@@ -101,7 +101,7 @@ $(function() {
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">         * All valid Importer Index characters.</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">         *</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *importeridx =</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> importeridx =</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="stringliteral">&quot;-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz&quot;</span>;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        assert(data);</div>

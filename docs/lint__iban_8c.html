@@ -57,8 +57,8 @@ Macros</h2></td></tr>
 <tr class="separator:aa8ba19ef5353cb52a76985f0ab3b664a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Functional Description</h2>
-<a id="a186addb1d84a0d74dd99a5a56488b9e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a186addb1d84a0d74dd99a5a56488b9e7">&#9670;&nbsp;</a></span>gs1_lint_iban()</h2>
+<a id="a1498a6f8a0308089f0b776b350001ef8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1498a6f8a0308089f0b776b350001ef8">&#9670;&nbsp;</a></span>gs1_lint_iban()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -66,19 +66,19 @@ Macros</h2></td></tr>
         <tr>
           <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_iban </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramtype">size_t *const&#160;</td>
           <td class="paramname"><em>err_pos</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramtype">size_t *const&#160;</td>
           <td class="paramname"><em>err_len</em>&#160;</td>
         </tr>
         <tr>
@@ -110,83 +110,85 @@ Macros</h2></td></tr>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">char</span> cc[3] = {0};</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> ret;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">size_t</span> len = strlen(data), pos;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">size_t</span> len, pos;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> *p;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> csum;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *csetiban = <span class="stringliteral">&quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> csetiban = <span class="stringliteral">&quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        assert(data);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> (len &lt;= <a class="code" href="lint__iban_8c.html#aa8ba19ef5353cb52a76985f0ab3b664a">IBAN_MIN_LENGTH</a>) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8f60dbebec48f04c894535660dafbc9c">GS1_LINTER_IBAN_TOO_SHORT</a>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">         * Any character outside of the set of valid IBAN characters is illegal.</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">         *</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> ((pos = strspn(data, csetiban)) != len) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = pos;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = 1;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa69e716ee855ebacaaf48297dd8a0cb1b">GS1_LINTER_INVALID_IBAN_CHARACTER</a>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">         *  The first two characters must be an ISO 3166 alpha-2 country code.</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">         *</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        strncpy(cc, data, 2);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        ret = <a class="code" href="gs1syntaxdictionary_8h.html#a3c8426d5679408f1a99bf438c9808984">gs1_lint_iso3166alpha2</a>(cc, err_pos, err_len);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        assert(ret == <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || ret == <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> (ret == <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8506634bd87de75d12584fab83321295">GS1_LINTER_ILLEGAL_IBAN_COUNTRY_CODE</a>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">         * Compute the IBAN checksum as the sum of digits, with characters</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">         * converted to digits (A =&gt; 10; B =&gt; 11), starting with the forth</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">         * character and wrapping at the end.</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">         *</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        csum = 0;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        p = data + 4;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">do</span> {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">if</span> (*p &lt; <span class="charliteral">&#39;A&#39;</span>)</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                        csum = csum * 10 + (<span class="keywordtype">unsigned</span> int)(*p - <span class="charliteral">&#39;0&#39;</span>);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                        csum = csum * 100 + (<span class="keywordtype">unsigned</span> int)(*p - <span class="charliteral">&#39;A&#39;</span> + 10);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                csum %= 97;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                <span class="comment">/*</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">                 * Next character, wrapping at the end.</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">                 *</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">                 */</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                p++;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                <span class="keywordflow">if</span> (p == data + len)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                        p = data;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        } <span class="keywordflow">while</span> (p != data + 4);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        len = strlen(data);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (len &lt;= <a class="code" href="lint__iban_8c.html#aa8ba19ef5353cb52a76985f0ab3b664a">IBAN_MIN_LENGTH</a>) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8f60dbebec48f04c894535660dafbc9c">GS1_LINTER_IBAN_TOO_SHORT</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">         * Any character outside of the set of valid IBAN characters is illegal.</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">         *</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> ((pos = strspn(data, csetiban)) != len) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = pos;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = 1;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa69e716ee855ebacaaf48297dd8a0cb1b">GS1_LINTER_INVALID_IBAN_CHARACTER</a>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">         *  The first two characters must be an ISO 3166 alpha-2 country code.</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">         *</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        strncpy(cc, data, 2);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        ret = <a class="code" href="gs1syntaxdictionary_8h.html#a3c8426d5679408f1a99bf438c9808984">gs1_lint_iso3166alpha2</a>(cc, err_pos, err_len);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        assert(ret == <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || ret == <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> (ret == <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8506634bd87de75d12584fab83321295">GS1_LINTER_ILLEGAL_IBAN_COUNTRY_CODE</a>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">         * Compute the IBAN checksum as the sum of digits, with characters</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">         * converted to digits (A =&gt; 10; B =&gt; 11), starting with the forth</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">         * character and wrapping at the end.</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">         *</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        csum = 0;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        p = data + 4;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">do</span> {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="keywordflow">if</span> (*p &lt; <span class="charliteral">&#39;A&#39;</span>)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                        csum = csum * 10 + (<span class="keywordtype">unsigned</span> int)(*p - <span class="charliteral">&#39;0&#39;</span>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                        csum = csum * 100 + (<span class="keywordtype">unsigned</span> int)(*p - <span class="charliteral">&#39;A&#39;</span> + 10);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                csum %= 97;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <span class="comment">/*</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">                 * Next character, wrapping at the end.</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">                 *</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">                 */</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                p++;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                <span class="keywordflow">if</span> (p == data + len)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                        p = data;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="comment">/*</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">         * Sum (mod 97) is 1 for correctly formatted IBANs.</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">         *</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">if</span> (csum != 1) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 2;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80">GS1_LINTER_INCORRECT_IBAN_CHECKSUM</a>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        }</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        } <span class="keywordflow">while</span> (p != data + 4);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="comment">/*</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">         * Sum (mod 97) is 1 for correctly formatted IBANs.</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">         *</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> (csum != 1) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                <span class="keywordflow">if</span> (err_pos) *err_pos = 2;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80">GS1_LINTER_INCORRECT_IBAN_CHECKSUM</a>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        }</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_a3c8426d5679408f1a99bf438c9808984"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#a3c8426d5679408f1a99bf438c9808984">gs1_lint_iso3166alpha2</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166alpha2(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition:</b> lint_iso3166alpha2.c:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a></div><div class="ttdeci">gs1_lint_err_t</div><div class="ttdoc">Linter return codes other than GS1_LINTER_OK indicate an error condition.</div><div class="ttdef"><b>Definition:</b> gs1syntaxdictionary.h:65</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80">GS1_LINTER_INCORRECT_IBAN_CHECKSUM</a></div><div class="ttdeci">@ GS1_LINTER_INCORRECT_IBAN_CHECKSUM</div><div class="ttdoc">The IBAN is invalid since the check characters are incorrect.</div><div class="ttdef"><b>Definition:</b> gs1syntaxdictionary.h:93</div></div>
