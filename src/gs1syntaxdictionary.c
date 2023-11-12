@@ -67,7 +67,7 @@ const struct name_function_s name_function_map[] = {
  * Return the linter function corresponding to a linter name.
  *
  */
-gs1_linter_t gs1_linter_from_name(const char *name) {
+gs1_linter_t gs1_linter_from_name(const char* const name) {
 
 	size_t s = 0, e = sizeof(name_function_map) / sizeof(name_function_map[0]);
 

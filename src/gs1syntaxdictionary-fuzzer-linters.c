@@ -34,7 +34,7 @@
 #define MAX_DATA 4096
 
 
-int LLVMFuzzerTestOneInput(const uint8_t *buf, size_t len) {
+int LLVMFuzzerTestOneInput(const uint8_t* const buf, size_t len) {
 
 	char data[MAX_DATA+1];
 	size_t err_pos[1], err_len[1];

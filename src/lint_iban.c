@@ -60,7 +60,7 @@
  *         are not a valid ISO 3166 alpha-2 country code.
  *
  */
-GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char *data, size_t *err_pos, size_t *err_len)
+GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
 	char cc[3] = {0};
@@ -69,7 +69,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char *data, size_t 
 	const char *p;
 	unsigned int csum;
 
-	static const char *csetiban = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	static const char* const csetiban = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	assert(data);
 
