@@ -35,7 +35,9 @@ jobs:
       - if: matrix.language == 'c-cpp'
         name: Build C
         run: |
+          make -C src -j `nproc`
           make -C src -j `nproc` test
+          make -C src -j `nproc` fuzzer
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
