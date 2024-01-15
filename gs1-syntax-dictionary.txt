@@ -40,7 +40,7 @@
 #
 #     Each component: Type[,linter...]
 #
-#     Type ("N": Numeric, "X": CSET 82, "Y": CSET 39), e.g.
+#     Type ("N": Numeric, "X": CSET 82, "Y": CSET 39, "Z": base64url), e.g.
 #
 #       "N5"    - length == 5
 #       "N..20" - 1 <= length <= 20
