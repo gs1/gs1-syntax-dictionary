@@ -49,7 +49,7 @@
 #     Each Linter is the name of a reference procedure that performs content
 #     validation of the component.
 #
-#   KeyVal:
+#   KeyVal, by example:
 #
 #     "req=01+21,02,35nn"   - Mandatory association with one of the listed AI or pattern groups
 #                           - Note: Example means require either (01) with (21), or (02), or (35nn)
@@ -67,7 +67,7 @@
 #                                  "https://../01/../22/../10/../235/.." - invalid (don't mix)
 #
 #     Note: Duplicated keys indicate repeated application of each instance of
-#     the key
+#     the key.
 #
 #     Note: Invalid and mandatory AI pairings should be evaluated over the
 #     combined data received from all GS1 carriers marking a physical item.
