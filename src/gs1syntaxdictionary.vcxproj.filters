@@ -111,6 +111,9 @@
     <ClCompile Include="lint_pieceoftotal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_iso5218.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="gs1syntaxdictionary.c">
       <Filter>Source Files</Filter>
     </ClCompile>

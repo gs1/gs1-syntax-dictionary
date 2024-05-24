@@ -44,6 +44,7 @@ const struct name_function_s name_function_map[] = {
 	{ .name = "iso3166alpha2",	.fn = gs1_lint_iso3166alpha2 },
 	{ .name = "iso3166list",	.fn = gs1_lint_iso3166list },
 	{ .name = "iso4217",		.fn = gs1_lint_iso4217 },
+	{ .name = "iso5218",		.fn = gs1_lint_iso5218 },
 	{ .name = "key",		.fn = gs1_lint_key },
 	{ .name = "latitude",		.fn = gs1_lint_latitude },
 	{ .name = "longitude",		.fn = gs1_lint_longitude },
@@ -210,6 +211,7 @@ const char *gs1_lint_err_str[__GS1_LINTER_NUM_ERRS] = {
 	"A non-CSET 64 character was found where a CSET 64 character is expected.",
 	"Incorrect number of CSET 64 pad characters.",
 	"Only hyphens are permitted.",
+	"A valid ISO/IEC 5218 biological sex code required.",
 };
 
 #endif  /* GS1_LINTER_ERR_STR_EN */
