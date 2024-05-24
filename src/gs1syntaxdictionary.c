@@ -59,6 +59,8 @@ const struct name_function_s name_function_map[] = {
 	{ .name = "yymmd0",		.fn = gs1_lint_yymmd0 },
 	{ .name = "yymmdd",		.fn = gs1_lint_yymmdd },
 	{ .name = "yymmddhh",		.fn = gs1_lint_yymmddhh },
+	{ .name = "yyyymmd0",		.fn = gs1_lint_yyyymmd0 },
+	{ .name = "yyyymmdd",		.fn = gs1_lint_yyyymmdd },
 	{ .name = "zero",		.fn = gs1_lint_zero },
 };
 
@@ -129,8 +131,8 @@ const char *gs1_lint_err_str[__GS1_LINTER_NUM_ERRS] = {
 	"The IBAN contains an invalid character.",
 	"The IBAN must start with a valid ISO 3166 two-character country code.",
 	"The IBAN is invalid since the check characters are incorrect.",
-	"The date is too short for YYMMDD format.",
-	"The date is too long for YYMMDD format.",
+	"The date is too short.",
+	"The date is too long.",
 	"The date with hour is too short for YYMMDDHH format.",
 	"The date with hour is too long for YYMMDDHH format.",
 	"The hour with minute is too short for HHMM format.",

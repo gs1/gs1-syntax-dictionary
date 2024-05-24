@@ -69,6 +69,12 @@
     <ClCompile Include="lint_yymmdd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_yyyymmd0.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_yyyymmdd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_hhmm.c">
       <Filter>Source Files</Filter>
     </ClCompile>

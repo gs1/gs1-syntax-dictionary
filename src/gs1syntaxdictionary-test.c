@@ -56,6 +56,8 @@ void test_lint_iso3166list(void);
 void test_lint_iso3166alpha2(void);
 void test_lint_iso4217(void);
 void test_lint_iban(void);
+void test_lint_yyyymmd0(void);
+void test_lint_yyyymmdd(void);
 void test_lint_yymmd0(void);
 void test_lint_yymmdd(void);
 void test_lint_yymmddhh(void);
@@ -96,6 +98,8 @@ TEST_LIST = {
 	{ "lint_iso3166alpha2", test_lint_iso3166alpha2 },
 	{ "lint_iso4217", test_lint_iso4217 },
 	{ "lint_iban", test_lint_iban },
+	{ "lint_yyyymmd0", test_lint_yyyymmd0 },
+	{ "lint_yyyymmdd", test_lint_yyyymmdd },
 	{ "lint_yymmd0", test_lint_yymmd0 },
 	{ "lint_yymmdd", test_lint_yymmdd },
 	{ "lint_yymmddhh", test_lint_yymmddhh },
