@@ -57,8 +57,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 #define E(i)    data[i + pos + 1]
 /// \endcond
 
-	size_t pos, len, i;
-	int compare;
+	size_t pos, len;
 
 	assert(data);
 
@@ -100,9 +99,10 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 	 *
 	 */
 	if (pos == len - pos - 1) {
-		compare = 0;				/* -1:P<E ; 0:P==E ; 1:P>E */
 		for (i = 0; i < pos; i++)
 			if (!compare && P(i) != E(i)) compare = P(i) < E(i) ? -1 : 1;
+		size_t i;
+		int compare = 0;		/* -1:P<E ; 0:P==E ; 1:P>E */
 		if (compare == 1) {
 			if (err_pos) *err_pos = 0;
 			if (err_len) *err_len = len;
