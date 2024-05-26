@@ -112,13 +112,13 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yymmd0(const char* const data,
 	       ret == GS1_LINTER_ILLEGAL_MONTH ||
 	       ret == GS1_LINTER_ILLEGAL_DAY);
 
-	assert((ret == GS1_LINTER_OK) || (*err_pos >= 2));
-	assert((ret == GS1_LINTER_OK) || (*err_pos + *err_len <= len + 2));
+	assert(!err_pos || ret == GS1_LINTER_OK || (*err_pos >= 2));
+	assert(!err_pos || !err_len || ret == GS1_LINTER_OK || (*err_pos + *err_len <= len + 2));
 
-	*err_pos -= 2;
-
-	if (ret != GS1_LINTER_OK)
+	if (ret != GS1_LINTER_OK) {
+		if (err_pos) *err_pos -= 2;
 		return ret;
+	}
 
 	return GS1_LINTER_OK;
 
