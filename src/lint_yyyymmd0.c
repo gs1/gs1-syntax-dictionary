@@ -185,21 +185,35 @@ void test_lint_yyyymmd0(void)
 	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20201231");
 	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20201232", GS1_LINTER_ILLEGAL_DAY, "202012*32*");
 
+	// Not leap years
 	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20210228");
 	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20210229", GS1_LINTER_ILLEGAL_DAY, "202102*29*");
 	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20220228");
 	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20220229", GS1_LINTER_ILLEGAL_DAY, "202202*29*");
 	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20230228");
 	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20230229", GS1_LINTER_ILLEGAL_DAY, "202302*29*");
-	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20240229");
-	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20240230", GS1_LINTER_ILLEGAL_DAY, "202402*30*");
 
+	// Leap years
+	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "19960229");
+	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "19960230", GS1_LINTER_ILLEGAL_DAY, "199602*30*");
 	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20000229");
 	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20000230", GS1_LINTER_ILLEGAL_DAY, "200002*30*");
 	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20040229");
 	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20040230", GS1_LINTER_ILLEGAL_DAY, "200402*30*");
-	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "19960229");
-	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "19960230", GS1_LINTER_ILLEGAL_DAY, "199602*30*");
+	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20240229");
+	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "20240230", GS1_LINTER_ILLEGAL_DAY, "202402*30*");
+
+	// Not leap year (divisable by 100 but not 400)
+	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "21000228");
+	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "21000229", GS1_LINTER_ILLEGAL_DAY, "210002*29*");
+	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "22000228");
+	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "22000229", GS1_LINTER_ILLEGAL_DAY, "220002*29*");
+	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "23000228");
+	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "23000229", GS1_LINTER_ILLEGAL_DAY, "230002*29*");
+
+	// Leap year (divisable by 400)
+	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "24000229");
+	UNIT_TEST_FAIL(gs1_lint_yyyymmd0, "24000230", GS1_LINTER_ILLEGAL_DAY, "240002*30*");
 
 	UNIT_TEST_PASS(gs1_lint_yyyymmd0, "20200600");		/* dd=00 permitted */
 
