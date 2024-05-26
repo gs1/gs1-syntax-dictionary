@@ -75,12 +75,20 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 		return GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED;
 	}
 
+	/*
+	 * Ensure position number is non-zero and does not have zero prefix.
+	 *
+	 */
 	if (P(0) == '0') {
 		if (err_pos) *err_pos = 0;
 		if (err_len) *err_len = pos;
 		return GS1_LINTER_ILLEGAL_ZERO_PREFIX;
 	}
 
+	/*
+	 * Ensure end number is non-zero and does not have zero prefix.
+	 *
+	 */
 	if (E(0) == '0') {
 		if (err_pos) *err_pos = pos + 1;
 		if (err_len) *err_len = len - pos - 1;
@@ -101,6 +109,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 			return GS1_LINTER_POSITION_EXCEEDS_END;
 		}
 	} else if (pos > len - pos - 1) {
+		/* Non-zero prefix, so a length check is sufficient. */
 		if (err_pos) *err_pos = 0;
 		if (err_len) *err_len = len;
 		return GS1_LINTER_POSITION_EXCEEDS_END;
