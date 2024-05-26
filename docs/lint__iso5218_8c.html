@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GS1 Syntax Dictionary: Linter reference: lint_winding.c File Reference</title>
+<title>GS1 Syntax Dictionary: Linter reference: lint_iso5218.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -40,22 +40,21 @@ $(function() {
 <div id="main-nav"></div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">lint_winding.c File Reference</div></div>
+  <div class="headertitle"><div class="title">lint_iso5218.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Purpose</h2>
-<div class="textblock"><p>The <code>winding</code> linter ensures that the given data represents a meaningful Winding Direction on a roll, either "0" (face out), "1" (face in) or "9" (undefined). </p>
-<dl class="section remark"><dt>Remarks</dt><dd>The Winding Direction is defined in the <a href="https://www.gs1.org/genspecs">GS1 General Specifications</a> section "Roll products -
-width, length, core diameter, direction, splices: AI (8001)". </dd></dl>
+<div class="textblock"><p>The <code>iso5218</code> linter ensures that the given data represents a ISO/IEC 5218 biological sex code, either "0" (not known), "1" (male), "2" (female) or "9" (not applicable). </p>
+<dl class="section remark"><dt>Remarks</dt><dd>The biological sex codes are defined by <a href="https://www.iso.org/standard/81682.html">ISO/IEC 5218: Information technology - Codes for the representation of human sexes</a>. </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="ac2080681c9f5f020dcf8b5a6c02645fc" name="ac2080681c9f5f020dcf8b5a6c02645fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2080681c9f5f020dcf8b5a6c02645fc">&#9670;&#160;</a></span>gs1_lint_winding()</h2>
+<a id="a134aa84acf80ba7d5b387950c5e5afe4" name="a134aa84acf80ba7d5b387950c5e5afe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a134aa84acf80ba7d5b387950c5e5afe4">&#9670;&#160;</a></span>gs1_lint_iso5218()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_winding </td>
+          <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_iso5218 </td>
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -79,7 +78,7 @@ width, length, core diameter, direction, splices: AI (8001)". </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Used to validate that an AI component is the string "0", "1" or "9".</p>
+<p>Used to validate that an AI component is the string "0", "1", "2" or "9".</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
@@ -90,26 +89,27 @@ width, length, core diameter, direction, splices: AI (8001)". </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaee21fb6bf0a1c33018a42933a72a0dfd" title="The winding direction must be either &quot;0&quot;, &quot;1&quot; or &quot;9&quot;.">GS1_LINTER_INVALID_WINDING_DIRECTION</a> if the data is not "0", "1" or "9". </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>{</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        assert(data);</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   58</span><span class="comment">         * The data must be either &quot;0&quot;, &quot;1&quot; or &quot;9&quot;.</span></div>
-<div class="line"><span class="lineno">   59</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   60</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   61</span>        <span class="keywordflow">if</span> (strcmp(data, <span class="stringliteral">&quot;0&quot;</span>) != 0 &amp;&amp; strcmp(data, <span class="stringliteral">&quot;1&quot;</span>) != 0 &amp;&amp; strcmp(data, <span class="stringliteral">&quot;9&quot;</span>) != 0) {</div>
+<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa575060ee1660720ff5f7f0b06cedeca9" title="A valid ISO/IEC 5218 biological sex code required.">GS1_LINTER_INVALID_BIOLOGICAL_SEX_CODE</a> if the data is not "0", "1", "2" or "9". </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>{</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>        assert(data);</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   57</span><span class="comment">         * The data must be either &quot;0&quot;, &quot;1&quot;, &quot;2&quot; or &quot;9&quot;.</span></div>
+<div class="line"><span class="lineno">   58</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   59</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">if</span> (strcmp(data, <span class="stringliteral">&quot;0&quot;</span>) != 0 &amp;&amp; strcmp(data, <span class="stringliteral">&quot;1&quot;</span>) != 0 &amp;&amp;</div>
+<div class="line"><span class="lineno">   61</span>            strcmp(data, <span class="stringliteral">&quot;2&quot;</span>) != 0 &amp;&amp; strcmp(data, <span class="stringliteral">&quot;9&quot;</span>) != 0) {</div>
 <div class="line"><span class="lineno">   62</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
 <div class="line"><span class="lineno">   63</span>                <span class="keywordflow">if</span> (err_len) *err_len = strlen(data);</div>
-<div class="line"><span class="lineno">   64</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaee21fb6bf0a1c33018a42933a72a0dfd">GS1_LINTER_INVALID_WINDING_DIRECTION</a>;</div>
+<div class="line"><span class="lineno">   64</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa575060ee1660720ff5f7f0b06cedeca9">GS1_LINTER_INVALID_BIOLOGICAL_SEX_CODE</a>;</div>
 <div class="line"><span class="lineno">   65</span>        }</div>
 <div class="line"><span class="lineno">   66</span> </div>
 <div class="line"><span class="lineno">   67</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
 <div class="line"><span class="lineno">   68</span> </div>
 <div class="line"><span class="lineno">   69</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa575060ee1660720ff5f7f0b06cedeca9"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa575060ee1660720ff5f7f0b06cedeca9">GS1_LINTER_INVALID_BIOLOGICAL_SEX_CODE</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_BIOLOGICAL_SEX_CODE</div><div class="ttdoc">A valid ISO/IEC 5218 biological sex code required.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:176</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:66</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaee21fb6bf0a1c33018a42933a72a0dfd"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaee21fb6bf0a1c33018a42933a72a0dfd">GS1_LINTER_INVALID_WINDING_DIRECTION</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_WINDING_DIRECTION</div><div class="ttdoc">The winding direction must be either &quot;0&quot;, &quot;1&quot; or &quot;9&quot;.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:85</div></div>
 </div><!-- fragment -->
 </div>
 </div>
