@@ -161,13 +161,13 @@ Macros</h2></td></tr>
 <div class="line"><span class="lineno">  112</span>               ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f8efe9394e8ff48b9dc81885f5ecc70">GS1_LINTER_ILLEGAL_MONTH</a> ||</div>
 <div class="line"><span class="lineno">  113</span>               ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa0029a641046ca292a57fcc2487fc3f67">GS1_LINTER_ILLEGAL_DAY</a>);</div>
 <div class="line"><span class="lineno">  114</span> </div>
-<div class="line"><span class="lineno">  115</span>        assert((ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>) || (*err_pos &gt;= 2));</div>
-<div class="line"><span class="lineno">  116</span>        assert((ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>) || (*err_pos + *err_len &lt;= len + 2));</div>
+<div class="line"><span class="lineno">  115</span>        assert(!err_pos || ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || (*err_pos &gt;= 2));</div>
+<div class="line"><span class="lineno">  116</span>        assert(!err_pos || !err_len || ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || (*err_pos + *err_len &lt;= len + 2));</div>
 <div class="line"><span class="lineno">  117</span> </div>
-<div class="line"><span class="lineno">  118</span>        *err_pos -= 2;</div>
-<div class="line"><span class="lineno">  119</span> </div>
-<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">if</span> (ret != <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>)</div>
-<div class="line"><span class="lineno">  121</span>                <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">if</span> (ret != <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>) {</div>
+<div class="line"><span class="lineno">  119</span>                <span class="keywordflow">if</span> (err_pos) *err_pos -= 2;</div>
+<div class="line"><span class="lineno">  120</span>                <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  121</span>        }</div>
 <div class="line"><span class="lineno">  122</span> </div>
 <div class="line"><span class="lineno">  123</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
 <div class="line"><span class="lineno">  124</span> </div>
