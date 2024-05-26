@@ -54,6 +54,7 @@ const struct name_function_s name_function_map[] = {
 	{ .name = "nozeroprefix",	.fn = gs1_lint_nozeroprefix },
 	{ .name = "pcenc",		.fn = gs1_lint_pcenc },
 	{ .name = "pieceoftotal",	.fn = gs1_lint_pieceoftotal },
+	{ .name = "posinseqslash",	.fn = gs1_lint_posinseqslash },
 	{ .name = "winding",		.fn = gs1_lint_winding },
 	{ .name = "yesno",		.fn = gs1_lint_yesno },
 	{ .name = "yymmd0",		.fn = gs1_lint_yymmd0 },
@@ -214,6 +215,8 @@ const char *gs1_lint_err_str[__GS1_LINTER_NUM_ERRS] = {
 	"Incorrect number of CSET 64 pad characters.",
 	"Only hyphens are permitted.",
 	"A valid ISO/IEC 5218 biological sex code required.",
+	"The data must have the format \"<pos>/<end>\".",
+	"The position number must not exceed the end number.",
 };
 
 #endif  /* GS1_LINTER_ERR_STR_EN */

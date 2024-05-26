@@ -147,6 +147,7 @@
     <ClCompile Include="lint_nozeroprefix.c" />
     <ClCompile Include="lint_pcenc.c" />
     <ClCompile Include="lint_pieceoftotal.c" />
+    <ClCompile Include="lint_posinseqslash.c" />
     <ClCompile Include="lint_winding.c" />
     <ClCompile Include="lint_yesno.c" />
     <ClCompile Include="lint_yymmd0.c" />

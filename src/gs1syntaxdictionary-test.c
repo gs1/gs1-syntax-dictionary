@@ -64,6 +64,7 @@ void test_lint_yymmddhh(void);
 void test_lint_hhmm(void);
 void test_lint_mmoptss(void);
 void test_lint_pieceoftotal(void);
+void test_lint_posinseqslash(void);
 void test_lint_pcenc(void);
 void test_lint_couponcode(void);
 void test_lint_couponposoffer(void);
@@ -106,6 +107,7 @@ TEST_LIST = {
 	{ "lint_hhmm", test_lint_hhmm },
 	{ "lint_mmoptss", test_lint_mmoptss },
 	{ "lint_pieceoftotal", test_lint_pieceoftotal },
+	{ "lint_posinseqslash", test_lint_posinseqslash },
 	{ "lint_pcenc", test_lint_pcenc },
 	{ "lint_couponcode", test_lint_couponcode },
 	{ "lint_couponposoffer", test_lint_couponposoffer },

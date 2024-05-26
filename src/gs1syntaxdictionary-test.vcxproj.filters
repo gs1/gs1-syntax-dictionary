@@ -120,6 +120,9 @@
     <ClCompile Include="lint_pieceoftotal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_posinseqslash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_iso5218.c">
       <Filter>Source Files</Filter>
     </ClCompile>
