@@ -246,7 +246,7 @@ docs:
 	cp docstmp/jquery.js ../docs
 	cp docstmp/menu.js ../docs
 	cp docstmp/menudata.js ../docs
-	cp docstmp/doc.png ../docs
+	cp docstmp/doc.svg ../docs
 	cp docstmp/nav_*.png ../docs
 	cp docstmp/tabs.css ../docs
 	cp docstmp/tab_*.png ../docs
