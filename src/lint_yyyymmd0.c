@@ -71,7 +71,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmd0(const char* const dat
 	len = strlen(data);
 
 	/*
-	 * Data must be six characters.
+	 * Data must be eight characters.
 	 *
 	 */
 	if (len != 8) {
