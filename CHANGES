@@ -1,0 +1,42 @@
+UNRELEASED
+
+* New AIs (7250) through (7259) for patient demographics, as approved with GSCN 22-246.
+* New linters to support 8-digit dates, biological sex codes and position in sequence.
+* New flag "?" indicating that an AI is a permitted GS1 Digital Link URI data attribute.
+
+
+2023-12-11
+
+* Minor update to linters for "csumalpha" and "iban" to validate data before calculating data length.
+* New "+" syntax to enable mandatory associations of serialised GS1 identification keys when using AI (8030) DigSig i.e., enforces instance level compound keys such as AI (01) with (21) or instance level simple keys such as AI (253) with optional serial component made mandatory, when encoded with AI (8030).
+
+
+2023-09-22
+
+* New AIs (4330) maximum temperature in Fahrenheit, (4331) maximum temperature in Celsius, (4332) minimum temperature in Fahrenheit and (4333) minimum temperature in Celsius, as approved with GSCN 22-353.
+* New "hyphen" linter to support new min/max temperature AIs.
+
+
+2023-07-04
+
+* New AI (8030) Digital Signatures (DigSig) and new "CSET 64" linter for the file-safe/URI-safe based 64 character set, as approved with GSCN 21-307.
+* New "longitude" and "latitude" linters to replace "latlong" linter, to enable validation of each AI component separately.
+* Corrected "key" linter with GCP minimum-length changed to 4.
+* Corrected data titles, replacing "NO." with lowercase "No."
+
+
+2023-03-22
+
+* Added new AI (7241) for AIDC media type and AI (7242) for Version Control Number (VCN), as approved with GSCN 22-345.
+* Corrected existing GRSN AI (8017) and (8018) with missing 'key' linter and invalid pairing.
+
+
+2022-11-24
+
+* AI (415) updated as a GS1 Digital Link primary key.
+* Aligned to GS1 Digital Link Standard: URI Syntax, Release 1.3.0, Nov 2022.
+
+
+2022-08-10
+
+* Initial release.
