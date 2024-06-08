@@ -130,6 +130,7 @@
     <ClCompile Include="lint_csetnumeric.c" />
     <ClCompile Include="lint_csum.c" />
     <ClCompile Include="lint_csumalpha.c" />
+    <ClCompile Include="lint_hasnondigit.c" />
     <ClCompile Include="lint_hhmm.c" />
     <ClCompile Include="lint_hyphen.c" />
     <ClCompile Include="lint_iban.c" />

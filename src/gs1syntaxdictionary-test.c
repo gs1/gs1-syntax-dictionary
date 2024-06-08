@@ -73,6 +73,7 @@ void test_lint_longitude(void);
 void test_lint_mediatype(void);
 void test_lint_hyphen(void);
 void test_lint_iso5218(void);
+void test_lint_hasnondigit(void);
 
 void test_name_function_map_is_sorted(void);
 void test_gs1_linter_from_name(void);
@@ -116,6 +117,7 @@ TEST_LIST = {
 	{ "lint_mediatype", test_lint_mediatype },
 	{ "lint_hyphen", test_lint_hyphen },
 	{ "lint_iso5218", test_lint_iso5218 },
+	{ "lint_hasnondigit", test_lint_hasnondigit },
 
 	{ "name_function_map_is_sorted", test_name_function_map_is_sorted },
 	{ "gs1_linter_from_name", test_gs1_linter_from_name },
