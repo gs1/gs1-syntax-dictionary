@@ -47,7 +47,7 @@
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hasnondigit(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
-	size_t len, pos;
+	size_t len;
 
 	assert(data);
 
@@ -57,7 +57,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hasnondigit(const char* const 
 	 * Data must not be all numeric
 	 *
 	 */
-	if ((pos = strspn(data, "0123456789")) == len) {
+	if (strspn(data, "0123456789") == len) {
 		if (err_pos) *err_pos = 0;
 		if (err_len) *err_len = len;
 		return GS1_LINTER_REQUIRES_NON_DIGIT_CHARACTER;
