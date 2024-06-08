@@ -91,7 +91,7 @@ $(function() {
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa002150a5ef31ee676edd1f20877468cb" title="A non-digit character is required.">GS1_LINTER_REQUIRES_NON_DIGIT_CHARACTER</a> if the data does not contain a non-digit character. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   48</span>{</div>
 <div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>        <span class="keywordtype">size_t</span> len, pos;</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordtype">size_t</span> len;</div>
 <div class="line"><span class="lineno">   51</span> </div>
 <div class="line"><span class="lineno">   52</span>        assert(data);</div>
 <div class="line"><span class="lineno">   53</span> </div>
@@ -101,7 +101,7 @@ $(function() {
 <div class="line"><span class="lineno">   57</span><span class="comment">         * Data must not be all numeric</span></div>
 <div class="line"><span class="lineno">   58</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">   59</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">if</span> ((pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>)) == len) {</div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">if</span> (strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>) == len) {</div>
 <div class="line"><span class="lineno">   61</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
 <div class="line"><span class="lineno">   62</span>                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
 <div class="line"><span class="lineno">   63</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa002150a5ef31ee676edd1f20877468cb">GS1_LINTER_REQUIRES_NON_DIGIT_CHARACTER</a>;</div>
