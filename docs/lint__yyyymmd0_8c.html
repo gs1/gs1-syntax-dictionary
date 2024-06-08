@@ -101,71 +101,70 @@ $(function() {
 <div class="line"><span class="lineno">   56</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">   57</span><span class="comment">/// \cond</span></div>
 <div class="line"><span class="lineno">   58</span><span class="comment"></span><span class="preprocessor">#define XX(d) ( (data[d] - &#39;0&#39;) * 10 + (data[d+1] - &#39;0&#39;) )</span></div>
-<div class="line"><span class="lineno">   59</span><span class="preprocessor">#define MM XX(4)</span></div>
-<div class="line"><span class="lineno">   60</span><span class="preprocessor">#define DD XX(6)</span><span class="comment"></span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">/// \endcond</span></div>
-<div class="line"><span class="lineno">   62</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   63</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> daysinmonth[] =</div>
-<div class="line"><span class="lineno">   64</span>                { 31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };</div>
-<div class="line"><span class="lineno">   65</span> </div>
-<div class="line"><span class="lineno">   66</span>        <span class="keywordtype">size_t</span> len, pos;</div>
-<div class="line"><span class="lineno">   67</span>        <span class="keywordtype">int</span> yyyy, maxdd;</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        assert(data);</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   72</span> </div>
-<div class="line"><span class="lineno">   73</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">         * Data must be six characters.</span></div>
-<div class="line"><span class="lineno">   75</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   76</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">if</span> (len != 8) {</div>
-<div class="line"><span class="lineno">   78</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">   79</span>                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><span class="lineno">   80</span>                <span class="keywordflow">return</span> len &lt; 8 ? <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aabaab2a58c8ec969148ca722037bd5c9f">GS1_LINTER_DATE_TOO_SHORT</a> : <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa4f161936b5a6a437ae84f5e57ff0fec3">GS1_LINTER_DATE_TOO_LONG</a>;</div>
-<div class="line"><span class="lineno">   81</span>        }</div>
-<div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">         * Data must consist of all digits.</span></div>
-<div class="line"><span class="lineno">   85</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">if</span> ((pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>)) != len) {</div>
-<div class="line"><span class="lineno">   88</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = pos;</div>
-<div class="line"><span class="lineno">   89</span>                <span class="keywordflow">if</span> (err_len) *err_len = 1;</div>
-<div class="line"><span class="lineno">   90</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>;</div>
-<div class="line"><span class="lineno">   91</span>        }</div>
-<div class="line"><span class="lineno">   92</span> </div>
-<div class="line"><span class="lineno">   93</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment">         * Validate that the month is 01 to 12.</span></div>
-<div class="line"><span class="lineno">   95</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   96</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span> (MM &lt; 1 || MM &gt; 12) {</div>
-<div class="line"><span class="lineno">   98</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 4;</div>
-<div class="line"><span class="lineno">   99</span>                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
-<div class="line"><span class="lineno">  100</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f8efe9394e8ff48b9dc81885f5ecc70">GS1_LINTER_ILLEGAL_MONTH</a>;</div>
-<div class="line"><span class="lineno">  101</span>        }</div>
-<div class="line"><span class="lineno">  102</span> </div>
-<div class="line"><span class="lineno">  103</span>        yyyy = (data[0] - <span class="charliteral">&#39;0&#39;</span>) * 1000 + (data[1] - <span class="charliteral">&#39;0&#39;</span>) * 100 +</div>
-<div class="line"><span class="lineno">  104</span>               (data[2] - <span class="charliteral">&#39;0&#39;</span>) *   10 + (data[3] - <span class="charliteral">&#39;0&#39;</span>);</div>
-<div class="line"><span class="lineno">  105</span> </div>
-<div class="line"><span class="lineno">  106</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  107</span><span class="comment">         * Validate the day, accounting for leap years, and permitting &quot;00&quot;.</span></div>
-<div class="line"><span class="lineno">  108</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  109</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  110</span>        maxdd = daysinmonth[MM - 1];            <span class="comment">/* Based at 0 */</span></div>
-<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">if</span> (maxdd == -1)                        <span class="comment">/* February; account for leap years */</span></div>
-<div class="line"><span class="lineno">  112</span>                maxdd = ((yyyy % 4 == 0 &amp;&amp; yyyy % 100 != 0) ||</div>
-<div class="line"><span class="lineno">  113</span>                         yyyy % 400 == 0) ? 29 : 28;</div>
-<div class="line"><span class="lineno">  114</span> </div>
-<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">if</span> (DD &gt; maxdd) {</div>
-<div class="line"><span class="lineno">  116</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 6;</div>
-<div class="line"><span class="lineno">  117</span>                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
-<div class="line"><span class="lineno">  118</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa0029a641046ca292a57fcc2487fc3f67">GS1_LINTER_ILLEGAL_DAY</a>;</div>
-<div class="line"><span class="lineno">  119</span>        }</div>
-<div class="line"><span class="lineno">  120</span> </div>
-<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
-<div class="line"><span class="lineno">  122</span> </div>
-<div class="line"><span class="lineno">  123</span>}</div>
+<div class="line"><span class="lineno">   59</span><span class="preprocessor">#define YY ( XX(0) * 100 + XX(2) )</span></div>
+<div class="line"><span class="lineno">   60</span><span class="preprocessor">#define MM XX(4)</span></div>
+<div class="line"><span class="lineno">   61</span><span class="preprocessor">#define DD XX(6)</span><span class="comment"></span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">/// \endcond</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   64</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> daysinmonth[] =</div>
+<div class="line"><span class="lineno">   65</span>                { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };</div>
+<div class="line"><span class="lineno">   66</span> </div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordtype">size_t</span> len, pos;</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> maxdd;</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>        assert(data);</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>        len = strlen(data);</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">         * Data must be eight characters.</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (len != 8) {</div>
+<div class="line"><span class="lineno">   79</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
+<div class="line"><span class="lineno">   80</span>                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
+<div class="line"><span class="lineno">   81</span>                <span class="keywordflow">return</span> len &lt; 8 ? <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aabaab2a58c8ec969148ca722037bd5c9f">GS1_LINTER_DATE_TOO_SHORT</a> : <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa4f161936b5a6a437ae84f5e57ff0fec3">GS1_LINTER_DATE_TOO_LONG</a>;</div>
+<div class="line"><span class="lineno">   82</span>        }</div>
+<div class="line"><span class="lineno">   83</span> </div>
+<div class="line"><span class="lineno">   84</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">         * Data must consist of all digits.</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   88</span>        <span class="keywordflow">if</span> ((pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>)) != len) {</div>
+<div class="line"><span class="lineno">   89</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = pos;</div>
+<div class="line"><span class="lineno">   90</span>                <span class="keywordflow">if</span> (err_len) *err_len = 1;</div>
+<div class="line"><span class="lineno">   91</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>;</div>
+<div class="line"><span class="lineno">   92</span>        }</div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment">         * Validate that the month is 01 to 12.</span></div>
+<div class="line"><span class="lineno">   96</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   97</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   98</span>        <span class="keywordflow">if</span> (MM &lt; 1 || MM &gt; 12) {</div>
+<div class="line"><span class="lineno">   99</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 4;</div>
+<div class="line"><span class="lineno">  100</span>                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
+<div class="line"><span class="lineno">  101</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f8efe9394e8ff48b9dc81885f5ecc70">GS1_LINTER_ILLEGAL_MONTH</a>;</div>
+<div class="line"><span class="lineno">  102</span>        }</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  105</span><span class="comment">         * Validate the day, accounting for leap years</span></div>
+<div class="line"><span class="lineno">  106</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  107</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">if</span> (MM == 2) {          <span class="comment">/* February; account for leap years */</span></div>
+<div class="line"><span class="lineno">  109</span>                maxdd = ((YY % 4 == 0 &amp;&amp; YY % 100 != 0) || YY % 400 == 0) ? 29 : 28;</div>
+<div class="line"><span class="lineno">  110</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  111</span>                maxdd = daysinmonth[MM - 1];            <span class="comment">/* Based at 0 */</span></div>
+<div class="line"><span class="lineno">  112</span>        }</div>
+<div class="line"><span class="lineno">  113</span> </div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">if</span> (DD &gt; maxdd) {       <span class="comment">/* Permit &quot;00&quot; */</span></div>
+<div class="line"><span class="lineno">  115</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 6;</div>
+<div class="line"><span class="lineno">  116</span>                <span class="keywordflow">if</span> (err_len) *err_len = 2;</div>
+<div class="line"><span class="lineno">  117</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa0029a641046ca292a57fcc2487fc3f67">GS1_LINTER_ILLEGAL_DAY</a>;</div>
+<div class="line"><span class="lineno">  118</span>        }</div>
+<div class="line"><span class="lineno">  119</span> </div>
+<div class="line"><span class="lineno">  120</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa0029a641046ca292a57fcc2487fc3f67"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa0029a641046ca292a57fcc2487fc3f67">GS1_LINTER_ILLEGAL_DAY</a></div><div class="ttdeci">@ GS1_LINTER_ILLEGAL_DAY</div><div class="ttdoc">The date contains an illegal day of the month.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:102</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa4f161936b5a6a437ae84f5e57ff0fec3"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa4f161936b5a6a437ae84f5e57ff0fec3">GS1_LINTER_DATE_TOO_LONG</a></div><div class="ttdeci">@ GS1_LINTER_DATE_TOO_LONG</div><div class="ttdoc">The date is too long for YYMMDD format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:95</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa6f8efe9394e8ff48b9dc81885f5ecc70"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f8efe9394e8ff48b9dc81885f5ecc70">GS1_LINTER_ILLEGAL_MONTH</a></div><div class="ttdeci">@ GS1_LINTER_ILLEGAL_MONTH</div><div class="ttdoc">The date contains an illegal month of the year.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:101</div></div>
