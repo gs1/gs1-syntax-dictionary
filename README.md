@@ -143,20 +143,3 @@ There are a number of other targets that are useful for development purposes:
     make test [SANITIZE=yes]  # Run the unit test suite, optionally building using LLVM sanitizers
     make fuzzer               # Build fuzzers for exercising the individual Linters. Requires LLVM libfuzzer.
 
-
-License
--------
-
-Copyright (c) 2000-2022 GS1 AISBL
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this library except in compliance with the License.
-
-You may obtain a copy of the License at:
-
-<http://www.apache.org/licenses/LICENSE-2.0>
-
-Unless required by applicable law or agreed to in writing, software distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
