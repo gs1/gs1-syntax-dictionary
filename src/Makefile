@@ -252,7 +252,7 @@ docs:
 	cp docstmp/tab_*.png ../docs
 
 copyright:
-	sed -i -e "s/Copyright (c) \([[:digit:]]\{4\}\)\(-[[:digit:]]\{4\}\)\{0,1\} GS1 AISBL/Copyright (c) \1-$$(date +'%Y') GS1 AISBL/" $(ALL_SRCS) $(NAME).h unittest.h Makefile
+	sed -i -e "s/Copyright (c) \([[:digit:]]\{4\}\)\(-[[:digit:]]\{4\}\)\{0,1\} GS1 AISBL/Copyright (c) \1-$$(date +'%Y') GS1 AISBL/" $(ALL_SRCS) $(NAME).h unittest.h Makefile Doxyfile
 
 
 -include $(DEPS)
