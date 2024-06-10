@@ -112,7 +112,7 @@ OBJS = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
 DEPS = $(addprefix $(BUILD_DIR)/, $(ALL_SRCS:.c=.d)) $(FUZZER_OBJS:.o=.d)
 
 
-.PHONY: all clean libshared libstatic install install-static install-shared uninstall test clean-test fuzzer docs
+.PHONY: all clean libshared libstatic install install-static install-shared uninstall test clean-test fuzzer docs copyright
 
 default: lib
 all: lib
@@ -250,6 +250,9 @@ docs:
 	cp docstmp/nav_*.png ../docs
 	cp docstmp/tabs.css ../docs
 	cp docstmp/tab_*.png ../docs
+
+copyright:
+	sed -i -e "s/Copyright (c) \([[:digit:]]\{4\}\)\(-[[:digit:]]\{4\}\)\{0,1\} GS1 AISBL/Copyright (c) \1-$$(date +'%Y') GS1 AISBL/" $(ALL_SRCS) $(NAME).h unittest.h Makefile
 
 
 -include $(DEPS)
