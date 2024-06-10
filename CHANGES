@@ -1,4 +1,4 @@
-UNRELEASED
+2024-06-10
 
 * New AIs (7250) through (7259) for patient demographics, as approved with GSCN 22-246.
 * New linters to support 8-digit dates, biological sex codes and position in sequence.
