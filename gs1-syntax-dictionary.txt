@@ -34,7 +34,7 @@
 #
 #   Flags:
 #
-#     Allocated from: *?!"$%&'()+,-./:;<=>@[\]^_`{|}~"
+#     Allocated from: *?!"$%&'()+,-./:;<=>@[\]^_`{|}~
 #
 #     Definitions:
 #
