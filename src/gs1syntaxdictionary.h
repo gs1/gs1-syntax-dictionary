@@ -184,7 +184,7 @@ typedef enum
 
 
 #ifdef GS1_LINTER_ERR_STR_EN
-extern const char *gs1_lint_err_str[];
+GS1_SYNTAX_DICTIONARY_API extern const char *gs1_lint_err_str[];
 #endif
 
 
