@@ -46,6 +46,8 @@ ifeq ($(MAKECMDGOALS),clean-test)
 BUILD_DIR = build-test
 endif
 
+CFLAGS_V = -fvisibility=hidden
+
 ifeq ($(SANITIZE),yes)
 CC=clang
 SAN_LDFLAGS = -fuse-ld=lld
@@ -78,7 +80,7 @@ NPROC = sysctl -n hw.ncpu
 endif
 
 LDLIBS = -lc
-CFLAGS = -g -O2 $(CFLAGS_FORTIFY) -Wall -Wextra -Wconversion -Wformat -Wformat-security -Wdeclaration-after-statement -pedantic -Werror -MMD -fPIC $(SAN_CFLAGS) $(UNIT_TEST_CFLAGS) $(DEBUG_CFLAGS) $(SLOW_TESTS_CFLAGS)
+CFLAGS = -g -O2 $(CFLAGS_FORTIFY) $(CFLAGS_V) -Wall -Wextra -Wconversion -Wformat -Wformat-security -Wdeclaration-after-statement -pedantic -Werror -MMD -fPIC $(SAN_CFLAGS) $(UNIT_TEST_CFLAGS) $(DEBUG_CFLAGS) $(SLOW_TESTS_CFLAGS)
 
 TEST_BIN = $(BUILD_DIR)/$(NAME)-test
 
