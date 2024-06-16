@@ -184,7 +184,14 @@ typedef enum
 
 
 #ifdef GS1_LINTER_ERR_STR_EN
+#ifdef __EMSCRIPTEN__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wignored-attributes"
+#endif
 GS1_SYNTAX_DICTIONARY_API extern const char *gs1_lint_err_str[];
+#ifdef __EMSCRIPTEN__
+#pragma clang diagnostic pop
+#endif
 #endif
 
 
