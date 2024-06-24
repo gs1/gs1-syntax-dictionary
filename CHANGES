@@ -1,6 +1,7 @@
 UNRELEASED
 
 * New ISO 4217 currency code 924 for ZWG.
+* Replaced binary search with bitsets for ISO 3166-1 numeric, ISO 3166-1 alpha-2 and ISO 4217 numeric lookups.
 
 
 2024-06-10
