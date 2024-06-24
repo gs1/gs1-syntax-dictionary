@@ -92,19 +92,8 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166alpha2(const char* cons
 	 *  https://isotc.iso.org/livelink/livelink?func=ll&objId=16944257&objAction=browse&viewType=1
 	 *
 	 */
-
-
-#if __STDC_VERSION__ >= 202311L
-
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu-binary-literal"
-#endif
-	/*
-	 *  Binary literal syntax is not supported prior to the C23 standard.
-	 *
-	 */
 	static const uint64_t iso3166alpha2[] = {
+#if __STDC_VERSION__ >= 202311L
 		0b0001111010011010111110110111011111110111101111011011101101111011,  // AA-CL: AD-AG AI AL-AM AO AQ-AU AW-AX AZ-BB BD-BJ BL-BO BQ-BT BV-BW BY-CA CC-CD CF-CH CI CK-CL
 		0b1110010011111100001000011010100000000001001010110000000001110000,  // CM-EX: CM-CO CR CU-CZ DE DJ DK DM DO DZ EC EE EG-EH ER-ET
 		0b0000000000111010100100000000110111111001110111111010100000000000,  // EY-HJ: FI-FJ FK FM FO FR GA-GB GD-GI GL-GN GP-GU GW GY
@@ -116,27 +105,19 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166alpha2(const char* cons
 		0b0101100110000010000010000010000011101010101000010000001000000000,  // TS-WD: TT TV-TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU
 		0b0100000000000010000000000000000000000000000000000000100000000000,  // WE-YP: WF WS YE
 		0b0001000000100000000000100000000010000000000000000000000000000000,  // YQ-ZZ: YT ZA ZM ZW
-	};
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
-
 #else
-
-	/*
-	 *  Fallback for compilers lacking binary literal support.
-	 *
-	 *  Generated with:
-	 *
-	 *     for (size_t i = 0; i < sizeof(iso3166alpha2) / sizeof(iso3166alpha2[0]); i++) { printf("%lx ", iso3166alpha2[i]); };
-	 *
-	 */
-	static const uint64_t iso3166alpha2[] = {
+		/*
+		 *  Fallback for compilers lacking binary literal support.
+		 *
+		 *  Generated from the above data with:
+		 *
+		 *     for (size_t i = 0; i < sizeof(iso3166alpha2) / sizeof(iso3166alpha2[0]); i++) { printf("%lx ", iso3166alpha2[i]); };
+		 *
+		 */
 		0x1e9afb77f7bdbb7b, 0xe4fc21a8012b0070, 0x003a900df9dfa800, 0xb160181ef00202c0,
 		0x00b8d42f8281f2bf, 0x3fffeba4d2100080, 0x023cf1ca80000002, 0x008a8fbfe75cddf9,
 		0x59820820eaa10200, 0x4002000000000800, 0x1020020080000000
 	};
-
 #endif
 
 /// \cond

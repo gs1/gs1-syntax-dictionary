@@ -93,18 +93,8 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166(const char* const data
 	 *  https://isotc.iso.org/livelink/livelink?func=ll&objId=16944257&objAction=browse&viewType=1
 	 *
 	 */
-
-#if __STDC_VERSION__ >= 202311L
-
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu-binary-literal"
-#endif
-	/*
-	 *  Binary literal syntax is not supported prior to the C23 standard.
-	 *
-	 */
 	static const uint64_t iso3166[] = {
+#if __STDC_VERSION__ >= 202311L
 		0b0000100010101000100010001000100110001000100010001011100010001000,  // 000-063: 004 008 010 012 016 020 024 028 031-032 036 040 044 048 050-052 056 060
 		0b1000101010101000000010100010100010001000100010001000100010001000,  // 064-127: 064 068 070 072 074 076 084 086 090 092 096 100 104 108 112 116 120 124
 		0b0000100010001000100010001000101000100010001000110010100010001001,  // 128-191: 132 136 140 144 148 152 156 158 162 166 170 174 175 178 180 184 188 191
@@ -121,29 +111,21 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166(const char* const data
 		0b1110000010000000001000100010101000000000000010000010000100000010,  // 832-895: 832 833 834 840 850 854 858 860 862 876 882 887 894
 		0b0000000000000000000000000000000000000000000000000000000000000000,  // 896-959:
 		0b0000000000000000000000000000000000000000000000000000000000000000,  // 960-999:
-	};
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
-
 #else
-
-	/*
-	 *  Fallback for compilers lacking binary literal support.
-	 *
-	 *  Generated with:
-	 *
-	 *     for (size_t i = 0; i < sizeof(iso3166) / sizeof(iso3166[0]); i++) { printf("%lx ", iso3166[i]); };
-	 *
-	 */
-	static const uint64_t iso3166[] = {
+		/*
+		 *  Fallback for compilers lacking binary literal support.
+		 *
+		 *  Generated from the above data with:
+		 *
+		 *     for (size_t i = 0; i < sizeof(iso3166) / sizeof(iso3166[0]); i++) { printf("%lx ", iso3166[i]); };
+		 *
+		 */
 		0x08a888898888b888, 0x8aa80a2888888888, 0x0888888a22232889, 0x88188a2221e322a2,
 		0x2a2a180088888888, 0x888a888888888888, 0x888288a2622a22a2, 0x222222228808b888,
 		0x8888970808222222, 0x2de102888888a222, 0x320a1b222222a203, 0xe20808c8088888a8,
 		0x8888889a89002021, 0xe080222a00082102, 0x0000000000000000, 0x0000000000000000,
-	};
-
 #endif
+	};
 
 /// \cond
 #define GS1_LINTER_ISO3166_LOOKUP(cc) do {						\

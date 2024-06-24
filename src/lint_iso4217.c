@@ -95,18 +95,8 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso4217(const char* const data
 	 *  https://www.six-group.com/en/products-services/financial-information/data-standards.html
 	 *
 	 */
-
-#if __STDC_VERSION__ >= 202311L
-
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu-binary-literal"
-#endif
-	/*
-	 *  Binary literal syntax is not supported prior to the C23 standard.
-	 *
-	 */
 	static const uint64_t iso4217[] = {
+#if __STDC_VERSION__ >= 202311L
 		0b0000000010001000000000000000000010001000000010001011100000001000,  // 000-063: 008 012 032 036 044 048 050-052 060
 		0b1000100010000000000010000010000010000000100010000000100000001000,  // 064-127: 064 068 072 084 090 096 104 108 116 124
 		0b0000100010000000100000001000100000000000001000100000000000001001,  // 128-191: 132 136 144 152 156 170 174 188 191-192
@@ -123,29 +113,21 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso4217(const char* const data
 		0b0010000010000000000000000010100000000000000000000010001000000000,  // 832-895: 834 840 858 860 882 886
 		0b0000010000000000000000000000110111111110101011011011111111011111,  // 896-959: 901 924-925 927-934 936 938 940-941 943-944 946-953 955-959
 		0b1111110111111101111111001110001000100101000000000000000000000000,  // 960-999: 960-965 967-973 975-981 984-986 990 994 997 999
-	};
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
-
 #else
-
-	/*
-	 *  Fallback for compilers lacking binary literal support.
-	 *
-	 *  Generated with:
-	 *
-	 *     for (size_t i = 0; i < sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf("%lx ", iso4217[i]); };
-	 *
-	 */
-	static const uint64_t iso4217[] = {
+		/*
+		 *  Fallback for compilers lacking binary literal support.
+		 *
+		 *  Generated from the above data with:
+		 *
+		 *     for (size_t i = 0; i < sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf("%lx ", iso4217[i]); };
+		 *
+		 */
 		0x008800008808b808, 0x8880082080880808, 0x0880808800220009, 0x8010820202822000,
 		0x0202000008000000, 0x8888088888888080, 0x088288a262222002, 0x022200008800a080,
 		0x88080c0008220200, 0x2022028880000020, 0x1202000000202202, 0xa200008000088888,
 		0x0088880081002020, 0x2080002800002200, 0x0400000dfeadbfdf, 0xfdfdfce225000000,
-	};
-
 #endif
+	};
 
 /// \cond
 #define GS1_LINTER_ISO4217_LOOKUP(cc) do {						\
