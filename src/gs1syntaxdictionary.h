@@ -56,6 +56,15 @@
 #endif
 
 
+#if defined(__GNUC__) || defined(__clang__)
+#  define DEPRECATED __attribute__((deprecated))
+#elif defined(_MSC_VER)
+#  define DEPRECATED __declspec(deprecated)
+#else
+#  define DEPRECATED
+#endif
+
+
 /**
  * @brief Linter return codes other than #GS1_LINTER_OK indicate an error
  * condition.

@@ -52,7 +52,6 @@ void test_lint_yesno(void);
 void test_lint_winding(void);
 void test_lint_iso3166(void);
 void test_lint_iso3166999(void);
-void test_lint_iso3166list(void);
 void test_lint_iso3166alpha2(void);
 void test_lint_iso4217(void);
 void test_lint_iban(void);
@@ -96,7 +95,6 @@ TEST_LIST = {
 	{ "lint_winding", test_lint_winding },
 	{ "lint_iso3166", test_lint_iso3166 },
 	{ "lint_iso3166999", test_lint_iso3166999 },
-	{ "lint_iso3166list", test_lint_iso3166list },
 	{ "lint_iso3166alpha2", test_lint_iso3166alpha2 },
 	{ "lint_iso4217", test_lint_iso4217 },
 	{ "lint_iban", test_lint_iban },
