@@ -15,13 +15,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="gs1syntaxdictionary.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="gs1syntaxdictionary-test.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lint_cset82.c">
+    <ClCompile Include="lint_couponcode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_couponposoffer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_cset39.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lint_cset64.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_cset82.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lint_csetnumeric.c">
@@ -33,7 +45,37 @@
     <ClCompile Include="lint_csumalpha.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_hasnondigit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_hyphen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_hhmm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_iban.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_importeridx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_iso3166.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_iso3166999.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_iso3166alpha2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_iso3166list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_iso4217.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_iso5218.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lint_key.c">
@@ -48,42 +90,6 @@
     <ClCompile Include="lint_mediatype.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lint_winding.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_yesno.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_zero.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_hyphen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_cset39.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_hhmm.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_iban.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_iso3166.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_iso3166alpha2.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_iso3166list.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_iso4217.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_iso3166999.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lint_mmoptss.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -91,27 +97,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lint_nozeroprefix.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_yymmd0.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_yymmdd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_yyyymmd0.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_yyyymmdd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_yymmddhh.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_couponcode.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lint_couponposoffer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lint_pcenc.c">
@@ -123,13 +108,28 @@
     <ClCompile Include="lint_posinseqslash.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lint_iso5218.c">
+    <ClCompile Include="lint_winding.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lint_hasnondigit.c">
+    <ClCompile Include="lint_yymmd0.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gs1syntaxdictionary.c">
+    <ClCompile Include="lint_yymmdd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_yymmddhh.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_yyyymmd0.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_yyyymmdd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_yesno.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lint_zero.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
