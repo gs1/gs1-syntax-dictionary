@@ -4,6 +4,7 @@ UNRELEASED
 * Replaced binary search with bitsets for ISO 3166-1 numeric, ISO 3166-1 alpha-2 and ISO 4217 numeric lookups.
 * The format specification for AIs (423) and (425) was changed to use multiple "[N3],iso3166" components, rather than a single "[N..15],iso3166list" component.
 * The obsolete iso3166list linter was replaced with a deprecation stub to maintain API compatibility.
+* The following AIs are no longer flagged as permitted GS1 Digital Link URI data attributes: (00), (01), (253), (255), (401), (402), (414), (417), (8003), (8004), (8006), (8010), (8013), (8017), (8018), (8020)
 
 
 2024-06-10
