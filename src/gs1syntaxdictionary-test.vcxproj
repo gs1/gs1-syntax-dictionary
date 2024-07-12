@@ -131,6 +131,7 @@
     <ClCompile Include="lint_csum.c" />
     <ClCompile Include="lint_csumalpha.c" />
     <ClCompile Include="lint_hasnondigit.c" />
+    <ClCompile Include="lint_hh.c" />
     <ClCompile Include="lint_hhmm.c" />
     <ClCompile Include="lint_hyphen.c" />
     <ClCompile Include="lint_iban.c" />
@@ -145,12 +146,14 @@
     <ClCompile Include="lint_latitude.c" />
     <ClCompile Include="lint_longitude.c" />
     <ClCompile Include="lint_mediatype.c" />
+    <ClCompile Include="lint_mm.c" />
     <ClCompile Include="lint_mmoptss.c" />
     <ClCompile Include="lint_nonzero.c" />
     <ClCompile Include="lint_nozeroprefix.c" />
     <ClCompile Include="lint_pcenc.c" />
     <ClCompile Include="lint_pieceoftotal.c" />
     <ClCompile Include="lint_posinseqslash.c" />
+    <ClCompile Include="lint_ss.c" />
     <ClCompile Include="lint_winding.c" />
     <ClCompile Include="lint_yesno.c" />
     <ClCompile Include="lint_yymmd0.c" />

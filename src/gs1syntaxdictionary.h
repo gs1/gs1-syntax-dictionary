@@ -188,6 +188,12 @@ typedef enum
 	GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,			///< The data must have the format "<pos>/<end>".
 	GS1_LINTER_POSITION_EXCEEDS_END,				///< The position number must not exceed the end number.
 	GS1_LINTER_REQUIRES_NON_DIGIT_CHARACTER,			///< A non-digit character is required
+	GS1_LINTER_HOUR_TOO_SHORT,					///< The hour is too short for HH format.
+	GS1_LINTER_HOUR_TOO_LONG,					///< The hour is too long for HH format.
+	GS1_LINTER_MINUTE_TOO_SHORT,					///< The minute is too short for MM format.
+	GS1_LINTER_MINUTE_TOO_LONG,					///< The minute is too long for MM format.
+	GS1_LINTER_SECOND_TOO_SHORT,					///< The second is too short for SS format.
+	GS1_LINTER_SECOND_TOO_LONG,					///< The second is too long for SS format.
 	__GS1_LINTER_NUM_ERRS						//  Keep this as the last element which captures the size of this enumeration.
 } gs1_lint_err_t;
 
@@ -224,6 +230,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csetnumeric(const char *data, 
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hasnondigit(const char *data, size_t *err_pos, size_t *err_len);
+GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hh(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hhmm(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hyphen(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char *data, size_t *err_pos, size_t *err_len);
@@ -238,12 +245,14 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_key(const char *data, size_t *
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_latitude(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_longitude(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_mediatype(const char *data, size_t *err_pos, size_t *err_len);
+GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_mm(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_mmoptss(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_nonzero(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_nozeroprefix(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pieceoftotal(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pcenc(const char *data, size_t *err_pos, size_t *err_len);
+GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_ss(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_winding(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yesno(const char *data, size_t *err_pos, size_t *err_len);
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yymmd0(const char *data, size_t *err_pos, size_t *err_len);
