@@ -104,11 +104,12 @@ typedef enum
 	GS1_LINTER_INCORRECT_IBAN_CHECKSUM,				///< The IBAN is invalid since the check characters are incorrect.
 	GS1_LINTER_DATE_TOO_SHORT,					///< The date is too short for YYMMDD format.
 	GS1_LINTER_DATE_TOO_LONG,					///< The date is too long for YYMMDD format.
-	GS1_LINTER_DATE_WITH_HOUR_TOO_SHORT,				///< The date with hour is too short for YYMMDDHH format.
+	GS1_LINTER_UNUSED_2,
+	GS1_LINTER_UNUSED_3,
 	GS1_LINTER_DATE_WITH_HOUR_TOO_LONG,				///< The date with hour is too long for YYMMDDHH format.
 	GS1_LINTER_HOUR_WITH_MINUTE_TOO_SHORT,				///< The hour with minute is too short for HHMM format.
 	GS1_LINTER_HOUR_WITH_MINUTE_TOO_LONG,				///< The hour with minute is too long for HHMM format.
-	GS1_LINTER_MMSS_INVALID_LENGTH,					///< The minutes with optional seconds has an incorrect length for either MMSS or MM format.
+	GS1_LINTER_UNUSED_4,
 	GS1_LINTER_ILLEGAL_MONTH,					///< The date contains an illegal month of the year.
 	GS1_LINTER_ILLEGAL_DAY,						///< The date contains an illegal day of the month.
 	GS1_LINTER_ILLEGAL_HOUR,					///< The time contains an illegal hour.

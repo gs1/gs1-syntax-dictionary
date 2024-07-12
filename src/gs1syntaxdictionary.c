@@ -138,11 +138,11 @@ GS1_SYNTAX_DICTIONARY_API const char *gs1_lint_err_str[__GS1_LINTER_NUM_ERRS] = 
 	"The IBAN is invalid since the check characters are incorrect.",
 	"The date is too short.",
 	"The date is too long.",
-	"The date with hour is too short for YYMMDDHH format.",
-	"The date with hour is too long for YYMMDDHH format.",
+	"",	// Unused
+	"",	// Unused
 	"The hour with minute is too short for HHMM format.",
 	"The hour with minute is too long for HHMM format.",
-	"The minutes with optional seconds has an incorrect length for either MMSS or MM format.",
+	"",	// Unused
 	"The date contains an illegal month of the year.",
 	"The date contains an illegal day of the month.",
 	"The time contains an illegal hour.",
