@@ -5,6 +5,7 @@ UNRELEASED
 * The format specification for AIs (423) and (425) was changed to use multiple "[N3],iso3166" components, rather than a single "[N..15],iso3166list" component.
 * The obsolete iso3166list linter was replaced with a deprecation stub to maintain API compatibility.
 * The following AIs are no longer flagged as permitted GS1 Digital Link URI data attributes: (00), (01), (253), (255), (401), (402), (414), (415), (417), (8003), (8004), (8006), (8010), (8013), (8017), (8018), (8020)
+* The AI (8008) component specification was simplified to "N6,yymmdd N2,hh [N2],mm [N2],ss", with new linters lint_{hh,mm,ss} created and old linters lint_{yymmddhh,mmoptss} replaced with deprecation stubs.
 
 
 2024-06-10
