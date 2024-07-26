@@ -1,5 +1,6 @@
 UNRELEASED
 
+* New AIs (03) and (8014) for Master UDI-DI, as approved with GSCN 21-286.
 * New ISO 4217 currency code 924 for ZWG.
 * Replaced binary search with bitsets for ISO 3166-1 numeric, ISO 3166-1 alpha-2 and ISO 4217 numeric lookups.
 * The format specification for AIs (423) and (425) was changed to use multiple "[N3],iso3166" components, rather than a single "[N..15],iso3166list" component.
