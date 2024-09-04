@@ -77,6 +77,7 @@ void test_lint_zero(void);
 
 void test_name_function_map_is_sorted(void);
 void test_gs1_linter_from_name(void);
+void test_gs1_linter_err_str_en_size(void);
 
 
 TEST_LIST = {
@@ -121,6 +122,9 @@ TEST_LIST = {
 
 	{ "name_function_map_is_sorted", test_name_function_map_is_sorted },
 	{ "gs1_linter_from_name", test_gs1_linter_from_name },
+#ifdef GS1_LINTER_ERR_STR_EN
+	{ "gs1_linter_err_str_en_size", test_gs1_linter_err_str_en_size },
+#endif
 
 	{ NULL, NULL }
 
