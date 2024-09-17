@@ -87,7 +87,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_packagetype(const char *data, 
 #else
 
 	/*
-	 *  Set of valid PackageTypeCode values
+	 *  Set of valid PackageTypeCode value, in lexicographic order
 	 *
 	 *  MAINTENANCE NOTE:
 	 *
