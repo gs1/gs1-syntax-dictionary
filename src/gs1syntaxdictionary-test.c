@@ -63,6 +63,7 @@ void test_lint_mediatype(void);
 void test_lint_mm(void);
 void test_lint_nonzero(void);
 void test_lint_nozeroprefix(void);
+void test_lint_packagetype(void);
 void test_lint_pcenc(void);
 void test_lint_pieceoftotal(void);
 void test_lint_posinseqslash(void);
@@ -108,6 +109,7 @@ TEST_LIST = {
 	{ "lint_longitude", test_lint_longitude },
 	{ "lint_mediatype", test_lint_mediatype },
 	{ "lint_mm", test_lint_mm },
+	{ "lint_packagetype", test_lint_packagetype },
 	{ "lint_pcenc", test_lint_pcenc },
 	{ "lint_pieceoftotal", test_lint_pieceoftotal },
 	{ "lint_posinseqslash", test_lint_posinseqslash },

@@ -280,6 +280,7 @@
 7038        ?  N3,iso3166999 X..27              req=01,02                                        # PROCESSOR # 8
 7039        ?  N3,iso3166999 X..27              req=01,02                                        # PROCESSOR # 9
 7040           N1 X1 X1 X1,importeridx                                                           # UIC+EXT
+7041           X..4,packagetype                 req=00                                           # UFRGT UNIT TYPE
 710         ?  X..20                            req=01                                           # NHRN PZN
 711         ?  X..20                            req=01                                           # NHRN CIP
 712         ?  X..20                            req=01                                           # NHRN CN

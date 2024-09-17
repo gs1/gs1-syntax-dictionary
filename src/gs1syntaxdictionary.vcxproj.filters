@@ -102,6 +102,9 @@
     <ClCompile Include="lint_nozeroprefix.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_packagetype.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_pcenc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
