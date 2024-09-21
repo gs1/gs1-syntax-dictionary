@@ -35,6 +35,7 @@
 #include <ctype.h>
 
 #include "gs1syntaxdictionary.h"
+#include "gs1syntaxdictionary-utils.h"
 
 
 /*
@@ -123,9 +124,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_mediatype(const char* const da
 #define GS1_LINTER_MEDIA_TYPE_LOOKUP(cc) do {					\
 	if (strlen(cc) == 2 && isdigit(cc[0]) && isdigit(cc[1])) {		\
 		int v = (cc[0] - '0') * 10 + (cc[1] - '0');			\
-		assert(v <= 99);		/* Satisfy analyzer */		\
-		if (mediatypes[v/8] & (0x80 >> (v%8)))				\
-			valid = 1;						\
+		GS1_LINTER_BITFIELD_LOOKUP(v, mediatypes);			\
 	}									\
 } while (0)
 /// \endcond

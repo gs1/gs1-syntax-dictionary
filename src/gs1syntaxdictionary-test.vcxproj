@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="acutest.h" />
     <ClInclude Include="gs1syntaxdictionary.h" />
+    <ClInclude Include="gs1syntaxdictionary-utils.h" />
     <ClInclude Include="unittest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

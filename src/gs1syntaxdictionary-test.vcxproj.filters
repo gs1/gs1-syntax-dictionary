@@ -155,5 +155,8 @@
     <ClInclude Include="gs1syntaxdictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gs1syntaxdictionary-utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

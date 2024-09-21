@@ -33,6 +33,7 @@
 #include <string.h>
 
 #include "gs1syntaxdictionary.h"
+#include "gs1syntaxdictionary-utils.h"
 
 
 /*
@@ -132,27 +133,8 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_packagetype(const char *data, 
 		"ZA", "ZB", "ZC", "ZD", "ZF", "ZG", "ZH", "ZJ", "ZK", "ZL", "ZM", "ZN", "ZP", "ZQ", "ZR", "ZS", "ZT", "ZU", "ZV", "ZW", "ZX", "ZY", "ZZ",
 	};
 
-	/*
-	 *  Binary search over the above list.
-	 *
-	 */
 /// \cond
-#define GS1_LINTER_PACKAGE_TYPE_LOOKUP(cc) do {				\
-	size_t s = 0;							\
-	size_t e = sizeof(packagetypes) / sizeof(packagetypes[0]);	\
-	while (s < e) {							\
-		const size_t m = s + (e - s) / 2;			\
-		const int cmp = strcmp(packagetypes[m], cc);		\
-		if (cmp < 0)						\
-			s = m + 1;					\
-		else if (cmp > 0)					\
-			e = m;						\
-		else {							\
-			valid = 1;					\
-			break;						\
-		}							\
-	}								\
-} while (0)
+#define GS1_LINTER_PACKAGE_TYPE_LOOKUP(cc) GS1_LINTER_BINARY_SEARCH(cc, packagetypes)
 /// \endcond
 
 #endif

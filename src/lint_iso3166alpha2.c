@@ -31,6 +31,7 @@
 #include <stdint.h>
 
 #include "gs1syntaxdictionary.h"
+#include "gs1syntaxdictionary-utils.h"
 
 
 /*
@@ -124,9 +125,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166alpha2(const char* cons
 #define GS1_LINTER_ISO3166ALPHA2_LOOKUP(cc) do {						\
 	if (strlen(cc) == 2 && cc[0] >= 'A' && cc[0] <= 'Z' && cc[1] >= 'A' && cc[1] <= 'Z') {	\
 		int v = (cc[0] - 'A') * 26 + cc[1] - 'A';					\
-		assert(v <= 676);	/* Satisfy analyzer */					\
-		if (iso3166alpha2[v/64] & (0x8000000000000000 >> (v%64)))			\
-			valid = 1;								\
+		GS1_LINTER_BITFIELD_LOOKUP(v, iso3166alpha2);					\
 	}											\
 } while (0)
 /// \endcond
