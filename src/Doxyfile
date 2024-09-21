@@ -986,7 +986,7 @@ INPUT_FILE_ENCODING    =
 # *.f18, *.f, *.for, *.vhd, *.vhdl, *.ucf, *.qsf and *.ice.
 
 FILE_PATTERNS          = lint_*.c \
-                         gs1syntaxdictionary.h \
+                         gs1syntaxdictionary*.h \
                          mainpage.md
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
@@ -2404,7 +2404,7 @@ EXPAND_AS_DEFINED      =
 # The default value is: YES.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-SKIP_FUNCTION_MACROS   = YES
+SKIP_FUNCTION_MACROS   = NO
 
 #---------------------------------------------------------------------------
 # Configuration options related to external references

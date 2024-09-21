@@ -149,15 +149,17 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_packagetype(const char *data, 
 	 */
 	GS1_LINTER_PACKAGE_TYPE_LOOKUP(data);
 	if (valid)
-		return GS1_LINTER_OK;
+		GS1_LINTER_RETURN_OK;
 
 	/*
 	 * If not valid then indicate an error.
 	 *
 	 */
-	if (err_pos) *err_pos = 0;
-	if (err_len) *err_len = strlen(data);
-	return GS1_LINTER_INVALID_PACKAGE_TYPE;
+	GS1_LINTER_RETURN_ERROR(
+		GS1_LINTER_INVALID_PACKAGE_TYPE,
+		0,
+		strlen(data)
+	);
 
 }
 

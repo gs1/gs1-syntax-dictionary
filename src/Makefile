@@ -239,6 +239,7 @@ docs:
 	  perl -0pi -e 'BEGIN{$$x=<STDIN>;}s#!!!REFERENCE!!!#$$x#sm' docstmp/index.html
 	perl -pi -e 's#lint_([A-Za-z0-9_]+)\.c#\1#' docstmp/index.html
 	perl -0pi -e 's#<h2 class="groupheader">Functional Description</h2>.*</div><!-- fragment -->.</div>.</div>.##ms' docstmp/gs1syntaxdictionary_8h.html
+	perl -0pi -e 's#<div class="fragment"><div class="line"><span class="lineno">.*?<!-- fragment -->.##msg' docstmp/gs1syntaxdictionary-utils_8h.html
 	cp docstmp/index.html ../docs
 	cp docstmp/gs1syntaxdictionary_8h.html ../docs
 	cp docstmp/lint__*.html ../docs

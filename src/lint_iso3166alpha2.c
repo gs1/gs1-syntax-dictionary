@@ -142,15 +142,17 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166alpha2(const char* cons
 	 */
 	GS1_LINTER_ISO3166ALPHA2_LOOKUP(data);
 	if (valid)
-		return GS1_LINTER_OK;
+		GS1_LINTER_RETURN_OK;
 
 	/*
 	 * If not valid then indicate an error.
 	 *
 	 */
-	if (err_pos) *err_pos = 0;
-	if (err_len) *err_len = strlen(data);
-	return GS1_LINTER_NOT_ISO3166_ALPHA2;
+	GS1_LINTER_RETURN_ERROR(
+		GS1_LINTER_NOT_ISO3166_ALPHA2,
+		0,
+		strlen(data)
+	);
 
 }
 
