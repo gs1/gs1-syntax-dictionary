@@ -233,8 +233,8 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_couponcode(const char* const d
 	if (q - ++p < vli)
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_COUPON_TRUNCATED_GCP,
-			(size_t)(p - data),
-			(size_t)(q - p)
+			(p == q) ? 0                  : (size_t)(p - data),
+			(p == q) ? (size_t)(q - data) : (size_t)(q - p)
 		);
 
 	/*
