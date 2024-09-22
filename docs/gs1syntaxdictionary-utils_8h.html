@@ -145,7 +145,7 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                    \</div>
 <div class="line">        <span class="keywordtype">int</span> w = CHAR_BIT * <span class="keyword">sizeof</span>(field[0]);                            \</div>
 <div class="line">        assert((<span class="keywordtype">size_t</span>)(bit/w) &lt; <span class="keyword">sizeof</span>(field) / <span class="keyword">sizeof</span>(field[0]));     \</div>
-<div class="line">        if (field[bit/w] &amp; (1ull &lt;&lt; (w-1) &gt;&gt; (bit%w)))                  \</div>
+<div class="line">        if (field[bit/w] &amp; (UINT64_C(1) &lt;&lt; (w-1) &gt;&gt; (bit%w)))           \</div>
 <div class="line">                valid = 1;                                              \</div>
 <div class="line">} <span class="keywordflow">while</span> (0)</div>
 </div><!-- fragment -->
