@@ -91,50 +91,54 @@ $(function() {
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa669d4c2bf0297dfa613cadcc39a7e177" title="The latitude value must be 10 digits.">GS1_LINTER_LATITUDE_INVALID_LENGTH</a> if the latitude does not have length 10. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa70eb64d6ed3ee23b52fdc0a746ca98e6" title="The latitude is outside of the range &quot;0000000000&quot; to &quot;1800000000&quot;.">GS1_LINTER_INVALID_LATITUDE</a> if the latitude is outside the range <code>0000000000</code> - <code>1800000000</code>. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   51</span>{</div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>        <span class="keywordtype">size_t</span> len, pos;</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        assert(data);</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   60</span><span class="comment">         * Data must be 10 characters.</span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   62</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">if</span> (len != 10) {</div>
-<div class="line"><span class="lineno">   64</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">   65</span>                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><span class="lineno">   66</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa669d4c2bf0297dfa613cadcc39a7e177">GS1_LINTER_LATITUDE_INVALID_LENGTH</a>;</div>
-<div class="line"><span class="lineno">   67</span>        }</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   70</span><span class="comment">         * Data must consist of all digits.</span></div>
-<div class="line"><span class="lineno">   71</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   72</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">if</span> ((pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>)) != len) {</div>
-<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = pos;</div>
-<div class="line"><span class="lineno">   75</span>                <span class="keywordflow">if</span> (err_len) *err_len = 1;</div>
-<div class="line"><span class="lineno">   76</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>;</div>
-<div class="line"><span class="lineno">   77</span>        }</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">         * The latitude must be within the range 0000000000 to 1800000000.</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">if</span> (strtoul(data, NULL, 10) &gt; 1800000000) {</div>
-<div class="line"><span class="lineno">   84</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">   85</span>                <span class="keywordflow">if</span> (err_len) *err_len = 10;</div>
-<div class="line"><span class="lineno">   86</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa70eb64d6ed3ee23b52fdc0a746ca98e6">GS1_LINTER_INVALID_LATITUDE</a>;</div>
-<div class="line"><span class="lineno">   87</span>        }</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
-<div class="line"><span class="lineno">   90</span> </div>
-<div class="line"><span class="lineno">   91</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>{</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordtype">size_t</span> len, pos;</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        assert(data);</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>        len = strlen(data);</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   61</span><span class="comment">         * Data must be 10 characters.</span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">if</span> (len != 10)</div>
+<div class="line"><span class="lineno">   65</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   66</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa669d4c2bf0297dfa613cadcc39a7e177">GS1_LINTER_LATITUDE_INVALID_LENGTH</a>,</div>
+<div class="line"><span class="lineno">   67</span>                        0,</div>
+<div class="line"><span class="lineno">   68</span>                        len</div>
+<div class="line"><span class="lineno">   69</span>                );</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   72</span><span class="comment">         * Data must consist of all digits.</span></div>
+<div class="line"><span class="lineno">   73</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">if</span> ((pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>)) != len)</div>
+<div class="line"><span class="lineno">   76</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   77</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   78</span>                        pos,</div>
+<div class="line"><span class="lineno">   79</span>                        1</div>
+<div class="line"><span class="lineno">   80</span>                );</div>
+<div class="line"><span class="lineno">   81</span> </div>
+<div class="line"><span class="lineno">   82</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">         * The latitude must be within the range 0000000000 to 1800000000.</span></div>
+<div class="line"><span class="lineno">   84</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">if</span> (strtoul(data, NULL, 10) &gt; 1800000000)</div>
+<div class="line"><span class="lineno">   87</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   88</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa70eb64d6ed3ee23b52fdc0a746ca98e6">GS1_LINTER_INVALID_LATITUDE</a>,</div>
+<div class="line"><span class="lineno">   89</span>                        0,</div>
+<div class="line"><span class="lineno">   90</span>                        10</div>
+<div class="line"><span class="lineno">   91</span>                );</div>
+<div class="line"><span class="lineno">   92</span> </div>
+<div class="line"><span class="lineno">   93</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:57</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:42</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa669d4c2bf0297dfa613cadcc39a7e177"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa669d4c2bf0297dfa613cadcc39a7e177">GS1_LINTER_LATITUDE_INVALID_LENGTH</a></div><div class="ttdeci">@ GS1_LINTER_LATITUDE_INVALID_LENGTH</div><div class="ttdoc">The latitude value must be 10 digits.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:183</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa70eb64d6ed3ee23b52fdc0a746ca98e6"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa70eb64d6ed3ee23b52fdc0a746ca98e6">GS1_LINTER_INVALID_LATITUDE</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_LATITUDE</div><div class="ttdoc">The latitude is outside of the range &quot;0000000000&quot; to &quot;1800000000&quot;.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:180</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:77</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_NON_DIGIT_CHARACTER</div><div class="ttdoc">A non-digit character was found where a digit is expected.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:78</div></div>
 </div><!-- fragment -->
 </div>

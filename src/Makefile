@@ -242,6 +242,7 @@ docs:
 	perl -0pi -e 's#<div class="fragment"><div class="line"><span class="lineno">.*?<!-- fragment -->.##msg' docstmp/gs1syntaxdictionary-utils_8h.html
 	cp docstmp/index.html ../docs
 	cp docstmp/gs1syntaxdictionary_8h.html ../docs
+	cp docstmp/gs1syntaxdictionary-utils_8h.html ../docs
 	cp docstmp/lint__*.html ../docs
 	cp docstmp/doxygen.css ../docs
 	cp docstmp/doxygen.svg ../docs

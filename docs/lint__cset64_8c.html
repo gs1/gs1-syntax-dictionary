@@ -92,51 +92,54 @@ character set 64 (file-safe / URI-safe base64)". </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa21ad49d53f87913ad0873788c8769ef2" title="A non-CSET 64 character was found where a CSET 64 character is expected.">GS1_LINTER_INVALID_CSET64_CHARACTER</a> if the data contains a non-CSET 64 character. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>{</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   60</span><span class="comment">         * All characters in &quot;CSET 64&quot;, the 64 character alphabet.</span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   62</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   63</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> cset64 =</div>
-<div class="line"><span class="lineno">   64</span>                <span class="stringliteral">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span></div>
-<div class="line"><span class="lineno">   65</span>                <span class="stringliteral">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span></div>
-<div class="line"><span class="lineno">   66</span>                <span class="stringliteral">&quot;0123456789-_&quot;</span>;</div>
-<div class="line"><span class="lineno">   67</span> </div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordtype">size_t</span> pads, len, pos;</div>
-<div class="line"><span class="lineno">   69</span> </div>
-<div class="line"><span class="lineno">   70</span>        assert(data);</div>
-<div class="line"><span class="lineno">   71</span> </div>
-<div class="line"><span class="lineno">   72</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">         * Count the number of padding characters, which are optional.</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   75</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">for</span> (pads = 0, len = strlen(data);</div>
-<div class="line"><span class="lineno">   77</span>             len &gt; 0 &amp;&amp; data[len-1] == <span class="charliteral">&#39;=&#39;</span>;</div>
-<div class="line"><span class="lineno">   78</span>             pads++, len--);</div>
-<div class="line"><span class="lineno">   79</span> </div>
-<div class="line"><span class="lineno">   80</span>        <span class="keywordflow">if</span> (pads &gt; 2 || (pads &gt; 0 &amp;&amp; (len + pads) % 3 != 0)) {</div>
-<div class="line"><span class="lineno">   81</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = len;</div>
-<div class="line"><span class="lineno">   82</span>                <span class="keywordflow">if</span> (err_len) *err_len = pads;</div>
-<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa03b58f629dc7afbce071c654146c5ba0">GS1_LINTER_INVALID_CSET64_PADDING</a>;</div>
-<div class="line"><span class="lineno">   84</span>        }</div>
-<div class="line"><span class="lineno">   85</span> </div>
-<div class="line"><span class="lineno">   86</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   87</span><span class="comment">         * In what remains, any character outside of CSET 64 is illegal.</span></div>
-<div class="line"><span class="lineno">   88</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   89</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">if</span> ((pos = strspn(data, cset64)) &lt; len) {</div>
-<div class="line"><span class="lineno">   91</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = pos;</div>
-<div class="line"><span class="lineno">   92</span>                <span class="keywordflow">if</span> (err_len) *err_len = 1;</div>
-<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa21ad49d53f87913ad0873788c8769ef2">GS1_LINTER_INVALID_CSET64_CHARACTER</a>;</div>
-<div class="line"><span class="lineno">   94</span>        }</div>
-<div class="line"><span class="lineno">   95</span> </div>
-<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>{</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   61</span><span class="comment">         * All characters in &quot;CSET 64&quot;, the 64 character alphabet.</span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   64</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> cset64 =</div>
+<div class="line"><span class="lineno">   65</span>                <span class="stringliteral">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span></div>
+<div class="line"><span class="lineno">   66</span>                <span class="stringliteral">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span></div>
+<div class="line"><span class="lineno">   67</span>                <span class="stringliteral">&quot;0123456789-_&quot;</span>;</div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordtype">size_t</span> pads, len, pos;</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>        assert(data);</div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">         * Count the number of padding characters, which are optional.</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">for</span> (pads = 0, len = strlen(data);</div>
+<div class="line"><span class="lineno">   78</span>             len &gt; 0 &amp;&amp; data[len-1] == <span class="charliteral">&#39;=&#39;</span>;</div>
+<div class="line"><span class="lineno">   79</span>             pads++, len--);</div>
+<div class="line"><span class="lineno">   80</span> </div>
+<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> (pads &gt; 2 || (pads &gt; 0 &amp;&amp; (len + pads) % 3 != 0))</div>
+<div class="line"><span class="lineno">   82</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   83</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa03b58f629dc7afbce071c654146c5ba0">GS1_LINTER_INVALID_CSET64_PADDING</a>,</div>
+<div class="line"><span class="lineno">   84</span>                        len,</div>
+<div class="line"><span class="lineno">   85</span>                        pads</div>
+<div class="line"><span class="lineno">   86</span>                );</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   89</span><span class="comment">         * In what remains, any character outside of CSET 64 is illegal.</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">if</span> ((pos = strspn(data, cset64)) &lt; len)</div>
+<div class="line"><span class="lineno">   93</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   94</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa21ad49d53f87913ad0873788c8769ef2">GS1_LINTER_INVALID_CSET64_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   95</span>                        pos,</div>
+<div class="line"><span class="lineno">   96</span>                        1</div>
+<div class="line"><span class="lineno">   97</span>                );</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:57</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:42</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa03b58f629dc7afbce071c654146c5ba0"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa03b58f629dc7afbce071c654146c5ba0">GS1_LINTER_INVALID_CSET64_PADDING</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_CSET64_PADDING</div><div class="ttdoc">Incorrect number of CSET 64 pad characters.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:186</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa21ad49d53f87913ad0873788c8769ef2"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa21ad49d53f87913ad0873788c8769ef2">GS1_LINTER_INVALID_CSET64_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_CSET64_CHARACTER</div><div class="ttdoc">A non-CSET 64 character was found where a CSET 64 character is expected.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:185</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:77</div></div>
 </div><!-- fragment -->
 </div>
 </div>

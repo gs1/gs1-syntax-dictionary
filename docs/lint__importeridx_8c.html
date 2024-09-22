@@ -93,48 +93,51 @@ $(function() {
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3e36dbc4f8c554e5db724d0d71dec531" title="The Importer Index is an invalid character.">GS1_LINTER_INVALID_IMPORT_IDX_CHARACTER</a> if the data is not a valid Importer Index character. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa7ee59c225636bfe66a52819448dc79cb" title="The Importer Index must be a single character.">GS1_LINTER_IMPORTER_IDX_MUST_BE_ONE_CHARACTER</a> if the data isn't a single character. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   57</span>{</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordtype">size_t</span> len;</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   62</span><span class="comment">         * All valid Importer Index characters.</span></div>
-<div class="line"><span class="lineno">   63</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   64</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   65</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> importeridx =</div>
-<div class="line"><span class="lineno">   66</span>                <span class="stringliteral">&quot;-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz&quot;</span>;</div>
-<div class="line"><span class="lineno">   67</span> </div>
-<div class="line"><span class="lineno">   68</span>        assert(data);</div>
-<div class="line"><span class="lineno">   69</span> </div>
-<div class="line"><span class="lineno">   70</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   71</span> </div>
-<div class="line"><span class="lineno">   72</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">         * Data must be a single character.</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   75</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   76</span>        <span class="keywordflow">if</span> (len != 1) {</div>
-<div class="line"><span class="lineno">   77</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">   78</span>                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><span class="lineno">   79</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa7ee59c225636bfe66a52819448dc79cb">GS1_LINTER_IMPORTER_IDX_MUST_BE_ONE_CHARACTER</a>;</div>
-<div class="line"><span class="lineno">   80</span>        }</div>
-<div class="line"><span class="lineno">   81</span> </div>
-<div class="line"><span class="lineno">   82</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   83</span><span class="comment">         * Any character outside of the valid Importer Index character list is</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">         * illegal.</span></div>
-<div class="line"><span class="lineno">   85</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">if</span> (strspn(data, importeridx) != len) {</div>
-<div class="line"><span class="lineno">   88</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">   89</span>                <span class="keywordflow">if</span> (err_len) *err_len = 1;</div>
-<div class="line"><span class="lineno">   90</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3e36dbc4f8c554e5db724d0d71dec531">GS1_LINTER_INVALID_IMPORT_IDX_CHARACTER</a>;</div>
-<div class="line"><span class="lineno">   91</span>        }</div>
-<div class="line"><span class="lineno">   92</span> </div>
-<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
-<div class="line"><span class="lineno">   94</span> </div>
-<div class="line"><span class="lineno">   95</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>{</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordtype">size_t</span> len;</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment">         * All valid Importer Index characters.</span></div>
+<div class="line"><span class="lineno">   64</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   66</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> importeridx =</div>
+<div class="line"><span class="lineno">   67</span>                <span class="stringliteral">&quot;-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz&quot;</span>;</div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>        assert(data);</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>        len = strlen(data);</div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">         * Data must be a single character.</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">if</span> (len != 1)</div>
+<div class="line"><span class="lineno">   78</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   79</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa7ee59c225636bfe66a52819448dc79cb">GS1_LINTER_IMPORTER_IDX_MUST_BE_ONE_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   80</span>                        0,</div>
+<div class="line"><span class="lineno">   81</span>                        len</div>
+<div class="line"><span class="lineno">   82</span>                );</div>
+<div class="line"><span class="lineno">   83</span> </div>
+<div class="line"><span class="lineno">   84</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">         * Any character outside of the valid Importer Index character list is</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">         * illegal.</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   88</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">if</span> (strspn(data, importeridx) != len)</div>
+<div class="line"><span class="lineno">   90</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   91</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3e36dbc4f8c554e5db724d0d71dec531">GS1_LINTER_INVALID_IMPORT_IDX_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   92</span>                        0,</div>
+<div class="line"><span class="lineno">   93</span>                        1</div>
+<div class="line"><span class="lineno">   94</span>                );</div>
+<div class="line"><span class="lineno">   95</span> </div>
+<div class="line"><span class="lineno">   96</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:57</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:42</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa3e36dbc4f8c554e5db724d0d71dec531"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3e36dbc4f8c554e5db724d0d71dec531">GS1_LINTER_INVALID_IMPORT_IDX_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_IMPORT_IDX_CHARACTER</div><div class="ttdoc">The Importer Index is an invalid character.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:91</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa7ee59c225636bfe66a52819448dc79cb"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa7ee59c225636bfe66a52819448dc79cb">GS1_LINTER_IMPORTER_IDX_MUST_BE_ONE_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_IMPORTER_IDX_MUST_BE_ONE_CHARACTER</div><div class="ttdoc">The Importer Index must be a single character.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:90</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:77</div></div>
 </div><!-- fragment -->
 </div>
 </div>

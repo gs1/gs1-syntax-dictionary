@@ -90,31 +90,37 @@ $(function() {
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa81e19ae42f2467a7dda0485862e7b352" title="A valid ISO 3166 three-digit country code or &quot;999&quot; is required.">GS1_LINTER_NOT_ISO3166_OR_999</a> if the data is not a num-3 country code or the string "999". </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   52</span>{</div>
-<div class="line"><span class="lineno">   53</span> </div>
-<div class="line"><span class="lineno">   54</span>        <a class="code hl_enumeration" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> ret;</div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span>        assert(data);</div>
-<div class="line"><span class="lineno">   57</span> </div>
-<div class="line"><span class="lineno">   58</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   59</span><span class="comment">         * The data may contain the string &quot;999&quot;.</span></div>
-<div class="line"><span class="lineno">   60</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   61</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">if</span> (strcmp(data, <span class="stringliteral">&quot;999&quot;</span>) == 0)</div>
-<div class="line"><span class="lineno">   63</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
-<div class="line"><span class="lineno">   64</span> </div>
-<div class="line"><span class="lineno">   65</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment">         * Validate the data with the iso3166 linter.</span></div>
-<div class="line"><span class="lineno">   67</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   68</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   69</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#a63e5eb23f0bfdbd68ffc3c6d9a94e3f6">gs1_lint_iso3166</a>(data, err_pos, err_len);</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        assert(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac4258f936285a5a38866ea4b983c8e7e">GS1_LINTER_NOT_ISO3166</a>);</div>
-<div class="line"><span class="lineno">   72</span> </div>
-<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">return</span> ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac4258f936285a5a38866ea4b983c8e7e">GS1_LINTER_NOT_ISO3166</a> ? <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa81e19ae42f2467a7dda0485862e7b352">GS1_LINTER_NOT_ISO3166_OR_999</a> : ret;</div>
-<div class="line"><span class="lineno">   74</span> </div>
-<div class="line"><span class="lineno">   75</span>}</div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_a63e5eb23f0bfdbd68ffc3c6d9a94e3f6"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#a63e5eb23f0bfdbd68ffc3c6d9a94e3f6">gs1_lint_iso3166</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_iso3166.c:75</div></div>
+<div class="fragment"><div class="line"><span class="lineno">   53</span>{</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>        <a class="code hl_enumeration" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> ret;</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>        assert(data);</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   60</span><span class="comment">         * The data may contain the string &quot;999&quot;.</span></div>
+<div class="line"><span class="lineno">   61</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">if</span> (strcmp(data, <span class="stringliteral">&quot;999&quot;</span>) == 0)</div>
+<div class="line"><span class="lineno">   64</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">   65</span> </div>
+<div class="line"><span class="lineno">   66</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   67</span><span class="comment">         * Validate the data with the iso3166 linter.</span></div>
+<div class="line"><span class="lineno">   68</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   69</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   70</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#a63e5eb23f0bfdbd68ffc3c6d9a94e3f6">gs1_lint_iso3166</a>(data, err_pos, err_len);</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>        assert(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac4258f936285a5a38866ea4b983c8e7e">GS1_LINTER_NOT_ISO3166</a>);</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   75</span>                ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac4258f936285a5a38866ea4b983c8e7e">GS1_LINTER_NOT_ISO3166</a> ? <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa81e19ae42f2467a7dda0485862e7b352">GS1_LINTER_NOT_ISO3166_OR_999</a> : ret,</div>
+<div class="line"><span class="lineno">   76</span>                *err_pos,</div>
+<div class="line"><span class="lineno">   77</span>                *err_len</div>
+<div class="line"><span class="lineno">   78</span>        );</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:57</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:42</div></div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_a63e5eb23f0bfdbd68ffc3c6d9a94e3f6"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#a63e5eb23f0bfdbd68ffc3c6d9a94e3f6">gs1_lint_iso3166</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_iso3166.c:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a></div><div class="ttdeci">gs1_lint_err_t</div><div class="ttdoc">Linter return codes other than GS1_LINTER_OK indicate an error condition.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa81e19ae42f2467a7dda0485862e7b352"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa81e19ae42f2467a7dda0485862e7b352">GS1_LINTER_NOT_ISO3166_OR_999</a></div><div class="ttdeci">@ GS1_LINTER_NOT_ISO3166_OR_999</div><div class="ttdoc">A valid ISO 3166 three-digit country code or &quot;999&quot; is required.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:98</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aac4258f936285a5a38866ea4b983c8e7e"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac4258f936285a5a38866ea4b983c8e7e">GS1_LINTER_NOT_ISO3166</a></div><div class="ttdeci">@ GS1_LINTER_NOT_ISO3166</div><div class="ttdoc">A valid ISO 3166 three-digit country code is required.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:97</div></div>

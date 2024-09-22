@@ -93,78 +93,84 @@ $(function() {
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3a6ce3bebbca6f63592a3ae21d6dd122" title="A zero prefix is not permitted.">GS1_LINTER_ILLEGAL_ZERO_PREFIX</a> if either the position number or the end number are zero or contain a zero prefix. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf09883b61f5ff109e936bb60974d181c" title="The position number must not exceed the end number.">GS1_LINTER_POSITION_EXCEEDS_END</a> if the data contains a position number that is larger than the end position. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>{</div>
-<div class="line"><span class="lineno">   54</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   55</span><span class="comment">/// \cond</span></div>
-<div class="line"><span class="lineno">   56</span><span class="comment"></span><span class="preprocessor">#define P(i)    data[i]</span></div>
-<div class="line"><span class="lineno">   57</span><span class="preprocessor">#define E(i)    data[i + pos + 1]</span><span class="comment"></span></div>
-<div class="line"><span class="lineno">   58</span><span class="comment">/// \endcond</span></div>
-<div class="line"><span class="lineno">   59</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordtype">size_t</span> pos, len;</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>        assert(data);</div>
-<div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   65</span> </div>
-<div class="line"><span class="lineno">   66</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   67</span><span class="comment">         * Determine that the format is &quot;&lt;pos&gt;/&lt;end&gt;&quot;.</span></div>
-<div class="line"><span class="lineno">   68</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   69</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   70</span>        pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>);</div>
-<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">if</span> (pos == 0 || pos &gt;= len - 1 || data[pos] != <span class="charliteral">&#39;/&#39;</span> || strspn(data + pos + 1, <span class="stringliteral">&quot;0123456789&quot;</span>) != len - pos - 1) {</div>
-<div class="line"><span class="lineno">   72</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">   73</span>                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab4c8c51a96a2a7d9d74d72f335b5654d">GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED</a>;</div>
-<div class="line"><span class="lineno">   75</span>        }</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   78</span><span class="comment">         * Ensure position number is non-zero and does not have zero prefix.</span></div>
-<div class="line"><span class="lineno">   79</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> (P(0) == <span class="charliteral">&#39;0&#39;</span>) {</div>
-<div class="line"><span class="lineno">   82</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">if</span> (err_len) *err_len = pos;</div>
-<div class="line"><span class="lineno">   84</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3a6ce3bebbca6f63592a3ae21d6dd122">GS1_LINTER_ILLEGAL_ZERO_PREFIX</a>;</div>
-<div class="line"><span class="lineno">   85</span>        }</div>
-<div class="line"><span class="lineno">   86</span> </div>
-<div class="line"><span class="lineno">   87</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   88</span><span class="comment">         * Ensure end number is non-zero and does not have zero prefix.</span></div>
-<div class="line"><span class="lineno">   89</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">if</span> (E(0) == <span class="charliteral">&#39;0&#39;</span>) {</div>
-<div class="line"><span class="lineno">   92</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = pos + 1;</div>
-<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">if</span> (err_len) *err_len = len - pos - 1;</div>
-<div class="line"><span class="lineno">   94</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3a6ce3bebbca6f63592a3ae21d6dd122">GS1_LINTER_ILLEGAL_ZERO_PREFIX</a>;</div>
-<div class="line"><span class="lineno">   95</span>        }</div>
-<div class="line"><span class="lineno">   96</span> </div>
-<div class="line"><span class="lineno">   97</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   98</span><span class="comment">         * Determine whether the position exceeds the end.</span></div>
-<div class="line"><span class="lineno">   99</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  100</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">if</span> (pos == len - pos - 1) {</div>
-<div class="line"><span class="lineno">  102</span>                <span class="keywordtype">size_t</span> i;</div>
-<div class="line"><span class="lineno">  103</span>                <span class="keywordtype">int</span> compare = 0;                <span class="comment">/* -1:P&lt;E ; 0:P==E ; 1:P&gt;E */</span></div>
-<div class="line"><span class="lineno">  104</span>                <span class="keywordflow">for</span> (i = 0; i &lt; pos &amp;&amp; !compare; i++)</div>
-<div class="line"><span class="lineno">  105</span>                        <span class="keywordflow">if</span> (P(i) != E(i))</div>
-<div class="line"><span class="lineno">  106</span>                                compare = P(i) &lt; E(i) ? -1 : 1;</div>
-<div class="line"><span class="lineno">  107</span>                <span class="keywordflow">if</span> (compare == 1) {</div>
-<div class="line"><span class="lineno">  108</span>                        <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">  109</span>                        <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><span class="lineno">  110</span>                        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf09883b61f5ff109e936bb60974d181c">GS1_LINTER_POSITION_EXCEEDS_END</a>;</div>
-<div class="line"><span class="lineno">  111</span>                }</div>
-<div class="line"><span class="lineno">  112</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pos &gt; len - pos - 1) {</div>
-<div class="line"><span class="lineno">  113</span>                <span class="comment">/* Non-zero prefix, so a length check is sufficient. */</span></div>
-<div class="line"><span class="lineno">  114</span>                <span class="keywordflow">if</span> (err_pos) *err_pos = 0;</div>
-<div class="line"><span class="lineno">  115</span>                <span class="keywordflow">if</span> (err_len) *err_len = len;</div>
-<div class="line"><span class="lineno">  116</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf09883b61f5ff109e936bb60974d181c">GS1_LINTER_POSITION_EXCEEDS_END</a>;</div>
-<div class="line"><span class="lineno">  117</span>        }</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>;</div>
-<div class="line"><span class="lineno">  120</span> </div>
-<div class="line"><span class="lineno">  121</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   54</span>{</div>
+<div class="line"><span class="lineno">   55</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   56</span><span class="comment">/// \cond</span></div>
+<div class="line"><span class="lineno">   57</span><span class="comment"></span><span class="preprocessor">#define P(i)    data[i]</span></div>
+<div class="line"><span class="lineno">   58</span><span class="preprocessor">#define E(i)    data[i + pos + 1]</span><span class="comment"></span></div>
+<div class="line"><span class="lineno">   59</span><span class="comment">/// \endcond</span></div>
+<div class="line"><span class="lineno">   60</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordtype">size_t</span> pos, len;</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>        assert(data);</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>        len = strlen(data);</div>
+<div class="line"><span class="lineno">   66</span> </div>
+<div class="line"><span class="lineno">   67</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   68</span><span class="comment">         * Determine that the format is &quot;&lt;pos&gt;/&lt;end&gt;&quot;.</span></div>
+<div class="line"><span class="lineno">   69</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   70</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   71</span>        pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>);</div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">if</span> (pos == 0 || pos &gt;= len - 1 || data[pos] != <span class="charliteral">&#39;/&#39;</span> || strspn(data + pos + 1, <span class="stringliteral">&quot;0123456789&quot;</span>) != len - pos - 1)</div>
+<div class="line"><span class="lineno">   73</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   74</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab4c8c51a96a2a7d9d74d72f335b5654d">GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED</a>,</div>
+<div class="line"><span class="lineno">   75</span>                        0,</div>
+<div class="line"><span class="lineno">   76</span>                        len</div>
+<div class="line"><span class="lineno">   77</span>                );</div>
+<div class="line"><span class="lineno">   78</span> </div>
+<div class="line"><span class="lineno">   79</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment">         * Ensure position number is non-zero and does not have zero prefix.</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">if</span> (P(0) == <span class="charliteral">&#39;0&#39;</span>)</div>
+<div class="line"><span class="lineno">   84</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   85</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3a6ce3bebbca6f63592a3ae21d6dd122">GS1_LINTER_ILLEGAL_ZERO_PREFIX</a>,</div>
+<div class="line"><span class="lineno">   86</span>                        0,</div>
+<div class="line"><span class="lineno">   87</span>                        pos</div>
+<div class="line"><span class="lineno">   88</span>                );</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">         * Ensure end number is non-zero and does not have zero prefix.</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   94</span>        <span class="keywordflow">if</span> (E(0) == <span class="charliteral">&#39;0&#39;</span>)</div>
+<div class="line"><span class="lineno">   95</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   96</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3a6ce3bebbca6f63592a3ae21d6dd122">GS1_LINTER_ILLEGAL_ZERO_PREFIX</a>,</div>
+<div class="line"><span class="lineno">   97</span>                        pos + 1,</div>
+<div class="line"><span class="lineno">   98</span>                        len - pos - 1</div>
+<div class="line"><span class="lineno">   99</span>                );</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  102</span><span class="comment">         * Determine whether the position exceeds the end.</span></div>
+<div class="line"><span class="lineno">  103</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  104</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">if</span> (pos == len - pos - 1) {</div>
+<div class="line"><span class="lineno">  106</span>                <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><span class="lineno">  107</span>                <span class="keywordtype">int</span> compare = 0;                <span class="comment">/* -1:P&lt;E ; 0:P==E ; 1:P&gt;E */</span></div>
+<div class="line"><span class="lineno">  108</span>                <span class="keywordflow">for</span> (i = 0; i &lt; pos &amp;&amp; !compare; i++)</div>
+<div class="line"><span class="lineno">  109</span>                        <span class="keywordflow">if</span> (P(i) != E(i))</div>
+<div class="line"><span class="lineno">  110</span>                                compare = P(i) &lt; E(i) ? -1 : 1;</div>
+<div class="line"><span class="lineno">  111</span>                <span class="keywordflow">if</span> (compare == 1)</div>
+<div class="line"><span class="lineno">  112</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  113</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf09883b61f5ff109e936bb60974d181c">GS1_LINTER_POSITION_EXCEEDS_END</a>,</div>
+<div class="line"><span class="lineno">  114</span>                                0,</div>
+<div class="line"><span class="lineno">  115</span>                                len</div>
+<div class="line"><span class="lineno">  116</span>                        );</div>
+<div class="line"><span class="lineno">  117</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pos &gt; len - pos - 1)</div>
+<div class="line"><span class="lineno">  118</span>                <span class="comment">/* Non-zero prefix, so a length check is sufficient. */</span></div>
+<div class="line"><span class="lineno">  119</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  120</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf09883b61f5ff109e936bb60974d181c">GS1_LINTER_POSITION_EXCEEDS_END</a>,</div>
+<div class="line"><span class="lineno">  121</span>                        0,</div>
+<div class="line"><span class="lineno">  122</span>                        len</div>
+<div class="line"><span class="lineno">  123</span>                );</div>
+<div class="line"><span class="lineno">  124</span> </div>
+<div class="line"><span class="lineno">  125</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  126</span> </div>
+<div class="line"><span class="lineno">  127</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:57</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:42</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa3a6ce3bebbca6f63592a3ae21d6dd122"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa3a6ce3bebbca6f63592a3ae21d6dd122">GS1_LINTER_ILLEGAL_ZERO_PREFIX</a></div><div class="ttdeci">@ GS1_LINTER_ILLEGAL_ZERO_PREFIX</div><div class="ttdoc">A zero prefix is not permitted.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:94</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aab4c8c51a96a2a7d9d74d72f335b5654d"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab4c8c51a96a2a7d9d74d72f335b5654d">GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED</a></div><div class="ttdeci">@ GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED</div><div class="ttdoc">The data must have the format &quot;&lt;pos&gt;/&lt;end&gt;&quot;.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:189</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:77</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaf09883b61f5ff109e936bb60974d181c"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf09883b61f5ff109e936bb60974d181c">GS1_LINTER_POSITION_EXCEEDS_END</a></div><div class="ttdeci">@ GS1_LINTER_POSITION_EXCEEDS_END</div><div class="ttdoc">The position number must not exceed the end number.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:190</div></div>
 </div><!-- fragment -->
 </div>
