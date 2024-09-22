@@ -238,8 +238,8 @@ Guideline Using GS1 DataBar Expanded Symbols" for a description of the GS1 U.S. 
 <div class="line"><span class="lineno">  233</span>        <span class="keywordflow">if</span> (q - ++p &lt; vli)</div>
 <div class="line"><span class="lineno">  234</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  235</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa31a046ab2a0819138404ed908732e29b">GS1_LINTER_COUPON_TRUNCATED_GCP</a>,</div>
-<div class="line"><span class="lineno">  236</span>                        (<span class="keywordtype">size_t</span>)(p - data),</div>
-<div class="line"><span class="lineno">  237</span>                        (<span class="keywordtype">size_t</span>)(q - p)</div>
+<div class="line"><span class="lineno">  236</span>                        (p == q) ? 0                  : (size_t)(p - data),</div>
+<div class="line"><span class="lineno">  237</span>                        (p == q) ? (size_t)(q - data) : (size_t)(q - p)</div>
 <div class="line"><span class="lineno">  238</span>                );</div>
 <div class="line"><span class="lineno">  239</span> </div>
 <div class="line"><span class="lineno">  240</span>        <span class="comment">/*</span></div>
