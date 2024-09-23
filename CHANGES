@@ -1,5 +1,7 @@
 UNRELEASED
 
+* Linter exit points were converted to GS1_LINTER_RETURN{OK,ERROR} convenience macros.
+* The binary search and bit field lookups were converted to utility macros.
 * New AI (7041) for UFRGT UNIT TYPE, as approved with GSCN 23-272.
 * New AI (716) for NHRN AIC, as approved with GSCN 24-157.
 * New AIs (03) and (8014) for Master UDI-DI, as approved with GSCN 21-286.
