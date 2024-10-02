@@ -1,5 +1,5 @@
 /*
- * GS1 Syntax Dictionary. Copyright (c) 2022-2024 GS1 AISBL.
+ * GS1 Barcode Syntax Dictionary. Copyright (c) 2022-2024 GS1 AISBL.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  * @file gs1syntaxdictionary.h
  *
  * @brief This header contains the declarations for the reference linter
- * functions of type ::gs1_linter_t referred to in the [GS1 Syntax
+ * functions of type ::gs1_linter_t referred to in the [GS1 Barcode Syntax
  * Dictionary](https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-dictionary/),
  * as well as the list of all possible return codes with a description of the
  * indicated error conditions.
