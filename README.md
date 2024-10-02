@@ -1,7 +1,7 @@
-GS1 Syntax Dictionary and Linters
-=================================
+GS1 Barcode Syntax Dictionary and Syntax Tests
+==============================================
 
-The **"Syntax Dictionary"** is a text file that is both human-readable and
+The **GS1 Barcode Syntax Dictionary** ("Syntax Dictionary") is a text file that is both human-readable and
 machine-readable, which consists of a set of entries describing each currently
 assigned GS1 Application Identifier in terms of its constituent components.
 
@@ -21,10 +21,11 @@ GS1 Application Identifier and GS1 Digital Link data, chiefly:
     * GS1 Digital Link URIs
   * Validate Application Identifier associations, in particular mutually-exclusive AIs and requisite AIs.
 
-The reference **"Linter"** routines (implemented in C) are referred to by the
+The **GS1 Barcode Syntax Tests** ("Linters") are referred to by the
 AI entries within the Syntax Dictionary, and enable the user to perform
 validation of the syntax of the content for AI-based messages such as AI
-element strings and GS1 Digital Link URIs.
+element strings and GS1 Digital Link URIs. Reference implementations of the
+routines are provided in the C language.
 
 The Syntax Dictionary, together with the Linters, can either be used directly
 or transliterated into third-party code. It is intended that it should be
@@ -41,7 +42,7 @@ This repository contains the following key artifacts:
 
 | Artifact                    | Purpose                                                                                                              |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `gs1-syntax-dictionary.txt` | The "Syntax Dictionary"                                                                                              |
+| `gs1-syntax-dictionary.txt` | The Syntax Dictionary                                                                                                |
 | `src/lint_<name>.c`         | Source for the reference Linters, which includes unit tests                                                          |
 | `src/gs1syntaxdictionary.h` | Headers file with Linter function declarations and Linter error code definitions                                     |
 | `src/gs1syntaxdictionary.c` | Optional implementations for mapping Linter names to functions and Linter error codes to error message strings       |
