@@ -1,13 +1,13 @@
-# GS1 Application Identifier Syntax Dictionary
-# --------------------------------------------
+# GS1 Barcode Syntax Dictionary
+# -----------------------------
 #
 # Release: UNSET
 #
-# This is the GS1 Application Identifier format "Syntax Dictionary".
+# This is the GS1 Barcode Syntax Dictionary.
 #
-# Together with a set of reference "Linter" procedures, it provides a
-# harmonised framework that can be used by encoders and decoders of GS1 AI
-# formatted data to process such data.
+# Together with a set of GS1 Barcode Syntax Tests ("Linter" routines), it
+# provides a harmonised framework that can be used by encoders and decoders of
+# AI-formatted data to process such data.
 #
 # Each entry in this file provides a description for one or a range of AIs of
 # not only the data type, length and title of the AI and whether an FNC1
@@ -19,10 +19,10 @@
 # Specifications, however the data field definition is further decomposed into
 # meaningful components that can be individually reported or validated.
 #
-# Together with a set of Linter procedures this Syntax Dictionary can be used
-# either directly by application code or by a project's build system to
-# generate code to perform a deep validation of any message consisting of GS1
-# Application Identifier element strings.
+# Together with a set of Linter procedures this resource can be used either
+# directly by application code or by a project's build system to generate code
+# to perform a deep validation of any message consisting of GS1 Application
+# Identifier element strings.
 #
 # It was originally conceived as a collaboration between the BWIPP and Zint
 # projects and is now maintained by GS1 AISBL.
