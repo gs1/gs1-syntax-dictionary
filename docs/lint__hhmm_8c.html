@@ -44,16 +44,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Purpose</h2>
-<div class="textblock"><p>The <code>hhmm</code> linter ensures that the given data is meaningful time as hours and minutes, in HHMM format. </p>
+<div class="textblock"><p>Not used. </p>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="ab81904f4d9d0df9cb45096f5ebd402da" name="ab81904f4d9d0df9cb45096f5ebd402da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab81904f4d9d0df9cb45096f5ebd402da">&#9670;&#160;</a></span>gs1_lint_hhmm()</h2>
+<a id="a15325fdd27b7b04a1ea8618a14e2ee73" name="a15325fdd27b7b04a1ea8618a14e2ee73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15325fdd27b7b04a1ea8618a14e2ee73">&#9670;&#160;</a></span>gs1_lint_hhmm()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_hhmm </td>
+          <td class="memname">GS1_SYNTAX_DICTIONARY_API DEPRECATED <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_hhmm </td>
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -77,81 +77,24 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Used to ensure that an AI component conforms to HHMM format.</p>
+<p>Not used.</p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Function retained for API compatibility purposes only. Not longer referenced by the Syntax Dictionary.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Not used. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>Not used. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>Not used.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
-<dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aabb3f32b3d9c39701fc544efc0863f543" title="The hour with minute is too short for HHMM format.">GS1_LINTER_HOUR_WITH_MINUTE_TOO_SHORT</a> if the data is too short for HHMM format. </dd>
-<dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa01f420786b973cab9298e031b4048ece" title="The hour with minute is too long for HHMM format.">GS1_LINTER_HOUR_WITH_MINUTE_TOO_LONG</a> if the data is too long for HHMM format. </dd>
-<dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049" title="A non-digit character was found where a digit is expected.">GS1_LINTER_NON_DIGIT_CHARACTER</a> if the data contains a non-digit character. </dd>
-<dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8d9f05bc53b8cd18d63e1ec222b4c168" title="The time contains an illegal hour.">GS1_LINTER_ILLEGAL_HOUR</a> if the data contains an invalid hour. </dd>
-<dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6ac2865db726c4f2121aeaf77c278357" title="The time contains an illegal minute.">GS1_LINTER_ILLEGAL_MINUTE</a> if the data contains an invalid minute. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>{</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordtype">size_t</span> len;</div>
-<div class="line"><span class="lineno">   58</span>        <a class="code hl_enumeration" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> ret;</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordtype">char</span> buf[3] = { 0 };</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>        assert(data);</div>
-<div class="line"><span class="lineno">   62</span> </div>
-<div class="line"><span class="lineno">   63</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   64</span> </div>
-<div class="line"><span class="lineno">   65</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment">         * Data must be four characters.</span></div>
-<div class="line"><span class="lineno">   67</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   68</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">if</span> (len != 4)</div>
-<div class="line"><span class="lineno">   70</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   71</span>                        len &lt; 4 ? <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aabb3f32b3d9c39701fc544efc0863f543">GS1_LINTER_HOUR_WITH_MINUTE_TOO_SHORT</a> : <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa01f420786b973cab9298e031b4048ece">GS1_LINTER_HOUR_WITH_MINUTE_TOO_LONG</a>,</div>
-<div class="line"><span class="lineno">   72</span>                        0,</div>
-<div class="line"><span class="lineno">   73</span>                        len</div>
-<div class="line"><span class="lineno">   74</span>                );</div>
-<div class="line"><span class="lineno">   75</span> </div>
-<div class="line"><span class="lineno">   76</span>        memcpy(buf, data, 2);</div>
-<div class="line"><span class="lineno">   77</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#ace31ab4348ac385a61190a3fa800a33d">gs1_lint_hh</a>(buf, err_pos, err_len);</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>        assert(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> ||</div>
-<div class="line"><span class="lineno">   80</span>               ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a> ||</div>
-<div class="line"><span class="lineno">   81</span>               ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8d9f05bc53b8cd18d63e1ec222b4c168">GS1_LINTER_ILLEGAL_HOUR</a>);</div>
-<div class="line"><span class="lineno">   82</span> </div>
-<div class="line"><span class="lineno">   83</span>        <span class="keywordflow">if</span> (ret != <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>)</div>
-<div class="line"><span class="lineno">   84</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(ret, *err_pos, *err_len);</div>
-<div class="line"><span class="lineno">   85</span> </div>
-<div class="line"><span class="lineno">   86</span>        memcpy(buf, data+2, 2);</div>
-<div class="line"><span class="lineno">   87</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#a1421298cb6413e2aa4da63a7a9dbcfa8">gs1_lint_mm</a>(buf, err_pos, err_len);</div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        assert(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> ||</div>
-<div class="line"><span class="lineno">   90</span>               ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a> ||</div>
-<div class="line"><span class="lineno">   91</span>               ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6ac2865db726c4f2121aeaf77c278357">GS1_LINTER_ILLEGAL_MINUTE</a>);</div>
-<div class="line"><span class="lineno">   92</span> </div>
-<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> (ret != <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a>)</div>
-<div class="line"><span class="lineno">   94</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(ret, *err_pos + 2, *err_len);</div>
-<div class="line"><span class="lineno">   95</span> </div>
-<div class="line"><span class="lineno">   96</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>}</div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:62</div></div>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">   47</span>{</div>
+<div class="line"><span class="lineno">   48</span>        (void)data;</div>
+<div class="line"><span class="lineno">   49</span>        (void)err_pos;</div>
+<div class="line"><span class="lineno">   50</span>        (void)err_len;</div>
+<div class="line"><span class="lineno">   51</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">   52</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:47</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_a1421298cb6413e2aa4da63a7a9dbcfa8"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#a1421298cb6413e2aa4da63a7a9dbcfa8">gs1_lint_mm</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_mm(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_mm.c:54</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ace31ab4348ac385a61190a3fa800a33d"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ace31ab4348ac385a61190a3fa800a33d">gs1_lint_hh</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hh(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_hh.c:54</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a></div><div class="ttdeci">gs1_lint_err_t</div><div class="ttdoc">Linter return codes other than GS1_LINTER_OK indicate an error condition.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:76</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa01f420786b973cab9298e031b4048ece"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa01f420786b973cab9298e031b4048ece">GS1_LINTER_HOUR_WITH_MINUTE_TOO_LONG</a></div><div class="ttdeci">@ GS1_LINTER_HOUR_WITH_MINUTE_TOO_LONG</div><div class="ttdoc">The hour with minute is too long for HHMM format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:111</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa6ac2865db726c4f2121aeaf77c278357"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6ac2865db726c4f2121aeaf77c278357">GS1_LINTER_ILLEGAL_MINUTE</a></div><div class="ttdeci">@ GS1_LINTER_ILLEGAL_MINUTE</div><div class="ttdoc">The time contains an illegal minute.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:116</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa8d9f05bc53b8cd18d63e1ec222b4c168"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8d9f05bc53b8cd18d63e1ec222b4c168">GS1_LINTER_ILLEGAL_HOUR</a></div><div class="ttdeci">@ GS1_LINTER_ILLEGAL_HOUR</div><div class="ttdoc">The time contains an illegal hour.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:115</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aabb3f32b3d9c39701fc544efc0863f543"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aabb3f32b3d9c39701fc544efc0863f543">GS1_LINTER_HOUR_WITH_MINUTE_TOO_SHORT</a></div><div class="ttdeci">@ GS1_LINTER_HOUR_WITH_MINUTE_TOO_SHORT</div><div class="ttdoc">The hour with minute is too short for HHMM format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:110</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:77</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_NON_DIGIT_CHARACTER</div><div class="ttdoc">A non-digit character was found where a digit is expected.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:78</div></div>
 </div><!-- fragment -->
 </div>
 </div>

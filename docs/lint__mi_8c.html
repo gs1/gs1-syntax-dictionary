@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GS1 Barcode Syntax Tests reference: lint_mm.c File Reference</title>
+<title>GS1 Barcode Syntax Tests reference: lint_mi.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -40,20 +40,20 @@ $(function() {
 <div id="main-nav"></div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">lint_mm.c File Reference</div></div>
+  <div class="headertitle"><div class="title">lint_mi.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Purpose</h2>
-<div class="textblock"><p>The <code>mm</code> linter ensures that the given data is a meaningful minute number in an hour. </p>
+<div class="textblock"><p>The <code>mi</code> linter ensures that the given data is a meaningful minute number in an hour. </p>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a917b1445c6a5da290a8ddd419a52dfe7" name="a917b1445c6a5da290a8ddd419a52dfe7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a917b1445c6a5da290a8ddd419a52dfe7">&#9670;&#160;</a></span>gs1_lint_mm()</h2>
+<a id="a998b02e023100f4551efca2fd8c05b15" name="a998b02e023100f4551efca2fd8c05b15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a998b02e023100f4551efca2fd8c05b15">&#9670;&#160;</a></span>gs1_lint_mi()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_mm </td>
+          <td class="memname">GS1_SYNTAX_DICTIONARY_API <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> gs1_lint_mi </td>
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -77,7 +77,7 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Used to ensure that an AI component conforms to MM format for minutes within an hour.</p>
+<p>Used to ensure that an AI component conforms to MI format for minutes within an hour.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
@@ -88,9 +88,9 @@ $(function() {
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac3abe9c928b2313ecd3f0f24cf7c9ee6" title="The minute is too short for MM format.">GS1_LINTER_MINUTE_TOO_SHORT</a> if the data is too short for MM format. </dd>
+<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac3abe9c928b2313ecd3f0f24cf7c9ee6" title="The minute is too short for MI format.">GS1_LINTER_MINUTE_TOO_SHORT</a> if the data is too short for MI format. </dd>
 <dd>
-<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa12dfacceefcbe88f68543c21a3cca67a" title="The minute is too long for MM format.">GS1_LINTER_MINUTE_TOO_LONG</a> if the data is too long for MM format. </dd>
+<a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa12dfacceefcbe88f68543c21a3cca67a" title="The minute is too long for MI format.">GS1_LINTER_MINUTE_TOO_LONG</a> if the data is too long for MI format. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049" title="A non-digit character was found where a digit is expected.">GS1_LINTER_NON_DIGIT_CHARACTER</a> if the data contains a non-digit character. </dd>
 <dd>
@@ -141,9 +141,9 @@ $(function() {
 <div class="line"><span class="lineno">   98</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:62</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:47</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa12dfacceefcbe88f68543c21a3cca67a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa12dfacceefcbe88f68543c21a3cca67a">GS1_LINTER_MINUTE_TOO_LONG</a></div><div class="ttdeci">@ GS1_LINTER_MINUTE_TOO_LONG</div><div class="ttdoc">The minute is too long for MM format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:195</div></div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa12dfacceefcbe88f68543c21a3cca67a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa12dfacceefcbe88f68543c21a3cca67a">GS1_LINTER_MINUTE_TOO_LONG</a></div><div class="ttdeci">@ GS1_LINTER_MINUTE_TOO_LONG</div><div class="ttdoc">The minute is too long for MI format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:195</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa6ac2865db726c4f2121aeaf77c278357"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6ac2865db726c4f2121aeaf77c278357">GS1_LINTER_ILLEGAL_MINUTE</a></div><div class="ttdeci">@ GS1_LINTER_ILLEGAL_MINUTE</div><div class="ttdoc">The time contains an illegal minute.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:116</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aac3abe9c928b2313ecd3f0f24cf7c9ee6"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac3abe9c928b2313ecd3f0f24cf7c9ee6">GS1_LINTER_MINUTE_TOO_SHORT</a></div><div class="ttdeci">@ GS1_LINTER_MINUTE_TOO_SHORT</div><div class="ttdoc">The minute is too short for MM format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:194</div></div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aac3abe9c928b2313ecd3f0f24cf7c9ee6"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac3abe9c928b2313ecd3f0f24cf7c9ee6">GS1_LINTER_MINUTE_TOO_SHORT</a></div><div class="ttdeci">@ GS1_LINTER_MINUTE_TOO_SHORT</div><div class="ttdoc">The minute is too short for MI format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:194</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_NON_DIGIT_CHARACTER</div><div class="ttdoc">A non-digit character was found where a digit is expected.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:78</div></div>
 </div><!-- fragment -->
 </div>
