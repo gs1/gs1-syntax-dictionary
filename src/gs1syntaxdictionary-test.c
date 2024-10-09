@@ -47,8 +47,8 @@ void test_lint_csum(void);
 void test_lint_csumalpha(void);
 void test_lint_hasnondigit(void);
 void test_lint_hh(void);
+void test_lint_hhmi(void);
 void test_lint_hyphen(void);
-void test_lint_hhmm(void);
 void test_lint_iban(void);
 void test_lint_importeridx(void);
 void test_lint_iso3166(void);
@@ -60,7 +60,7 @@ void test_lint_key(void);
 void test_lint_latitude(void);
 void test_lint_longitude(void);
 void test_lint_mediatype(void);
-void test_lint_mm(void);
+void test_lint_mi(void);
 void test_lint_nonzero(void);
 void test_lint_nozeroprefix(void);
 void test_lint_packagetype(void);
@@ -94,7 +94,7 @@ TEST_LIST = {
 	{ "lint_key", test_lint_key },
 	{ "lint_hasnondigit", test_lint_hasnondigit },
 	{ "lint_hh", test_lint_hh },
-	{ "lint_hhmm", test_lint_hhmm },
+	{ "lint_hhmi", test_lint_hhmi },
 	{ "lint_hyphen", test_lint_hyphen },
 	{ "lint_importeridx", test_lint_importeridx },
 	{ "lint_nonzero", test_lint_nonzero },
@@ -108,7 +108,7 @@ TEST_LIST = {
 	{ "lint_latitude", test_lint_latitude },
 	{ "lint_longitude", test_lint_longitude },
 	{ "lint_mediatype", test_lint_mediatype },
-	{ "lint_mm", test_lint_mm },
+	{ "lint_mi", test_lint_mi },
 	{ "lint_packagetype", test_lint_packagetype },
 	{ "lint_pcenc", test_lint_pcenc },
 	{ "lint_pieceoftotal", test_lint_pieceoftotal },

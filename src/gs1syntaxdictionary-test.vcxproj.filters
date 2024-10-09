@@ -54,6 +54,9 @@
     <ClCompile Include="lint_hh.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_hhmi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_hhmm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -93,7 +96,7 @@
     <ClCompile Include="lint_mediatype.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lint_mm.c">
+    <ClCompile Include="lint_mi.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lint_mmoptss.c">

@@ -1,5 +1,6 @@
 UNRELEASED
 
+* To avoid potential conflation of months with minutes, the hhmm linter was renamed to hhmi, with the previous name being replaced with a stub.
 * Linter exit points were converted to GS1_LINTER_RETURN{OK,ERROR} convenience macros.
 * The binary search and bit field lookups were converted to utility macros.
 * New AI (7041) for UFRGT UNIT TYPE, as approved with GSCN 23-272.
@@ -10,7 +11,7 @@ UNRELEASED
 * The format specification for AIs (423) and (425) was changed to use multiple "[N3],iso3166" components, rather than a single "[N..15],iso3166list" component.
 * The obsolete iso3166list linter was replaced with a deprecation stub to maintain API compatibility.
 * The following AIs are no longer flagged as permitted GS1 Digital Link URI data attributes: (00), (01), (253), (255), (401), (402), (414), (415), (417), (8003), (8004), (8006), (8010), (8013), (8017), (8018), (8020)
-* The AI (8008) component specification was simplified to "N6,yymmdd N2,hh [N2],mm [N2],ss", with new linters lint_{hh,mm,ss} created and old linters lint_{yymmddhh,mmoptss} replaced with deprecation stubs.
+* The AI (8008) component specification was simplified to "N6,yymmdd N2,hh [N2],mi [N2],ss", with new linters lint_{hh,mi,ss} created and old linters lint_{yymmddhh,mmoptss} replaced with deprecation stubs.
 
 
 2024-06-10
