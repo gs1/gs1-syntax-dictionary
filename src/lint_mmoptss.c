@@ -29,24 +29,4 @@
 #include "gs1syntaxdictionary.h"
 #include "gs1syntaxdictionary-utils.h"
 
-
-/**
- * Not used.
- *
- * @deprecated Function retained for API compatibility purposes only. Not
- * longer referenced by the Syntax Dictionary.
- *
- * @param [in] data Not used.
- * @param [out] err_pos Not used.
- * @param [out] err_len Not used.
- *
- * @return #GS1_LINTER_OK
- *
- */
-GS1_SYNTAX_DICTIONARY_API DEPRECATED gs1_lint_err_t gs1_lint_mmoptss(const char* const data, size_t* const err_pos, size_t* const err_len)
-{
-	(void)data;
-	(void)err_pos;
-	(void)err_len;
-	GS1_LINTER_RETURN_OK;
-}
+GS1_LINTER_STUB(gs1_lint_mmoptss)
