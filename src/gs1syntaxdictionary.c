@@ -142,7 +142,7 @@ GS1_SYNTAX_DICTIONARY_API const char *gs1_lint_err_str[] = {
 	"The date is too long.",
 	"",	// Unused
 	"",	// Unused
-	"The date with hour is too long for YYMMDDHH format.",
+	"",	// Unused
 	"The hour with minute is too short for HHMI format.",
 	"The hour with minute is too long for HHMI format.",
 	"",	// Unused

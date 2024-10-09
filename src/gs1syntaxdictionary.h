@@ -106,7 +106,7 @@ typedef enum
 	GS1_LINTER_DATE_TOO_LONG,					///< The date is too long for YYMMDD format.
 	GS1_LINTER_UNUSED_2,
 	GS1_LINTER_UNUSED_3,
-	GS1_LINTER_DATE_WITH_HOUR_TOO_LONG,				///< The date with hour is too long for YYMMDDHH format.
+	GS1_LINTER_UNUSED_5,
 	GS1_LINTER_HOUR_WITH_MINUTE_TOO_SHORT,				///< The hour with minute is too short for HHMI format.
 	GS1_LINTER_HOUR_WITH_MINUTE_TOO_LONG,				///< The hour with minute is too long for HHMI format.
 	GS1_LINTER_UNUSED_4,
