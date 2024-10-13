@@ -133,14 +133,12 @@
     <ClCompile Include="lint_hasnondigit.c" />
     <ClCompile Include="lint_hh.c" />
     <ClCompile Include="lint_hhmi.c" />
-    <ClCompile Include="lint_hhmm.c" />
     <ClCompile Include="lint_hyphen.c" />
     <ClCompile Include="lint_iban.c" />
     <ClCompile Include="lint_importeridx.c" />
     <ClCompile Include="lint_iso3166.c" />
     <ClCompile Include="lint_iso3166999.c" />
     <ClCompile Include="lint_iso3166alpha2.c" />
-    <ClCompile Include="lint_iso3166list.c" />
     <ClCompile Include="lint_iso4217.c" />
     <ClCompile Include="lint_iso5218.c" />
     <ClCompile Include="lint_key.c" />
@@ -148,7 +146,6 @@
     <ClCompile Include="lint_longitude.c" />
     <ClCompile Include="lint_mediatype.c" />
     <ClCompile Include="lint_mi.c" />
-    <ClCompile Include="lint_mmoptss.c" />
     <ClCompile Include="lint_nonzero.c" />
     <ClCompile Include="lint_nozeroprefix.c" />
     <ClCompile Include="lint_packagetype.c" />
@@ -160,10 +157,10 @@
     <ClCompile Include="lint_yesno.c" />
     <ClCompile Include="lint_yymmd0.c" />
     <ClCompile Include="lint_yymmdd.c" />
-    <ClCompile Include="lint_yymmddhh.c" />
     <ClCompile Include="lint_yyyymmd0.c" />
     <ClCompile Include="lint_yyyymmdd.c" />
     <ClCompile Include="lint_zero.c" />
+    <ClCompile Include="lint__stubs.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="acutest.h" />

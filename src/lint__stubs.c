@@ -17,14 +17,43 @@
  */
 
 /**
- * @file lint_mmoptss.c
+ * @file lint__stubs.c
  *
- * @brief Not used.
+ * @brief Unused linter stub functions.
  *
  */
 
+#include <stddef.h>
 
 #include "gs1syntaxdictionary.h"
 #include "gs1syntaxdictionary-utils.h"
 
+
+/**
+ * @brief Generates a stub function to replace legacy linters.
+ *
+ * The generated stub function is retained for API compatibility purposes only
+ * and is no longer referenced by the Syntax Dictionary.
+ *
+ */
+#define GS1_LINTER_STUB(linter)					\
+GS1_SYNTAX_DICTIONARY_API DEPRECATED gs1_lint_err_t linter(	\
+				const char* const data,		\
+				size_t* const err_pos,		\
+				size_t* const err_len)		\
+{								\
+	(void)data;						\
+	(void)err_pos;						\
+	(void)err_len;						\
+	GS1_LINTER_RETURN_OK;					\
+}
+
+
+GS1_LINTER_STUB(gs1_lint_hhmm)
+GS1_LINTER_STUB(gs1_lint_iso3166list)
 GS1_LINTER_STUB(gs1_lint_mmoptss)
+GS1_LINTER_STUB(gs1_lint_yymmddhh)
+
+
+#undef GS1_LINTER_STUB
+

@@ -119,24 +119,4 @@ do {								\
 	}							\
 } while (0)
 
-
-/**
- * @brief Generates a stub function to replace legacy linters.
- *
- * The generated stub function is retained for API compatibility purposes only
- * and is no longer referenced by the Syntax Dictionary.
- *
- */
-#define GS1_LINTER_STUB(linter)					\
-GS1_SYNTAX_DICTIONARY_API DEPRECATED gs1_lint_err_t linter(	\
-				const char* const data,		\
-				size_t* const err_pos,		\
-				size_t* const err_len)		\
-{								\
-	(void)data;						\
-	(void)err_pos;						\
-	(void)err_len;						\
-	GS1_LINTER_RETURN_OK;					\
-}
-
 #endif  /* GS1_SYNTAXDICTIONARY_UTILS_H */
