@@ -97,7 +97,7 @@ FUZZER_LINTERS_SRC = $(NAME)-fuzzer-linters.c
 #FUZZER_SRCS = $(FUZZER_LINTERS_SRC) $(NAME)-fuzzer-parser.c
 FUZZER_SRCS = $(FUZZER_LINTERS_SRC)
 
-FUZZER_LINTERS = $(patsubst %.c,%,$(wildcard lint_*.c))
+FUZZER_LINTERS = $(patsubst %.c,%,$(filter-out lint__stubs.c,$(wildcard lint_*.c)))
 
 FUZZER_PREFIX = $(NAME)-fuzzer-
 #FUZZER_BINS = $(addprefix $(BUILD_DIR)/$(FUZZER_PREFIX),$(FUZZER_LINTERS)) $(BUILD_DIR)/$(FUZZER_PREFIX)parser
