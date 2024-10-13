@@ -16,13 +16,6 @@
  *
  */
 
-/**
- * @file lint__stubs.c
- *
- * @brief Unused linter stub functions.
- *
- */
-
 #include <stddef.h>
 
 #include "gs1syntaxdictionary.h"
