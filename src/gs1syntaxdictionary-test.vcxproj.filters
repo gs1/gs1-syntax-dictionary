@@ -81,6 +81,9 @@
     <ClCompile Include="lint_key.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lint_keyoff1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="lint_latitude.c">
       <Filter>Source Files</Filter>
     </ClCompile>

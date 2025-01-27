@@ -1,7 +1,7 @@
 /**
  * GS1 Barcode Syntax Dictionary
  *
- * @author Copyright (c) 2022-2024 GS1 AISBL.
+ * @author Copyright (c) 2022-2025 GS1 AISBL.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,6 +57,7 @@ void test_lint_iso3166alpha2(void);
 void test_lint_iso4217(void);
 void test_lint_iso5218(void);
 void test_lint_key(void);
+void test_lint_keyoff1(void);
 void test_lint_latitude(void);
 void test_lint_longitude(void);
 void test_lint_mediatype(void);
@@ -92,6 +93,7 @@ TEST_LIST = {
 	{ "lint_csum", test_lint_csum },
 	{ "lint_csumalpha", test_lint_csumalpha },
 	{ "lint_key", test_lint_key },
+	{ "lint_keyoff1", test_lint_keyoff1 },
 	{ "lint_hasnondigit", test_lint_hasnondigit },
 	{ "lint_hh", test_lint_hh },
 	{ "lint_hhmi", test_lint_hhmi },
