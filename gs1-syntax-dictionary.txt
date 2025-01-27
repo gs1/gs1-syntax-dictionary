@@ -301,16 +301,16 @@
 7240        ?  X..20                            req=01,8006                                      # PROTOCOL
 7241        ?  N2,mediatype                     req=8017,8018                                    # AIDC MEDIA TYPE
 7242        ?  X..25                            req=8017,8018                                    # VCN
-7250           N8,yyyymmdd                      req=8018 ex=7251                                 # DOB
-7251           N8,yyyymmdd N4,hhmi              req=8018 ex=7250                                 # DOB TIME
-7252           N1,iso5218                       req=8018                                         # BIO SEX
-7253           X..40,pcenc                      req=8017,8018 ex=7256,7259                       # FAMILY NAME
-7254           X..40,pcenc                      req=8017,8018 ex=7256,7259                       # GIVEN NAME
-7255           X..10                            req=8017,8018 ex=7256,7259                       # SUFFIX
-7256           X..90,pcenc                      req=8017,8018                                    # FULL NAME
-7257           X..70,pcenc                      req=8018                                         # PERSON ADDR
-7258           X3,posinseqslash                 req=8018+7259                                    # BIRTH SEQUENCE
-7259           X..40,pcenc                      req=8018 ex=7256                                 # BABY
+7250        ?  N8,yyyymmdd                      req=8018 ex=7251                                 # DOB
+7251        ?  N8,yyyymmdd N4,hhmi              req=8018 ex=7250                                 # DOB TIME
+7252        ?  N1,iso5218                       req=8018                                         # BIO SEX
+7253        ?  X..40,pcenc                      req=8017,8018 ex=7256,7259                       # FAMILY NAME
+7254        ?  X..40,pcenc                      req=8017,8018 ex=7256,7259                       # GIVEN NAME
+7255        ?  X..10                            req=8017,8018 ex=7256,7259                       # SUFFIX
+7256        ?  X..90,pcenc                      req=8017,8018                                    # FULL NAME
+7257        ?  X..70,pcenc                      req=8018                                         # PERSON ADDR
+7258        ?  X3,posinseqslash                 req=8018+7259                                    # BIRTH SEQUENCE
+7259        ?  X..40,pcenc                      req=8018 ex=7256                                 # BABY
 8001        ?  N4,nonzero N5,nonzero N3,nonzero N1,winding N1  req=01                            # DIMENSIONS
 8002        ?  X..20                                                                             # CMT No.
 8003        ?  N1,zero N13,csum,key [X..16]     dlpkey                                           # GRAI
