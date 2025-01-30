@@ -1,4 +1,4 @@
-UNRELEASED
+2025-01-30
 
 * To avoid potential conflation of months with minutes, the hhmm linter was renamed to hhmi, with the previous name being replaced with a stub.
 * Linter exit points were converted to GS1_LINTER_RETURN{OK,ERROR} convenience macros.
