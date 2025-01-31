@@ -51,7 +51,7 @@
 #       "N..20" - 1 <= length <= 20
 #               - Note: Only the final compoment may have variable length
 #       "[...]" - Optional components
-#               - Note: Mandatory components may follow optional components
+#               - Note: No mandatory components may follow optional components
 #
 #     Each Linter is the name of a reference procedure that performs content
 #     validation of the component.
