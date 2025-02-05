@@ -120,7 +120,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso4217(const char* const data
 		 *
 		 *  Generated from the above data with:
 		 *
-		 *     for (size_t i = 0; i < sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf("%lx ", iso4217[i]); };
+		 *     for (size_t i = 0; i < sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf("0x%016lx, ", iso4217[i]); };
 		 *
 		 */
 		0x008800008808b808, 0x8880082080880808, 0x0880808800220009, 0x8010820202822000,
