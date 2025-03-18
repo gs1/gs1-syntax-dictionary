@@ -171,7 +171,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	 * positions in CSET 32.
 	 *
 	 */
-	p = primes + len - 3;
+	p = primes + (len - 3);
 	for (i = 0; i < len - 2; i++)
 		sum += (unsigned int)(strchr(cset82, data[i]) - cset82) * *p--;
 	sum %= 1021;
