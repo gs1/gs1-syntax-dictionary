@@ -35,6 +35,7 @@ ifeq ($(MAKECMDGOALS),fuzzer)
 SANITIZE = yes
 FUZZER_SAN_OPT = ,fuzzer
 FUZZER_CORPUS = corpus
+FUZZER_MAX_LEN = 103
 endif
 
 
@@ -192,11 +193,11 @@ fuzzer: $(FUZZER_BINS) | $(FUZZER_CORPUSES)
 	@echo Start fuzzing as follows:
 	@echo
 	@for sym in $^ ; do \
-		echo '$(SAN_ENV)' $$sym -jobs=`$(NPROC)` -workers=`$(NPROC)` $(FUZZER_CORPUS_PREFIX)$${sym##*-} -max_len=99 ; echo ; \
+		echo '$(SAN_ENV)' $$sym -jobs=`$(NPROC)` -workers=`$(NPROC)` $(FUZZER_CORPUS_PREFIX)$${sym##*-} -max_len=$(FUZZER_MAX_LEN) ; echo ; \
 	done
 	@echo
 	@for sym in $^ ; do \
-		echo '$(SAN_ENV)' nice $$sym $(FUZZER_CORPUS_PREFIX)$${sym##*-} -max_len=99 \& ; \
+		echo '$(SAN_ENV)' nice $$sym $(FUZZER_CORPUS_PREFIX)$${sym##*-} -max_len=$(FUZZER_MAX_LEN) \& ; \
 	done
 
 	@echo
