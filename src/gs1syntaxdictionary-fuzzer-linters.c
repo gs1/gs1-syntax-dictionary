@@ -1,7 +1,7 @@
 /**
  * GS1 Barcode Syntax Dictionary
  *
- * @author Copyright (c) 2022-2024 GS1 AISBL.
+ * @author Copyright (c) 2022-2025 GS1 AISBL.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,6 +48,8 @@ int LLVMFuzzerTestOneInput(const uint8_t* const buf, size_t len) {
 	len = strlen(data);	// Might be shorter still due to nulls in buf
 
 	err = RUN_LINTER(LINTER, data, err_pos, err_len);
+
+	assert(memcmp(data, buf, len) == 0);
 
 	if (err != GS1_LINTER_OK) {
 		assert(*err_pos < len || *err_pos == 0);
