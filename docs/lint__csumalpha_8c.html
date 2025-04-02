@@ -156,7 +156,7 @@ calculation (for alphanumeric keys)". </dd></dl>
 <div class="line"><span class="lineno">  127</span><span class="comment">         * have.</span></div>
 <div class="line"><span class="lineno">  128</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  129</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">if</span> (len &gt; <span class="keyword">sizeof</span>(primes) / <span class="keyword">sizeof</span>(primes[0]))</div>
+<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">if</span> (len - 2 &gt; <span class="keyword">sizeof</span>(primes) / <span class="keyword">sizeof</span>(primes[0]))</div>
 <div class="line"><span class="lineno">  131</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  132</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5b689ccb0bf7fdc46a6bb6bfc2b92707">GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION</a>,</div>
 <div class="line"><span class="lineno">  133</span>                        0,</div>
@@ -200,21 +200,23 @@ calculation (for alphanumeric keys)". </dd></dl>
 <div class="line"><span class="lineno">  171</span><span class="comment">         * positions in CSET 32.</span></div>
 <div class="line"><span class="lineno">  172</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  173</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  174</span>        p = primes + len - 3;</div>
-<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">for</span> (i = 0; i &lt; len - 2; i++)</div>
-<div class="line"><span class="lineno">  176</span>                sum += (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)(strchr(cset82, data[i]) - cset82) * *p--;</div>
-<div class="line"><span class="lineno">  177</span>        sum %= 1021;</div>
-<div class="line"><span class="lineno">  178</span> </div>
-<div class="line"><span class="lineno">  179</span>        <span class="keywordflow">if</span> (data[i] != cset32[sum &gt;&gt; 5] || data[i+1] != cset32[sum &amp; 31])</div>
-<div class="line"><span class="lineno">  180</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  181</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa646a6a5aad1b3f30532dff5d93a50118">GS1_LINTER_INCORRECT_CHECK_PAIR</a>,</div>
-<div class="line"><span class="lineno">  182</span>                        len - 2,</div>
-<div class="line"><span class="lineno">  183</span>                        2</div>
-<div class="line"><span class="lineno">  184</span>                );</div>
-<div class="line"><span class="lineno">  185</span> </div>
-<div class="line"><span class="lineno">  186</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">if</span> (len &gt; 2)</div>
+<div class="line"><span class="lineno">  175</span>                p = primes + (len - 3);</div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">for</span> (i = 0; i &lt; len - 2; i++)</div>
+<div class="line"><span class="lineno">  178</span>                sum += (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)(strchr(cset82, data[i]) - cset82) * *p--;</div>
+<div class="line"><span class="lineno">  179</span>        sum %= 1021;</div>
+<div class="line"><span class="lineno">  180</span> </div>
+<div class="line"><span class="lineno">  181</span>        <span class="keywordflow">if</span> (data[i] != cset32[sum &gt;&gt; 5] || data[i+1] != cset32[sum &amp; 31])</div>
+<div class="line"><span class="lineno">  182</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  183</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa646a6a5aad1b3f30532dff5d93a50118">GS1_LINTER_INCORRECT_CHECK_PAIR</a>,</div>
+<div class="line"><span class="lineno">  184</span>                        len - 2,</div>
+<div class="line"><span class="lineno">  185</span>                        2</div>
+<div class="line"><span class="lineno">  186</span>                );</div>
 <div class="line"><span class="lineno">  187</span> </div>
-<div class="line"><span class="lineno">  188</span>}</div>
+<div class="line"><span class="lineno">  188</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  189</span> </div>
+<div class="line"><span class="lineno">  190</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:77</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:62</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa5b689ccb0bf7fdc46a6bb6bfc2b92707"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5b689ccb0bf7fdc46a6bb6bfc2b92707">GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION</a></div><div class="ttdeci">@ GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION</div><div class="ttdoc">The component is too long to perform an alphanumeric check character pair calculation.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:86</div></div>

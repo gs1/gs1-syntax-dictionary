@@ -121,7 +121,7 @@ If provided, the GS1_LINTER_CUSTOM_ISO4217_LOOKUP macro shall invoke whatever fu
 <div class="line"><span class="lineno">  100</span><span class="preprocessor">#if __STDC_VERSION__ &gt;= 202311L</span></div>
 <div class="line"><span class="lineno">  101</span>                0b0000000010001000000000000000000010001000000010001011100000001000,  <span class="comment">// 000-063: 008 012 032 036 044 048 050-052 060</span></div>
 <div class="line"><span class="lineno">  102</span>                0b1000100010000000000010000010000010000000100010000000100000001000,  <span class="comment">// 064-127: 064 068 072 084 090 096 104 108 116 124</span></div>
-<div class="line"><span class="lineno">  103</span>                0b0000100010000000100000001000100000000000001000100000000000001001,  <span class="comment">// 128-191: 132 136 144 152 156 170 174 188 191-192</span></div>
+<div class="line"><span class="lineno">  103</span>                0b0000100010000000100000001000100000000000001000100000000000001000,  <span class="comment">// 128-191: 132 136 144 152 156 170 174 188</span></div>
 <div class="line"><span class="lineno">  104</span>                0b1000000000010000100000100000001000000010100000100010000000000000,  <span class="comment">// 192-255: 192 203 208 214 222 230 232 238 242</span></div>
 <div class="line"><span class="lineno">  105</span>                0b0000001000000010000000000000000000001000000000000000000000000000,  <span class="comment">// 256-319: 262 270 292</span></div>
 <div class="line"><span class="lineno">  106</span>                0b1000100010001000000010001000100010001000100010001000000010000000,  <span class="comment">// 320-383: 320 324 328 332 340 344 348 352 356 360 364 368 376</span></div>
@@ -129,11 +129,11 @@ If provided, the GS1_LINTER_CUSTOM_ISO4217_LOOKUP macro shall invoke whatever fu
 <div class="line"><span class="lineno">  108</span>                0b0000001000100010000000000000000010001000000000001010000010000000,  <span class="comment">// 448-511: 454 458 462 480 484 496 498 504</span></div>
 <div class="line"><span class="lineno">  109</span>                0b1000100000001000000011000000000000001000001000100000001000000000,  <span class="comment">// 512-575: 512 516 524 532-533 548 554 558 566</span></div>
 <div class="line"><span class="lineno">  110</span>                0b0010000000100010000000101000100010000000000000000000000000100000,  <span class="comment">// 576-639: 578 586 590 598 600 604 608 634</span></div>
-<div class="line"><span class="lineno">  111</span>                0b0001001000000010000000000000000000000000001000000010001000000010,  <span class="comment">// 640-703: 643 646 654 682 690 694 702</span></div>
+<div class="line"><span class="lineno">  111</span>                0b0001001000000010000000000000000000000000001000000010000000000010,  <span class="comment">// 640-703: 643 646 654 682 690 702</span></div>
 <div class="line"><span class="lineno">  112</span>                0b1010001000000000000000001000000000000000000010001000100010001000,  <span class="comment">// 704-767: 704 706 710 728 748 752 756 760 764</span></div>
 <div class="line"><span class="lineno">  113</span>                0b0000000010001000100010000000000010000001000000000010000000100000,  <span class="comment">// 768-831: 776 780 784 788 800 807 818 826</span></div>
 <div class="line"><span class="lineno">  114</span>                0b0010000010000000000000000010100000000000000000000010001000000000,  <span class="comment">// 832-895: 834 840 858 860 882 886</span></div>
-<div class="line"><span class="lineno">  115</span>                0b0000010000000000000000000000110111111110101011011011111111011111,  <span class="comment">// 896-959: 901 924-925 927-934 936 938 940-941 943-944 946-953 955-959</span></div>
+<div class="line"><span class="lineno">  115</span>                0b0000010000000000000000000000111111100110101011011011111111011111,  <span class="comment">// 896-959: 901 924-930 933-934 936 938 940-941 943-944 946-953 955-959</span></div>
 <div class="line"><span class="lineno">  116</span>                0b1111110111111101111111001110001000100101000000000000000000000000,  <span class="comment">// 960-999: 960-965 967-973 975-981 984-986 990 994 997 999</span></div>
 <div class="line"><span class="lineno">  117</span><span class="preprocessor">#else</span></div>
 <div class="line"><span class="lineno">  118</span>                <span class="comment">/*</span></div>
@@ -141,13 +141,13 @@ If provided, the GS1_LINTER_CUSTOM_ISO4217_LOOKUP macro shall invoke whatever fu
 <div class="line"><span class="lineno">  120</span><span class="comment">                 *</span></div>
 <div class="line"><span class="lineno">  121</span><span class="comment">                 *  Generated from the above data with:</span></div>
 <div class="line"><span class="lineno">  122</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  123</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf(&quot;%lx &quot;, iso4217[i]); };</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf(&quot;0x%016lx, &quot;, iso4217[i]); };</span></div>
 <div class="line"><span class="lineno">  124</span><span class="comment">                 *</span></div>
 <div class="line"><span class="lineno">  125</span><span class="comment">                 */</span></div>
-<div class="line"><span class="lineno">  126</span>                0x008800008808b808, 0x8880082080880808, 0x0880808800220009, 0x8010820202822000,</div>
+<div class="line"><span class="lineno">  126</span>                0x008800008808b808, 0x8880082080880808, 0x0880808800220008, 0x8010820202822000,</div>
 <div class="line"><span class="lineno">  127</span>                0x0202000008000000, 0x8888088888888080, 0x088288a262222002, 0x022200008800a080,</div>
-<div class="line"><span class="lineno">  128</span>                0x88080c0008220200, 0x2022028880000020, 0x1202000000202202, 0xa200008000088888,</div>
-<div class="line"><span class="lineno">  129</span>                0x0088880081002020, 0x2080002800002200, 0x0400000dfeadbfdf, 0xfdfdfce225000000,</div>
+<div class="line"><span class="lineno">  128</span>                0x88080c0008220200, 0x2022028880000020, 0x1202000000202002, 0xa200008000088888,</div>
+<div class="line"><span class="lineno">  129</span>                0x0088880081002020, 0x2080002800002200, 0x0400000fe6adbfdf, 0xfdfdfce225000000,</div>
 <div class="line"><span class="lineno">  130</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">  131</span>        };</div>
 <div class="line"><span class="lineno">  132</span><span class="comment"></span> </div>

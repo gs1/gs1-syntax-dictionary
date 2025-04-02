@@ -140,7 +140,7 @@ If provided, the GS1_LINTER_CUSTOM_ISO3166_LOOKUP macro shall invoke whatever fu
 <div class="line"><span class="lineno">  118</span><span class="comment">                 *</span></div>
 <div class="line"><span class="lineno">  119</span><span class="comment">                 *  Generated from the above data with:</span></div>
 <div class="line"><span class="lineno">  120</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  121</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso3166) / sizeof(iso3166[0]); i++) { printf(&quot;%lx &quot;, iso3166[i]); };</span></div>
+<div class="line"><span class="lineno">  121</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso3166) / sizeof(iso3166[0]); i++) { printf(&quot;0x%016lx, &quot;, iso3166[i]); };</span></div>
 <div class="line"><span class="lineno">  122</span><span class="comment">                 *</span></div>
 <div class="line"><span class="lineno">  123</span><span class="comment">                 */</span></div>
 <div class="line"><span class="lineno">  124</span>                0x08a888898888b888, 0x8aa80a2888888888, 0x0888888a22232889, 0x88188a2221e322a2,</div>
