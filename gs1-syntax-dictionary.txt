@@ -316,7 +316,7 @@
 8003        ?  N1,zero N13,csum,key [X..16]     dlpkey                                           # GRAI
 8004        ?  X..30,key                        dlpkey=7040                                      # GIAI
 8005        ?  N6                               req=01,02                                        # PRICE PER UNIT
-8006        ?  N14,csum N4,pieceoftotal         ex=01,37 dlpkey=22,10,21                         # ITIP
+8006        ?  N14,csum,keyoff1 N4,pieceoftotal ex=01,37 dlpkey=22,10,21                         # ITIP
 8007        ?  X..34,iban                       req=415                                          # IBAN
 8008        ?  N6,yymmdd N2,hh [N2],mi [N2],ss  req=01,02                                        # PROD TIME
 8009        ?  X..50                            req=00,01                                        # OPTSEN
@@ -329,7 +329,7 @@
 8018        ?  N18,csum,key                     ex=8017 dlpkey=8019                              # GSRN - RECIPIENT
 8019           N..10                            req=8017,8018                                    # SRIN
 8020           X..25                            req=415                                          # REF No.
-8026        ?  N14,csum N4,pieceoftotal         req=37 ex=02,8006                                # ITIP CONTENT
+8026        ?  N14,csum,keyoff1 N4,pieceoftotal req=37 ex=02,8006                                # ITIP CONTENT
 8030        ?  Z..90  req=00,01+21,253,255,8003,8004,8006+21,8010+8011,8017,8018                 # DIGSIG
 8110        ?  X..70,couponcode
 8111        ?  N4                               req=255                                          # POINTS
