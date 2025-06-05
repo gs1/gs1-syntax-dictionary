@@ -45,6 +45,8 @@ void test_lint_cset82(void);
 void test_lint_csetnumeric(void);
 void test_lint_csum(void);
 void test_lint_csumalpha(void);
+void test_lint_gcppos1(void);
+void test_lint_gcppos2(void);
 void test_lint_hasnondigit(void);
 void test_lint_hh(void);
 void test_lint_hhmi(void);
@@ -56,8 +58,6 @@ void test_lint_iso3166999(void);
 void test_lint_iso3166alpha2(void);
 void test_lint_iso4217(void);
 void test_lint_iso5218(void);
-void test_lint_key(void);
-void test_lint_keyoff1(void);
 void test_lint_latitude(void);
 void test_lint_longitude(void);
 void test_lint_mediatype(void);
@@ -92,8 +92,8 @@ TEST_LIST = {
 	{ "lint_csetnumeric", test_lint_csetnumeric },
 	{ "lint_csum", test_lint_csum },
 	{ "lint_csumalpha", test_lint_csumalpha },
-	{ "lint_key", test_lint_key },
-	{ "lint_keyoff1", test_lint_keyoff1 },
+	{ "lint_gcppos1", test_lint_gcppos1 },
+	{ "lint_gcppos2", test_lint_gcppos2 },
 	{ "lint_hasnondigit", test_lint_hasnondigit },
 	{ "lint_hh", test_lint_hh },
 	{ "lint_hhmi", test_lint_hhmi },
