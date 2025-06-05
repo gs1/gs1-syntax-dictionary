@@ -326,8 +326,8 @@
 8012         ?  X..20                             req=01,8006                                      # VERSION
 8013        !?  X..25,csumalpha,gcppos1           dlpkey                                           # GMN
 8014            X..25,csumalpha,gcppos1,hasnondigit  req=01                                        # MUDI
-8017        !?  N18,csum,key                      ex=8018 dlpkey=8019                              # GSRN - PROVIDER
-8018        !?  N18,csum,key                      ex=8017 dlpkey=8019                              # GSRN - RECIPIENT
+8017        !?  N18,csum,gcppos1                  ex=8018 dlpkey=8019                              # GSRN - PROVIDER
+8018        !?  N18,csum,gcppos1                  ex=8017 dlpkey=8019                              # GSRN - RECIPIENT
 8019            N..10                             req=8017,8018                                    # SRIN
 8020            X..25                             req=415                                          # REF No.
 8026         ?  N14,csum,gcppos2 N4,pieceoftotal  req=37 ex=02,8006                                # ITIP CONTENT
