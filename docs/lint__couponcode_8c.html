@@ -243,11 +243,11 @@ Guideline Using GS1 DataBar Expanded Symbols" for a description of the GS1 U.S. 
 <div class="line"><span class="lineno">  238</span>                );</div>
 <div class="line"><span class="lineno">  239</span> </div>
 <div class="line"><span class="lineno">  240</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  241</span><span class="comment">         * Validate the GCP with the &quot;key&quot; linter.</span></div>
+<div class="line"><span class="lineno">  241</span><span class="comment">         * Validate the GCP with the &quot;gcppos1&quot; linter.</span></div>
 <div class="line"><span class="lineno">  242</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  243</span><span class="comment">         */</span></div>
 <div class="line"><span class="lineno">  244</span>        strncpy(gcp, p, (<span class="keywordtype">size_t</span>)vli);</div>
-<div class="line"><span class="lineno">  245</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#ad99951147c53e81735763fa0ecfd1497">gs1_lint_key</a>(gcp, err_pos, err_len);</div>
+<div class="line"><span class="lineno">  245</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#adaccd573a710dced3c8adcf11f34c20a">gs1_lint_gcppos1</a>(gcp, err_pos, err_len);</div>
 <div class="line"><span class="lineno">  246</span> </div>
 <div class="line"><span class="lineno">  247</span>        assert (ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> ||</div>
 <div class="line"><span class="lineno">  248</span>                ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a> ||</div>
@@ -505,11 +505,11 @@ Guideline Using GS1 DataBar Expanded Symbols" for a description of the GS1 U.S. 
 <div class="line"><span class="lineno">  500</span>                        );</div>
 <div class="line"><span class="lineno">  501</span> </div>
 <div class="line"><span class="lineno">  502</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  503</span><span class="comment">                 * Validate the GCP with the &quot;key&quot; linter.</span></div>
+<div class="line"><span class="lineno">  503</span><span class="comment">                 * Validate the GCP with the &quot;gcppos1&quot; linter.</span></div>
 <div class="line"><span class="lineno">  504</span><span class="comment">                 *</span></div>
 <div class="line"><span class="lineno">  505</span><span class="comment">                 */</span></div>
 <div class="line"><span class="lineno">  506</span>                strncpy(gcp, p, (<span class="keywordtype">size_t</span>)vli);</div>
-<div class="line"><span class="lineno">  507</span>                ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#ad99951147c53e81735763fa0ecfd1497">gs1_lint_key</a>(gcp, err_pos, err_len);</div>
+<div class="line"><span class="lineno">  507</span>                ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#adaccd573a710dced3c8adcf11f34c20a">gs1_lint_gcppos1</a>(gcp, err_pos, err_len);</div>
 <div class="line"><span class="lineno">  508</span> </div>
 <div class="line"><span class="lineno">  509</span>                assert (ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> ||</div>
 <div class="line"><span class="lineno">  510</span>                        ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a> ||</div>
@@ -635,11 +635,11 @@ Guideline Using GS1 DataBar Expanded Symbols" for a description of the GS1 U.S. 
 <div class="line"><span class="lineno">  630</span>                        );</div>
 <div class="line"><span class="lineno">  631</span> </div>
 <div class="line"><span class="lineno">  632</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  633</span><span class="comment">                 * Validate the GCP with the &quot;key&quot; linter.</span></div>
+<div class="line"><span class="lineno">  633</span><span class="comment">                 * Validate the GCP with the &quot;gcppos1&quot; linter.</span></div>
 <div class="line"><span class="lineno">  634</span><span class="comment">                 *</span></div>
 <div class="line"><span class="lineno">  635</span><span class="comment">                 */</span></div>
 <div class="line"><span class="lineno">  636</span>                strncpy(gcp, p, (<span class="keywordtype">size_t</span>)vli);</div>
-<div class="line"><span class="lineno">  637</span>                ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#ad99951147c53e81735763fa0ecfd1497">gs1_lint_key</a>(gcp, err_pos, err_len);</div>
+<div class="line"><span class="lineno">  637</span>                ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#adaccd573a710dced3c8adcf11f34c20a">gs1_lint_gcppos1</a>(gcp, err_pos, err_len);</div>
 <div class="line"><span class="lineno">  638</span> </div>
 <div class="line"><span class="lineno">  639</span>                assert (ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> ||</div>
 <div class="line"><span class="lineno">  640</span>                        ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a> ||</div>
@@ -829,11 +829,11 @@ Guideline Using GS1 DataBar Expanded Symbols" for a description of the GS1 U.S. 
 <div class="line"><span class="lineno">  824</span>                        );</div>
 <div class="line"><span class="lineno">  825</span> </div>
 <div class="line"><span class="lineno">  826</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  827</span><span class="comment">                 * Validate the GCP/GLN with the &quot;key&quot; linter.</span></div>
+<div class="line"><span class="lineno">  827</span><span class="comment">                 * Validate the GCP/GLN with the &quot;gcppos1&quot; linter.</span></div>
 <div class="line"><span class="lineno">  828</span><span class="comment">                 *</span></div>
 <div class="line"><span class="lineno">  829</span><span class="comment">                 */</span></div>
 <div class="line"><span class="lineno">  830</span>                strncpy(gcp, p, (<span class="keywordtype">size_t</span>)vli);</div>
-<div class="line"><span class="lineno">  831</span>                ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#ad99951147c53e81735763fa0ecfd1497">gs1_lint_key</a>(gcp, err_pos, err_len);</div>
+<div class="line"><span class="lineno">  831</span>                ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#adaccd573a710dced3c8adcf11f34c20a">gs1_lint_gcppos1</a>(gcp, err_pos, err_len);</div>
 <div class="line"><span class="lineno">  832</span> </div>
 <div class="line"><span class="lineno">  833</span>                assert (ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> ||</div>
 <div class="line"><span class="lineno">  834</span>                        ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a> ||</div>
@@ -1014,7 +1014,7 @@ Guideline Using GS1 DataBar Expanded Symbols" for a description of the GS1 U.S. 
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaeeec9e6b71253feb4ad35a85c066d771"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaeeec9e6b71253feb4ad35a85c066d771">GS1_LINTER_COUPON_MISSING_SAVE_VALUE_CODE</a></div><div class="ttdeci">@ GS1_LINTER_COUPON_MISSING_SAVE_VALUE_CODE</div><div class="ttdoc">The coupon's Save Value Code is missing.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:171</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaf8ffbc4c926811603f3c2aaf492f7fb2"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf8ffbc4c926811603f3c2aaf492f7fb2">GS1_LINTER_COUPON_INVALID_RETAILER_GCP_OR_GLN_LENGTH</a></div><div class="ttdeci">@ GS1_LINTER_COUPON_INVALID_RETAILER_GCP_OR_GLN_LENGTH</div><div class="ttdoc">The coupon's Retailer GCP/GLN VLI must be &quot;1&quot; to &quot;7&quot;.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:169</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aaf9d511895f19190a9be2a3d6da8dbfcb"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaf9d511895f19190a9be2a3d6da8dbfcb">GS1_LINTER_COUPON_INVALID_3RD_PURCHASE_GCP_LENGTH</a></div><div class="ttdeci">@ GS1_LINTER_COUPON_INVALID_3RD_PURCHASE_GCP_LENGTH</div><div class="ttdoc">The coupon's third purchase GS1 Company Prefix VLI must be &quot;0&quot; to &quot;6&quot; or &quot;9&quot;.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:161</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_ad99951147c53e81735763fa0ecfd1497"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad99951147c53e81735763fa0ecfd1497">gs1_lint_key</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_key(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_key.c:101</div></div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_adaccd573a710dced3c8adcf11f34c20a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#adaccd573a710dced3c8adcf11f34c20a">gs1_lint_gcppos1</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos1(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_gcppos1.c:101</div></div>
 </div><!-- fragment -->
 </div>
 </div>
