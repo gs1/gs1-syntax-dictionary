@@ -1,7 +1,10 @@
 XXXX-XX-XX
 
+* The "key" linter was renamed to "gcppos1".
+* The "keyoff1" linter was renamed to "gcppos2", and was added to AIs (8006) and (8026).
+* New flag "!" indicating that an AI is designated as a GS1 identification key.
 * The mandatory associations for AI (03) and AI (242) were amended in accordance with GSCN 24-020.
-* Currency codes 191 (HRK), 694 (SLL) and 932 (ZWL) were removed and currency code 926 (VED) was added to correct alignment with ISO 4217.
+* Currency codes 191 (HRK), 694 (SLL) and 932 (ZWL) were removed and currency codes 179 (XAD) and 926 (VED) was added to correct alignment with ISO 4217.
 
 
 2025-01-30
