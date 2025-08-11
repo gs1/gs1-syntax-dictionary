@@ -58,23 +58,45 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 #define E(i)    data[i + pos + 1]
 /// \endcond
 
-	size_t pos, len;
+	size_t pos, len, slash_pos;
 
 	assert(data);
 
 	len = strlen(data);
 
 	/*
-	 * Determine that the format is "<pos>/<end>".
+	 * First non-digit should be '/'
 	 *
 	 */
-	pos = strspn(data, "0123456789");
-	if (pos == 0 || pos >= len - 1 || data[pos] != '/' || strspn(data + pos + 1, "0123456789") != len - pos - 1)
+	for (pos = 0; pos < len && data[pos] >= '0' && data[pos] <= '9'; pos++);
+
+	/*
+	 * Format so far must be digits + '/'
+	 *
+	 */
+	if (pos == 0 || pos >= len - 1 || data[pos] != '/')
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
 			0,
 			len
 		);
+
+	slash_pos = pos;
+
+	/*
+	 * Validate that remaining characters are digits
+	 *
+	 */
+	for (pos++; pos < len; pos++) {
+		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
+				0,
+				len
+			);
+	}
+
+	pos = slash_pos;
 
 	/*
 	 * Ensure position number is non-zero and does not have zero prefix.
