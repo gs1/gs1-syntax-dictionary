@@ -76,7 +76,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmd0(const char* const dat
 	 * Data must be eight characters.
 	 *
 	 */
-	if (len != 8)
+	if (GS1_LINTER_UNLIKELY(len != 8))
 		GS1_LINTER_RETURN_ERROR(
 			len < 8 ? GS1_LINTER_DATE_TOO_SHORT : GS1_LINTER_DATE_TOO_LONG,
 			0,
@@ -87,7 +87,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmd0(const char* const dat
 	 * Data must consist of all digits.
 	 *
 	 */
-	if ((pos = strspn(data, "0123456789")) != len)
+	if (GS1_LINTER_UNLIKELY((pos = strspn(data, "0123456789")) != len))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_NON_DIGIT_CHARACTER,
 			pos,
@@ -98,7 +98,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmd0(const char* const dat
 	 * Validate that the month is 01 to 12.
 	 *
 	 */
-	if (MM < 1 || MM > 12)
+	if (GS1_LINTER_UNLIKELY(MM < 1 || MM > 12))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_ILLEGAL_MONTH,
 			4,
@@ -115,7 +115,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmd0(const char* const dat
 		maxdd = daysinmonth[MM - 1];		/* Based at 0 */
 	}
 
-	if (DD > maxdd)		/* Permit "00" */
+	if (GS1_LINTER_UNLIKELY(DD > maxdd))		/* Permit "00" */
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_ILLEGAL_DAY,
 			6,

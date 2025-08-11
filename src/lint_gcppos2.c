@@ -64,7 +64,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos2(const char* const data
 
 	len = strlen(data);
 
-	if (len < 2)
+	if (GS1_LINTER_UNLIKELY(len < 2))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_TOO_SHORT_FOR_GCP,
 			0,
@@ -78,7 +78,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos2(const char* const data
 	       ret == GS1_LINTER_INVALID_GCP_PREFIX ||
 	       ret == GS1_LINTER_GCP_DATASOURCE_OFFLINE);
 
-	if (ret != GS1_LINTER_OK)
+	if (GS1_LINTER_UNLIKELY(ret != GS1_LINTER_OK))
 		GS1_LINTER_RETURN_ERROR(
 			ret,
 			*err_pos + 1,

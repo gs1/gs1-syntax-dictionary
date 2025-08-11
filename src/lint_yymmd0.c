@@ -77,7 +77,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yymmd0(const char* const data,
 	 * Data must be six characters.
 	 *
 	 */
-	if (len != 6)
+	if (GS1_LINTER_UNLIKELY(len != 6))
 		GS1_LINTER_RETURN_ERROR(
 			len < 6 ? GS1_LINTER_DATE_TOO_SHORT : GS1_LINTER_DATE_TOO_LONG,
 			0,
@@ -88,7 +88,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yymmd0(const char* const data,
 	 * Data must consist of all digits.
 	 *
 	 */
-	if ((pos = strspn(data, "0123456789")) != len)
+	if (GS1_LINTER_UNLIKELY((pos = strspn(data, "0123456789")) != len))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_NON_DIGIT_CHARACTER,
 			pos,
@@ -118,7 +118,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yymmd0(const char* const data,
 	assert(!err_pos || ret == GS1_LINTER_OK || (*err_pos >= 2));
 	assert(!err_pos || !err_len || ret == GS1_LINTER_OK || (*err_pos + *err_len <= len + 2));
 
-	if (ret != GS1_LINTER_OK)
+	if (GS1_LINTER_UNLIKELY(ret != GS1_LINTER_OK))
 		GS1_LINTER_RETURN_ERROR(
 			ret,
 			*err_pos - 2,

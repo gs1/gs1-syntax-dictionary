@@ -61,7 +61,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_longitude(const char* const da
 	 * Data must be 10 characters.
 	 *
 	 */
-	if (len != 10)
+	if (GS1_LINTER_UNLIKELY(len != 10))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_LONGITUDE_INVALID_LENGTH,
 			0,
@@ -72,7 +72,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_longitude(const char* const da
 	 * Data must consist of all digits.
 	 *
 	 */
-	if ((pos = strspn(data, "0123456789")) != len)
+	if (GS1_LINTER_UNLIKELY((pos = strspn(data, "0123456789")) != len))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_NON_DIGIT_CHARACTER,
 			pos,
@@ -83,7 +83,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_longitude(const char* const da
 	 * The longitude must be within the range 0000000000 to 3600000000.
 	 *
 	 */
-	if (strtoul(data, NULL, 10) > 3600000000)
+	if (GS1_LINTER_UNLIKELY(strtoul(data, NULL, 10) > 3600000000))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INVALID_LONGITUDE,
 			0,

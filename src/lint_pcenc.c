@@ -69,7 +69,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pcenc(const char* const data, 
 	 */
 	while (p != q && (p = strchr(p, '%')) != NULL) {
 
-		if (q - p < 3)
+		if (GS1_LINTER_UNLIKELY(q - p < 3))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_INVALID_PERCENT_SEQUENCE,
 				(size_t)(p - data),
@@ -77,7 +77,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pcenc(const char* const data, 
 			);
 
 		memcpy(pct, p + 1, 2);
-		if (strspn(pct, "0123456789ABCDEFabcdef") != 2)
+		if (GS1_LINTER_UNLIKELY(strspn(pct, "0123456789ABCDEFabcdef") != 2))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_INVALID_PERCENT_SEQUENCE,
 				(size_t)(p - data),

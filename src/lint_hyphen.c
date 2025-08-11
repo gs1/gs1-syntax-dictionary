@@ -53,14 +53,14 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hyphen(const char* const data,
 
 	len = strlen(data);
 
-	if (*data == '\0')
+	if (GS1_LINTER_UNLIKELY(*data == '\0'))
 		GS1_LINTER_RETURN_ERROR(GS1_LINTER_NOT_HYPHEN, 0, 0);
 
 	/*
 	 * Data must not contain a non-hyphen character
 	 *
 	 */
-	if (strspn(data, "-") != len)
+	if (GS1_LINTER_UNLIKELY(strspn(data, "-") != len))
 		GS1_LINTER_RETURN_ERROR(GS1_LINTER_NOT_HYPHEN, 0, len);
 
 	GS1_LINTER_RETURN_OK;

@@ -76,7 +76,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_importeridx(const char* const 
 	 * Data must be a single character.
 	 *
 	 */
-	if (data[0] == '\0' || data[1] != '\0') {
+	if (GS1_LINTER_UNLIKELY(data[0] == '\0' || data[1] != '\0')) {
 		size_t len = data[0] == '\0' ? 0 : strlen(data);
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_IMPORTER_IDX_MUST_BE_ONE_CHARACTER,

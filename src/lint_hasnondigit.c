@@ -58,7 +58,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hasnondigit(const char* const 
 	 * Data must not be all numeric
 	 *
 	 */
-	if (strspn(data, "0123456789") == len)
+	if (GS1_LINTER_UNLIKELY(strspn(data, "0123456789") == len))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_REQUIRES_NON_DIGIT_CHARACTER,
 			0,

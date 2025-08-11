@@ -74,7 +74,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 	 * Format so far must be digits + '/'
 	 *
 	 */
-	if (pos == 0 || pos >= len - 1 || data[pos] != '/')
+	if (GS1_LINTER_UNLIKELY(pos == 0 || pos >= len - 1 || data[pos] != '/'))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
 			0,
@@ -102,7 +102,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 	 * Ensure position number is non-zero and does not have zero prefix.
 	 *
 	 */
-	if (P(0) == '0')
+	if (GS1_LINTER_UNLIKELY(P(0) == '0'))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_ILLEGAL_ZERO_PREFIX,
 			0,
@@ -113,7 +113,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 	 * Ensure end number is non-zero and does not have zero prefix.
 	 *
 	 */
-	if (E(0) == '0')
+	if (GS1_LINTER_UNLIKELY(E(0) == '0'))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_ILLEGAL_ZERO_PREFIX,
 			pos + 1,
@@ -130,13 +130,13 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 		for (i = 0; i < pos && !compare; i++)
 			if (P(i) != E(i))
 				compare = P(i) < E(i) ? -1 : 1;
-		if (compare == 1)
+		if (GS1_LINTER_UNLIKELY(compare == 1))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_POSITION_EXCEEDS_END,
 				0,
 				len
 			);
-	} else if (pos > len - pos - 1)
+	} else if (GS1_LINTER_UNLIKELY(pos > len - pos - 1))
 		/* Non-zero prefix, so a length check is sufficient. */
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_POSITION_EXCEEDS_END,

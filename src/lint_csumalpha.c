@@ -114,7 +114,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	 * Data must include at least the check character pair.
 	 *
 	 */
-	if (len < 2)
+	if (GS1_LINTER_UNLIKELY(len < 2))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_TOO_SHORT_FOR_CHECK_PAIR,
 			0,
@@ -126,7 +126,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	 * have.
 	 *
 	 */
-	if (len - 2 > sizeof(primes) / sizeof(primes[0]))
+	if (GS1_LINTER_UNLIKELY(len - 2 > sizeof(primes) / sizeof(primes[0])))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION,
 			0,
@@ -137,7 +137,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	 * Ensure that the data characters are in CSET 82
 	 *
 	 */
-	if ((pos = strspn(data, cset82)) < len - 2)
+	if (GS1_LINTER_UNLIKELY((pos = strspn(data, cset82)) < len - 2))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INVALID_CSET82_CHARACTER,
 			pos,
@@ -148,7 +148,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	 * Ensure that the check characters are in CSET 32
 	 *
 	 */
-	if ((pos = strspn(&data[len - 2], cset32)) != 2)
+	if (GS1_LINTER_UNLIKELY((pos = strspn(&data[len - 2], cset32)) != 2))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INVALID_CSET32_CHARACTER,
 			len - 2 + pos,
@@ -179,7 +179,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 		sum %= 1021;
 	}
 
-	if (data[len-2] != cset32[sum >> 5] || data[len-1] != cset32[sum & 31])
+	if (GS1_LINTER_UNLIKELY(data[len-2] != cset32[sum >> 5] || data[len-1] != cset32[sum & 31]))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INCORRECT_CHECK_PAIR,
 			len - 2,

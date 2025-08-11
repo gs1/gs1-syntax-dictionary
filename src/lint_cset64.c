@@ -81,7 +81,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_cset64(const char* const data,
 
 	len = full_len - pads;
 
-	if (pads > 2 || (pads > 0 && full_len % 3 != 0))
+	if (GS1_LINTER_UNLIKELY(pads > 2 || (pads > 0 && full_len % 3 != 0)))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INVALID_CSET64_PADDING,
 			len,

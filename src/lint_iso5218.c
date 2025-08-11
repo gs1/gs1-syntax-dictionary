@@ -58,8 +58,8 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso5218(const char* const data
 	 * The data must be either "0", "1", "2" or "9".
 	 *
 	 */
-	if (strcmp(data, "0") != 0 && strcmp(data, "1") != 0 &&
-	    strcmp(data, "2") != 0 && strcmp(data, "9") != 0)
+	if (GS1_LINTER_UNLIKELY(strcmp(data, "0") != 0 && strcmp(data, "1") != 0 &&
+	    strcmp(data, "2") != 0 && strcmp(data, "9") != 0))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INVALID_BIOLOGICAL_SEX_CODE,
 			0,
