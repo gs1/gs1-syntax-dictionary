@@ -75,12 +75,14 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_mi(const char* const data, siz
 	 * Data must consist of all digits.
 	 *
 	 */
-	if (GS1_LINTER_UNLIKELY((pos = strspn(data, "0123456789")) != len))
-		GS1_LINTER_RETURN_ERROR(
-			GS1_LINTER_NON_DIGIT_CHARACTER,
-			pos,
-			1
-		);
+	for (pos = 0; pos < len; pos++) {
+		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_NON_DIGIT_CHARACTER,
+				pos,
+				1
+			);
+	}
 
 	/*
 	 * Validate the minute.
