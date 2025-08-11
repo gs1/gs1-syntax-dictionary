@@ -60,7 +60,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csetnumeric(const char* const 
 	 * Any character outside the range '0' to '9' is illegal.
 	 *
 	 */
-	if ((pos = strspn(data, "0123456789")) != strlen(data))
+	if (GS1_LINTER_UNLIKELY((pos = strspn(data, "0123456789")) != strlen(data)))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_NON_DIGIT_CHARACTER,
 			pos,

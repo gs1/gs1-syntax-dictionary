@@ -69,7 +69,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char* const data, s
 	 * Data must include at least the check digit.
 	 *
 	 */
-	if (*data == '\0')
+	if (GS1_LINTER_UNLIKELY(*data == '\0'))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_TOO_SHORT_FOR_CHECK_DIGIT,
 			0,
@@ -80,7 +80,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char* const data, s
 	 * Data must consist of all digits.
 	 *
 	 */
-	if ((pos = strspn(data, "0123456789")) != len)
+	if (GS1_LINTER_UNLIKELY((pos = strspn(data, "0123456789")) != len))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_NON_DIGIT_CHARACTER,
 			pos,
@@ -104,7 +104,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char* const data, s
 	}
 	parity = (10 - parity % 10) % 10;
 
-	if (parity + '0' != *p)
+	if (GS1_LINTER_UNLIKELY(parity + '0' != *p))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INCORRECT_CHECK_DIGIT,
 			len - 1,

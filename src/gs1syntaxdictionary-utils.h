@@ -51,6 +51,15 @@
 #endif
 
 
+#if defined(__GNUC__) || defined(__clang__)
+#  define GS1_LINTER_LIKELY(x) __builtin_expect(!!(x), 1)
+#  define GS1_LINTER_UNLIKELY(x) __builtin_expect(!!(x), 0)
+#else
+#  define GS1_LINTER_LIKELY(x) (x)
+#  define GS1_LINTER_UNLIKELY(x) (x)
+#endif
+
+
 /**
  * @brief Return from a linter indicating that no problem was detected with the
  * given data.

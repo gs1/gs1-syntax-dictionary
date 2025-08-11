@@ -56,7 +56,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_nozeroprefix(const char* const
 	 * Data must be all numeric
 	 *
 	 */
-	if ((pos = strspn(data, "0123456789")) != strlen(data))
+	if (GS1_LINTER_UNLIKELY((pos = strspn(data, "0123456789")) != strlen(data)))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_NON_DIGIT_CHARACTER,
 			pos,
@@ -67,7 +67,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_nozeroprefix(const char* const
 	 * Data must not start with a zero
 	 *
 	 */
-	if (*data == '0')
+	if (GS1_LINTER_UNLIKELY(*data == '0'))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_ILLEGAL_ZERO_PREFIX,
 			0,
