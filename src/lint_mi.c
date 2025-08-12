@@ -54,35 +54,38 @@
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_mi(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
-	size_t len, pos;
+	int pos;
 
 	assert(data);
 
-	len = strlen(data);
-
 	/*
-	 * Data must be two characters.
+	 * Data must be exactly two characters.
 	 *
 	 */
-	if (GS1_LINTER_UNLIKELY(len != 2))
+	if (GS1_LINTER_UNLIKELY(!data[0] || !data[1]))
 		GS1_LINTER_RETURN_ERROR(
-			len < 2 ? GS1_LINTER_MINUTE_TOO_SHORT : GS1_LINTER_MINUTE_TOO_LONG,
+			GS1_LINTER_MINUTE_TOO_SHORT,
 			0,
-			len
+			data[0] ? 1 : 0
+		);
+
+	if (GS1_LINTER_UNLIKELY(data[2] != '\0'))
+		GS1_LINTER_RETURN_ERROR(
+			GS1_LINTER_MINUTE_TOO_LONG,
+			0,
+			strlen(data)
 		);
 
 	/*
 	 * Data must consist of all digits.
-	 *
 	 */
-	for (pos = 0; pos < len; pos++) {
+	for (pos = 0; pos < 2; pos++)
 		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_NON_DIGIT_CHARACTER,
-				pos,
+				(size_t)pos,
 				1
 			);
-	}
 
 	/*
 	 * Validate the minute.
