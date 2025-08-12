@@ -68,7 +68,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_cset64(const char* const data,
 		0x0000000000000000
 	};
 
-	size_t pads, len, pos, full_len;
+	size_t pads, len, pos;
 
 	assert(data);
 
@@ -76,12 +76,11 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_cset64(const char* const data,
 	 * Count padding characters from the end
 	 *
 	 */
-	full_len = strlen(data);
-	for (pads = 0; pads < full_len && data[full_len - pads - 1] == '='; pads++);
+	len = strlen(data);
+	for (pads = 0; pads < len && data[len - pads - 1] == '='; pads++);
+	len -= pads;
 
-	len = full_len - pads;
-
-	if (GS1_LINTER_UNLIKELY(pads > 2 || (pads > 0 && full_len % 3 != 0)))
+	if (GS1_LINTER_UNLIKELY(pads > 2 || (pads > 0 && (len + pads) % 3 != 0)))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_INVALID_CSET64_PADDING,
 			len,
