@@ -93,7 +93,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_couponposoffer(const char* con
 	}
 
 	p = data;
-	q = data + strlen(data);
+	q = data + pos;
 
 
 	/*
