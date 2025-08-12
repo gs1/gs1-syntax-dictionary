@@ -90,18 +90,41 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	};
 
 	/*
-	 * Sequence of all characters in CSET 82, ordered by weight.
-	 *
-	 */
-	static const char* const cset82 =
-		"!\"%&'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ_"
-		"abcdefghijklmnopqrstuvwxyz";
-
-	/*
 	 * Sequence of all characters in CSET 32, ordered by weight.
-	 *
 	 */
 	static const char* const cset32 = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+
+	/*
+	 * CSET82 character weights lookup table (0 = invalid)
+	 */
+	static const unsigned char cset82_weights[256] = {
+		['!'] = 1, ['"'] = 2, ['%'] = 3, ['&'] = 4, ['\''] = 5, ['('] = 6,
+		[')'] = 7, ['*'] = 8, ['+'] = 9, [','] = 10, ['-'] = 11, ['.'] = 12,
+		['/'] = 13, ['0'] = 14, ['1'] = 15, ['2'] = 16, ['3'] = 17, ['4'] = 18,
+		['5'] = 19, ['6'] = 20, ['7'] = 21, ['8'] = 22, ['9'] = 23, [':'] = 24,
+		[';'] = 25, ['<'] = 26, ['='] = 27, ['>'] = 28, ['?'] = 29, ['A'] = 30,
+		['B'] = 31, ['C'] = 32, ['D'] = 33, ['E'] = 34, ['F'] = 35, ['G'] = 36,
+		['H'] = 37, ['I'] = 38, ['J'] = 39, ['K'] = 40, ['L'] = 41, ['M'] = 42,
+		['N'] = 43, ['O'] = 44, ['P'] = 45, ['Q'] = 46, ['R'] = 47, ['S'] = 48,
+		['T'] = 49, ['U'] = 50, ['V'] = 51, ['W'] = 52, ['X'] = 53, ['Y'] = 54,
+		['Z'] = 55, ['_'] = 56, ['a'] = 57, ['b'] = 58, ['c'] = 59, ['d'] = 60,
+		['e'] = 61, ['f'] = 62, ['g'] = 63, ['h'] = 64, ['i'] = 65, ['j'] = 66,
+		['k'] = 67, ['l'] = 68, ['m'] = 69, ['n'] = 70, ['o'] = 71, ['p'] = 72,
+		['q'] = 73, ['r'] = 74, ['s'] = 75, ['t'] = 76, ['u'] = 77, ['v'] = 78,
+		['w'] = 79, ['x'] = 80, ['y'] = 81, ['z'] = 82
+	};
+
+	/*
+	 * CSET32 character weights lookup table (0 = invalid)
+	 */
+	static const unsigned char cset32_weights[256] = {
+		['2'] = 1, ['3'] = 2, ['4'] = 3, ['5'] = 4, ['6'] = 5, ['7'] = 6,
+		['8'] = 7, ['9'] = 8, ['A'] = 9, ['B'] = 10, ['C'] = 11, ['D'] = 12,
+		['E'] = 13, ['F'] = 14, ['G'] = 15, ['H'] = 16, ['J'] = 17, ['K'] = 18,
+		['L'] = 19, ['M'] = 20, ['N'] = 21, ['P'] = 22, ['Q'] = 23, ['R'] = 24,
+		['S'] = 25, ['T'] = 26, ['U'] = 27, ['V'] = 28, ['W'] = 29, ['X'] = 30,
+		['Y'] = 31, ['Z'] = 32
+	};
 
 	size_t pos, len;
 	unsigned int sum = 0;
@@ -135,25 +158,27 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 
 	/*
 	 * Ensure that the data characters are in CSET 82
-	 *
 	 */
-	if (GS1_LINTER_UNLIKELY((pos = strspn(data, cset82)) < len - 2))
-		GS1_LINTER_RETURN_ERROR(
-			GS1_LINTER_INVALID_CSET82_CHARACTER,
-			pos,
-			1
-		);
+	for (pos = 0; pos < len - 2; pos++) {
+		if (GS1_LINTER_UNLIKELY(cset82_weights[(unsigned char)data[pos]] == 0))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_INVALID_CSET82_CHARACTER,
+				pos,
+				1
+			);
+	}
 
 	/*
 	 * Ensure that the check characters are in CSET 32
-	 *
 	 */
-	if (GS1_LINTER_UNLIKELY((pos = strspn(&data[len - 2], cset32)) != 2))
-		GS1_LINTER_RETURN_ERROR(
-			GS1_LINTER_INVALID_CSET32_CHARACTER,
-			len - 2 + pos,
-			1
-		);
+	for (pos = len - 2; pos < len; pos++) {
+		if (GS1_LINTER_UNLIKELY(cset32_weights[(unsigned char)data[pos]] == 0))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_INVALID_CSET32_CHARACTER,
+				pos,
+				1
+			);
+	}
 
 	/*
 	 * Sum of data-character values weighted by increasing prime values,
@@ -175,7 +200,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 		const unsigned int *p;
 
 		for (i = 0, p = primes + (len - 3); i < len - 2; i++, p--)
-			sum += (unsigned int)(strchr(cset82, data[i]) - cset82) * *p;
+			sum += (unsigned int)(cset82_weights[(unsigned char)data[i]] - 1) * *p;
 		sum %= 1021;
 	}
 
