@@ -70,7 +70,19 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 	const char *p;
 	unsigned int csum;
 
-	static const char* const csetiban = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	/*
+	 * IBAN character checksum weights (0 = invalid)
+	 *
+	 */
+	static const unsigned char iban_weights[256] = {
+		['0'] = 1, ['1'] = 2, ['2'] = 3, ['3'] = 4, ['4'] = 5,
+		['5'] = 6, ['6'] = 7, ['7'] = 8, ['8'] = 9, ['9'] = 10,
+		['A'] = 11, ['B'] = 12, ['C'] = 13, ['D'] = 14, ['E'] = 15,
+		['F'] = 16, ['G'] = 17, ['H'] = 18, ['I'] = 19, ['J'] = 20,
+		['K'] = 21, ['L'] = 22, ['M'] = 23, ['N'] = 24, ['O'] = 25,
+		['P'] = 26, ['Q'] = 27, ['R'] = 28, ['S'] = 29, ['T'] = 30,
+		['U'] = 31, ['V'] = 32, ['W'] = 33, ['X'] = 34, ['Y'] = 35, ['Z'] = 36
+	};
 
 	assert(data);
 
@@ -87,12 +99,14 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 	 * Any character outside of the set of valid IBAN characters is illegal.
 	 *
 	 */
-	if (GS1_LINTER_UNLIKELY((pos = strspn(data, csetiban)) != len))
-		GS1_LINTER_RETURN_ERROR(
-			GS1_LINTER_INVALID_IBAN_CHARACTER,
-			pos,
-			1
-		);
+	for (pos = 0; pos < len; pos++) {
+		if (GS1_LINTER_UNLIKELY(iban_weights[(unsigned char)data[pos]] == 0))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_INVALID_IBAN_CHARACTER,
+				pos,
+				1
+			);
+	}
 
 	/*
 	 *  The first two characters must be an ISO 3166 alpha-2 country code.
@@ -113,21 +127,20 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 	 * Compute the IBAN checksum as the sum of digits, with characters
 	 * converted to digits (A => 10; B => 11), starting with the forth
 	 * character and wrapping at the end.
-	 *
 	 */
 	csum = 0;
 	p = data + 4;
 	do {
-
-		if (*p < 'A')
-			csum = csum * 10 + (unsigned int)(*p - '0');
+		unsigned char weight = iban_weights[(unsigned char)*p];
+		
+		if (GS1_LINTER_LIKELY(weight <= 10))
+			csum = csum * 10 + (weight - 1);
 		else
-			csum = csum * 100 + (unsigned int)(*p - 'A' + 10);
+			csum = csum * 100 + (weight - 1);
 		csum %= 97;
 
 		/*
 		 * Next character, wrapping at the end.
-		 *
 		 */
 		if (++p == data + len)
 			p = data;
