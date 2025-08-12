@@ -96,10 +96,24 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 		);
 
 	/*
-	 * Any character outside of the set of valid IBAN characters is illegal.
+	 *  The first two characters must be an ISO 3166 alpha-2 country code.
 	 *
 	 */
-	for (pos = 0; pos < len; pos++) {
+	strncpy(cc, data, 2);
+	ret = gs1_lint_iso3166alpha2(cc, err_pos, err_len);
+	assert(ret == GS1_LINTER_OK || ret == GS1_LINTER_NOT_ISO3166_ALPHA2);
+	if (GS1_LINTER_UNLIKELY(ret == GS1_LINTER_NOT_ISO3166_ALPHA2))
+		GS1_LINTER_RETURN_ERROR(
+			GS1_LINTER_ILLEGAL_IBAN_COUNTRY_CODE,
+			0,
+			2
+		);
+
+	/*
+	 * Next two character much be within set of valid IBAN characters.
+	 *
+	 */
+	for (pos = 2; pos < 4; pos++) {
 		if (GS1_LINTER_UNLIKELY(iban_weights[(unsigned char)data[pos]] == 0))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_INVALID_IBAN_CHARACTER,
@@ -107,21 +121,6 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 				1
 			);
 	}
-
-	/*
-	 *  The first two characters must be an ISO 3166 alpha-2 country code.
-	 *
-	 */
-	strncpy(cc, data, 2);
-	ret = gs1_lint_iso3166alpha2(cc, err_pos, err_len);
-	assert(ret == GS1_LINTER_OK || ret == GS1_LINTER_NOT_ISO3166_ALPHA2);
-
-	if (GS1_LINTER_UNLIKELY(ret == GS1_LINTER_NOT_ISO3166_ALPHA2))
-		GS1_LINTER_RETURN_ERROR(
-			GS1_LINTER_ILLEGAL_IBAN_COUNTRY_CODE,
-			0,
-			2
-		);
 
 	/*
 	 * Compute the IBAN checksum as the sum of digits, with characters
@@ -132,7 +131,14 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 	p = data + 4;
 	do {
 		unsigned char weight = iban_weights[(unsigned char)*p];
-		
+
+		if (GS1_LINTER_UNLIKELY(weight == 0))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_INVALID_IBAN_CHARACTER,
+				(size_t)(p - data),
+				1
+			);
+
 		if (GS1_LINTER_LIKELY(weight <= 10))
 			csum = csum * 10 + (weight - 1);
 		else
