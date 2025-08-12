@@ -101,22 +101,9 @@
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos1(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
-	size_t i, len;
+	size_t i;
 
 	assert(data);
-
-	len = strlen(data);
-
-	/*
-	 * The current minimum GCP length is defined by GCP_MIN_LENGTH.
-	 *
-	 */
-	if (GS1_LINTER_UNLIKELY(len < GCP_MIN_LENGTH))
-		GS1_LINTER_RETURN_ERROR(
-			GS1_LINTER_TOO_SHORT_FOR_GCP,
-			0,
-			len
-		);
 
 	/*
 	 * Any character within the minimum-length GCP prefix that is outside
@@ -124,6 +111,12 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos1(const char* const data
 	 *
 	 */
 	for (i = 0; i < GCP_MIN_LENGTH; i++) {
+		if (GS1_LINTER_UNLIKELY(!data[i]))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_TOO_SHORT_FOR_GCP,
+				0,
+				i
+			);
 		if (GS1_LINTER_UNLIKELY(data[i] < '0' || data[i] > '9'))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_INVALID_GCP_PREFIX,
