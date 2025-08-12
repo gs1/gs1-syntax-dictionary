@@ -5,6 +5,7 @@ XXXX-XX-XX
 * New flag "!" indicating that an AI is designated as a GS1 identification key.
 * The mandatory associations for AI (03) and AI (242) were amended in accordance with GSCN 24-020.
 * Currency codes 191 (HRK), 694 (SLL) and 932 (ZWL) were removed and currency codes 179 (XAD) and 926 (VED) was added to correct alignment with ISO 4217.
+* Significant performance improvement were made, including converting the cset39, cset64 and cset82 linters to use bit field lookups, converting the csumalpha and iban linters to use lookup tables of weights, and minimisation of redundant scanning if inputs throughout.
 
 
 2025-01-30
