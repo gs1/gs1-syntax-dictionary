@@ -71,7 +71,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 	unsigned int csum;
 
 	/*
-	 * IBAN character checksum weights (0 = invalid)
+	 * IBAN character checksum weights (0 = invalid; weight off by 1)
 	 *
 	 */
 	static const unsigned char iban_weights[256] = {

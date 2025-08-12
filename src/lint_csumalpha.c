@@ -95,7 +95,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	static const char* const cset32 = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 
 	/*
-	 * CSET82 character weights lookup table (0 = invalid)
+	 * CSET82 character weights lookup table (0 = invalid; weight off by 1)
 	 */
 	static const unsigned char cset82_weights[256] = {
 		['!'] = 1, ['"'] = 2, ['%'] = 3, ['&'] = 4, ['\''] = 5, ['('] = 6,
