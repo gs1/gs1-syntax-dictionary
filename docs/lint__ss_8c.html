@@ -97,50 +97,55 @@ $(function() {
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab6c805b50be237c269828fe1c4775d7d" title="The time contains an illegal seconds.">GS1_LINTER_ILLEGAL_SECOND</a> if the data contains an invalid second. </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   55</span>{</div>
 <div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordtype">size_t</span> len, pos;</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordtype">int</span> pos;</div>
 <div class="line"><span class="lineno">   58</span> </div>
 <div class="line"><span class="lineno">   59</span>        assert(data);</div>
 <div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   62</span> </div>
-<div class="line"><span class="lineno">   63</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   64</span><span class="comment">         * Data must be two characters.</span></div>
-<div class="line"><span class="lineno">   65</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">if</span> (len != 2)</div>
-<div class="line"><span class="lineno">   68</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   69</span>                        len &lt; 2 ? <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa10c4570b2c69d1d11b0e1922db508751">GS1_LINTER_SECOND_TOO_SHORT</a> : <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5fb1986b1684a73e5cff285e099d84bf">GS1_LINTER_SECOND_TOO_LONG</a>,</div>
-<div class="line"><span class="lineno">   70</span>                        0,</div>
-<div class="line"><span class="lineno">   71</span>                        len</div>
-<div class="line"><span class="lineno">   72</span>                );</div>
-<div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   75</span><span class="comment">         * Data must consist of all digits.</span></div>
-<div class="line"><span class="lineno">   76</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   77</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> ((pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>)) != len)</div>
-<div class="line"><span class="lineno">   79</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   80</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">   81</span>                        pos,</div>
-<div class="line"><span class="lineno">   82</span>                        1</div>
-<div class="line"><span class="lineno">   83</span>                );</div>
-<div class="line"><span class="lineno">   84</span> </div>
-<div class="line"><span class="lineno">   85</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment">         * Validate the second.</span></div>
-<div class="line"><span class="lineno">   87</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   88</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   89</span>        <span class="keywordflow">if</span> ((data[0] - <span class="charliteral">&#39;0&#39;</span>) * 10 + (data[1] - <span class="charliteral">&#39;0&#39;</span>) &gt; 59)</div>
-<div class="line"><span class="lineno">   90</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   91</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab6c805b50be237c269828fe1c4775d7d">GS1_LINTER_ILLEGAL_SECOND</a>,</div>
-<div class="line"><span class="lineno">   92</span>                        0,</div>
-<div class="line"><span class="lineno">   93</span>                        2</div>
-<div class="line"><span class="lineno">   94</span>                );</div>
-<div class="line"><span class="lineno">   95</span> </div>
-<div class="line"><span class="lineno">   96</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span>}</div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:77</div></div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:62</div></div>
+<div class="line"><span class="lineno">   61</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">         * Data must be exactly two characters.</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   64</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!data[0] || !data[1]))</div>
+<div class="line"><span class="lineno">   66</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   67</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa10c4570b2c69d1d11b0e1922db508751">GS1_LINTER_SECOND_TOO_SHORT</a>,</div>
+<div class="line"><span class="lineno">   68</span>                        0,</div>
+<div class="line"><span class="lineno">   69</span>                        data[0] ? 1 : 0</div>
+<div class="line"><span class="lineno">   70</span>                );</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[2] != <span class="charliteral">&#39;\0&#39;</span>))</div>
+<div class="line"><span class="lineno">   73</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   74</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5fb1986b1684a73e5cff285e099d84bf">GS1_LINTER_SECOND_TOO_LONG</a>,</div>
+<div class="line"><span class="lineno">   75</span>                        0,</div>
+<div class="line"><span class="lineno">   76</span>                        strlen(data)</div>
+<div class="line"><span class="lineno">   77</span>                );</div>
+<div class="line"><span class="lineno">   78</span> </div>
+<div class="line"><span class="lineno">   79</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment">         * Data must consist of all digits.</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">for</span> (pos = 0; pos &lt; 2; pos++)</div>
+<div class="line"><span class="lineno">   83</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[pos] &lt; <span class="charliteral">&#39;0&#39;</span> || data[pos] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
+<div class="line"><span class="lineno">   84</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   85</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   86</span>                                (<span class="keywordtype">size_t</span>)pos,</div>
+<div class="line"><span class="lineno">   87</span>                                1</div>
+<div class="line"><span class="lineno">   88</span>                        );</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">         * Validate the second (00-59).</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>((data[0] - <span class="charliteral">&#39;0&#39;</span>) * 10 + (data[1] - <span class="charliteral">&#39;0&#39;</span>) &gt; 59))</div>
+<div class="line"><span class="lineno">   94</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   95</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab6c805b50be237c269828fe1c4775d7d">GS1_LINTER_ILLEGAL_SECOND</a>,</div>
+<div class="line"><span class="lineno">   96</span>                        0,</div>
+<div class="line"><span class="lineno">   97</span>                        2</div>
+<div class="line"><span class="lineno">   98</span>                );</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implemention may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa10c4570b2c69d1d11b0e1922db508751"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa10c4570b2c69d1d11b0e1922db508751">GS1_LINTER_SECOND_TOO_SHORT</a></div><div class="ttdeci">@ GS1_LINTER_SECOND_TOO_SHORT</div><div class="ttdoc">The second is too short for SS format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:196</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa5fb1986b1684a73e5cff285e099d84bf"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5fb1986b1684a73e5cff285e099d84bf">GS1_LINTER_SECOND_TOO_LONG</a></div><div class="ttdeci">@ GS1_LINTER_SECOND_TOO_LONG</div><div class="ttdoc">The second is too long for SS format.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:197</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aab6c805b50be237c269828fe1c4775d7d"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab6c805b50be237c269828fe1c4775d7d">GS1_LINTER_ILLEGAL_SECOND</a></div><div class="ttdeci">@ GS1_LINTER_ILLEGAL_SECOND</div><div class="ttdoc">The time contains an illegal seconds.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:117</div></div>

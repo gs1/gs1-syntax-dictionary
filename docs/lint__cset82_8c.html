@@ -95,33 +95,42 @@ character set 82". </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   57</span>{</div>
 <div class="line"><span class="lineno">   58</span> </div>
 <div class="line"><span class="lineno">   59</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   60</span><span class="comment">         * All characters in &quot;CSET 82&quot;, the 82 character alphabet.</span></div>
+<div class="line"><span class="lineno">   60</span><span class="comment">         * CSET 82 characters: !&quot;%&amp;&#39;()*+,-./0123456789:;&lt;=&gt;?ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz</span></div>
 <div class="line"><span class="lineno">   61</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">   62</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   63</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> cset82 =</div>
-<div class="line"><span class="lineno">   64</span>                <span class="stringliteral">&quot;!\&quot;%&amp;&#39;()*+,-./0123456789:;&lt;=&gt;?ABCDEFGHIJKLMNOPQRS&quot;</span></div>
-<div class="line"><span class="lineno">   65</span>                <span class="stringliteral">&quot;TUVWXYZ_abcdefghijklmnopqrstuvwxyz&quot;</span>;</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>        <span class="keywordtype">size_t</span> pos;</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        assert(data);</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   72</span><span class="comment">         * Any character outside of CSET 82 is illegal.</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">if</span> ((pos = strspn(data, cset82)) != strlen(data))</div>
-<div class="line"><span class="lineno">   76</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   77</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f6993026ffc8f4caa4e4aa0c9df0dcb">GS1_LINTER_INVALID_CSET82_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">   78</span>                        pos,</div>
-<div class="line"><span class="lineno">   79</span>                        1</div>
-<div class="line"><span class="lineno">   80</span>                );</div>
-<div class="line"><span class="lineno">   81</span> </div>
-<div class="line"><span class="lineno">   82</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">   83</span> </div>
-<div class="line"><span class="lineno">   84</span>}</div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:77</div></div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:62</div></div>
+<div class="line"><span class="lineno">   63</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint64_t cset82_bitfield[] = {</div>
+<div class="line"><span class="lineno">   64</span>                0x0000000067ffffff,             <span class="comment">// &quot;!&quot;, &#39;&quot;&#39;, &quot;%&quot;, &quot;&amp;&quot;, &quot;&#39;&quot;, &quot;(&quot;, &quot;)&quot;, &quot;*&quot;, &quot;+&quot;, &quot;,&quot;, &quot;-&quot;, &quot;.&quot;, &quot;/&quot;, 0-9</span></div>
+<div class="line"><span class="lineno">   65</span>                0x7fffffe17fffffe0,             <span class="comment">// &quot;:&quot;, &quot;;&quot;, &quot;&lt;&quot;, &quot;=&quot;, &quot;&gt;&quot;, &quot;?&quot;, A-Z, &quot;_&quot;, a-z</span></div>
+<div class="line"><span class="lineno">   66</span>                0x0000000000000000,</div>
+<div class="line"><span class="lineno">   67</span>                0x0000000000000000</div>
+<div class="line"><span class="lineno">   68</span>        };</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>        <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>        assert(data);</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">         * Validate character set using bitfield lookup</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   78</span>        <span class="keywordflow">for</span> (pos = 0; data[pos] != <span class="charliteral">&#39;\0&#39;</span>; pos++) {</div>
+<div class="line"><span class="lineno">   79</span>                <span class="keywordtype">int</span> valid = 0;</div>
+<div class="line"><span class="lineno">   80</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a877848e2eb80021e2f51d7a119c18e01">GS1_LINTER_BITFIELD_LOOKUP</a>((<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>)data[pos], cset82_bitfield);</div>
+<div class="line"><span class="lineno">   81</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!valid))</div>
+<div class="line"><span class="lineno">   82</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   83</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f6993026ffc8f4caa4e4aa0c9df0dcb">GS1_LINTER_INVALID_CSET82_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   84</span>                                pos,</div>
+<div class="line"><span class="lineno">   85</span>                                1</div>
+<div class="line"><span class="lineno">   86</span>                        );</div>
+<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implemention may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a877848e2eb80021e2f51d7a119c18e01"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a877848e2eb80021e2f51d7a119c18e01">GS1_LINTER_BITFIELD_LOOKUP</a></div><div class="ttdeci">#define GS1_LINTER_BITFIELD_LOOKUP(bit, field)</div><div class="ttdoc">Perform a lookup of a position in a bit field.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:125</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa6f6993026ffc8f4caa4e4aa0c9df0dcb"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f6993026ffc8f4caa4e4aa0c9df0dcb">GS1_LINTER_INVALID_CSET82_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_CSET82_CHARACTER</div><div class="ttdoc">A non-CSET 82 character was found where a CSET 82 character is expected.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:79</div></div>
 </div><!-- fragment -->
 </div>

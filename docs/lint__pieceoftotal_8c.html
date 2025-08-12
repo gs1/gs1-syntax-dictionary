@@ -109,28 +109,28 @@ $(function() {
 <div class="line"><span class="lineno">   66</span> </div>
 <div class="line"><span class="lineno">   67</span>        assert(data);</div>
 <div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   72</span><span class="comment">         * Data must be a non-zero, even number of characters.</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   75</span>        <span class="keywordflow">if</span> (len == 0 || len % 2 != 0)</div>
-<div class="line"><span class="lineno">   76</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   77</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa92f57a976368902adef646e4baaf641f">GS1_LINTER_INVALID_LENGTH_FOR_PIECE_OF_TOTAL</a>,</div>
-<div class="line"><span class="lineno">   78</span>                        0,</div>
-<div class="line"><span class="lineno">   79</span>                        len</div>
-<div class="line"><span class="lineno">   80</span>                );</div>
+<div class="line"><span class="lineno">   69</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   70</span><span class="comment">         * Data must consist of all digits.</span></div>
+<div class="line"><span class="lineno">   71</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   72</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   73</span>        <span class="keywordflow">for</span> (pos = 0; data[pos]; pos++)</div>
+<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[pos] &lt; <span class="charliteral">&#39;0&#39;</span> || data[pos] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
+<div class="line"><span class="lineno">   75</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   76</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   77</span>                                pos,</div>
+<div class="line"><span class="lineno">   78</span>                                1</div>
+<div class="line"><span class="lineno">   79</span>                        );</div>
+<div class="line"><span class="lineno">   80</span>        len = pos;</div>
 <div class="line"><span class="lineno">   81</span> </div>
 <div class="line"><span class="lineno">   82</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   83</span><span class="comment">         * Data must consist of all digits.</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">         * Data must be a non-zero, even number of characters.</span></div>
 <div class="line"><span class="lineno">   84</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">   85</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">if</span> ((pos = strspn(data, <span class="stringliteral">&quot;0123456789&quot;</span>)) != len)</div>
+<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(len == 0 || len % 2 != 0))</div>
 <div class="line"><span class="lineno">   87</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   88</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">   89</span>                        pos,</div>
-<div class="line"><span class="lineno">   90</span>                        1</div>
+<div class="line"><span class="lineno">   88</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa92f57a976368902adef646e4baaf641f">GS1_LINTER_INVALID_LENGTH_FOR_PIECE_OF_TOTAL</a>,</div>
+<div class="line"><span class="lineno">   89</span>                        0,</div>
+<div class="line"><span class="lineno">   90</span>                        len</div>
 <div class="line"><span class="lineno">   91</span>                );</div>
 <div class="line"><span class="lineno">   92</span> </div>
 <div class="line"><span class="lineno">   93</span>        <span class="comment">/*</span></div>
@@ -150,7 +150,7 @@ $(function() {
 <div class="line"><span class="lineno">  107</span><span class="comment">         * Neither piece nor total may be zero.</span></div>
 <div class="line"><span class="lineno">  108</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  109</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">if</span> (pieceiszero || totaliszero)</div>
+<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(pieceiszero || totaliszero))</div>
 <div class="line"><span class="lineno">  111</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  112</span>                        pieceiszero ? <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8e8d0ce3c9a291a46104a280389dd8fa">GS1_LINTER_ZERO_PIECE_NUMBER</a> : <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae80369b30779eccb3253c306af8bd008">GS1_LINTER_ZERO_TOTAL_PIECES</a>,</div>
 <div class="line"><span class="lineno">  113</span>                        pieceiszero ? 0 : len / 2,</div>
@@ -161,7 +161,7 @@ $(function() {
 <div class="line"><span class="lineno">  118</span><span class="comment">         * The piece number must not exceed the total piece count.</span></div>
 <div class="line"><span class="lineno">  119</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  120</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">if</span> (compare == 1)</div>
+<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(compare == 1))</div>
 <div class="line"><span class="lineno">  122</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  123</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa08e7acb0dfe66c389abd642c931596cd">GS1_LINTER_PIECE_NUMBER_EXCEEDS_TOTAL</a>,</div>
 <div class="line"><span class="lineno">  124</span>                        0,</div>
@@ -171,8 +171,9 @@ $(function() {
 <div class="line"><span class="lineno">  128</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
 <div class="line"><span class="lineno">  129</span> </div>
 <div class="line"><span class="lineno">  130</span>}</div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:77</div></div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:62</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implemention may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa08e7acb0dfe66c389abd642c931596cd"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa08e7acb0dfe66c389abd642c931596cd">GS1_LINTER_PIECE_NUMBER_EXCEEDS_TOTAL</a></div><div class="ttdeci">@ GS1_LINTER_PIECE_NUMBER_EXCEEDS_TOTAL</div><div class="ttdoc">The piece number must not exceed the piece total.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:121</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa8e8d0ce3c9a291a46104a280389dd8fa"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8e8d0ce3c9a291a46104a280389dd8fa">GS1_LINTER_ZERO_PIECE_NUMBER</a></div><div class="ttdeci">@ GS1_LINTER_ZERO_PIECE_NUMBER</div><div class="ttdoc">The piece number must not have a value of zero.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:119</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa92f57a976368902adef646e4baaf641f"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa92f57a976368902adef646e4baaf641f">GS1_LINTER_INVALID_LENGTH_FOR_PIECE_OF_TOTAL</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_LENGTH_FOR_PIECE_OF_TOTAL</div><div class="ttdoc">The piece with total must have an even length, having equal-length components.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:118</div></div>
