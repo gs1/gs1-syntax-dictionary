@@ -208,7 +208,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_couponcode(const char* const d
 	}
 
 	p = data;
-	q = data + strlen(data);
+	q = data + pos;
 
 
 	/*
