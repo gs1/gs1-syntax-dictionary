@@ -59,7 +59,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char* const data, s
 	int weight;
 	int parity = 0;
 	const char *p;
-	size_t len, pos;
+	size_t len;
 
 	assert(data);
 
@@ -77,19 +77,6 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char* const data, s
 		);
 
 	/*
-	 * Data must consist of all digits.
-	 *
-	 */
-	for (pos = 0; pos < len; pos++) {
-		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
-			GS1_LINTER_RETURN_ERROR(
-				GS1_LINTER_NON_DIGIT_CHARACTER,
-				pos,
-				1
-			);
-	}
-
-	/*
 	 * Calculate the sum of the numeric values of the data, excluding the
 	 * check digit, weighted by alternating ...3:1:3 values, from right to
 	 * left.
@@ -101,9 +88,32 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csum(const char* const data, s
 	weight = len % 2 == 0 ? 3 : 1;
 	p = data;
 	while (*(p+1)) {
+
+		/*
+		 * Data must consist of all digits.
+		 *
+		 */
+		if (GS1_LINTER_UNLIKELY(*p < '0' || *p > '9'))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_NON_DIGIT_CHARACTER,
+				(size_t)(p - data),
+				1
+			);
+
 		parity += weight * (*p++ - '0');
 		weight = 4 - weight;
 	}
+
+	/*
+	 * Check character must also be a digit.
+	 *
+	 */
+	if (GS1_LINTER_UNLIKELY(*p < '0' || *p > '9'))
+		GS1_LINTER_RETURN_ERROR(
+			GS1_LINTER_NON_DIGIT_CHARACTER,
+			len - 1,
+			1
+		);
 	parity = (10 - parity % 10) % 10;
 
 	if (GS1_LINTER_UNLIKELY(parity + '0' != *p))
