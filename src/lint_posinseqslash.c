@@ -73,12 +73,11 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 	 *
 	 */
 	if (GS1_LINTER_UNLIKELY(pos == 0 || !data[pos] || data[pos] != '/')) {
-		len = pos;
-		while (data[len]) len++;
+		while (data[pos]) pos++;
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
 			0,
-			len
+			pos
 		);
 	}
 
@@ -88,17 +87,15 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 	 * Validate that remaining characters are digits and measure length
 	 *
 	 */
-	for (pos++; data[pos]; pos++) {
+	for (pos++; data[pos]; pos++)
 		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9')) {
-			len = pos;
-			while (data[len]) len++;
+			while (data[pos]) pos++;
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
 				0,
-				len
+				pos
 			);
 		}
-	}
 
 	len = pos;
 
