@@ -139,10 +139,8 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iban(const char* const data, s
 				1
 			);
 
-		if (GS1_LINTER_LIKELY(weight <= 10))
-			csum = csum * 10 + (weight - 1);
-		else
-			csum = csum * 100 + (weight - 1);
+		csum *= weight <= 10 ? 10 : 100;
+		csum += weight - 1;		/* Compensate off by 1 */
 		csum %= 97;
 
 		/*
