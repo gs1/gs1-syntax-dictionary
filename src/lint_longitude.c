@@ -59,14 +59,13 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_longitude(const char* const da
 	 * Data must consist of all digits.
 	 *
 	 */
-	for (pos = 0; pos < 10 && data[pos]; pos++) {
+	for (pos = 0; pos < 10 && data[pos]; pos++)
 		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_NON_DIGIT_CHARACTER,
 				pos,
 				1
 			);
-	}
 
 	/*
 	 * Data must be 10 characters.
