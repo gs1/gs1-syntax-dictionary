@@ -62,39 +62,55 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_posinseqslash(const char* cons
 
 	assert(data);
 
-	len = strlen(data);
-
 	/*
 	 * First non-digit should be '/'
 	 *
 	 */
-	for (pos = 0; pos < len && data[pos] >= '0' && data[pos] <= '9'; pos++);
+	for (pos = 0; data[pos] >= '0' && data[pos] <= '9'; pos++);
 
 	/*
 	 * Format so far must be digits + '/'
 	 *
 	 */
-	if (GS1_LINTER_UNLIKELY(pos == 0 || pos >= len - 1 || data[pos] != '/'))
+	if (GS1_LINTER_UNLIKELY(pos == 0 || !data[pos] || data[pos] != '/')) {
+		len = pos;
+		while (data[len]) len++;
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
 			0,
 			len
 		);
+	}
 
 	slash_pos = pos;
 
 	/*
-	 * Validate that remaining characters are digits
+	 * Validate that remaining characters are digits and measure length
 	 *
 	 */
-	for (pos++; pos < len; pos++) {
-		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
+	for (pos++; data[pos]; pos++) {
+		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9')) {
+			len = pos;
+			while (data[len]) len++;
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
 				0,
 				len
 			);
+		}
 	}
+
+	len = pos;
+
+	/*
+	 * Must have digits after slash
+	 */
+	if (GS1_LINTER_UNLIKELY(slash_pos >= len - 1))
+		GS1_LINTER_RETURN_ERROR(
+			GS1_LINTER_POSITION_IN_SEQUENCE_MALFORMED,
+			0,
+			len
+		);
 
 	pos = slash_pos;
 
