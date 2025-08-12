@@ -65,29 +65,16 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmd0(const char* const dat
 	static const unsigned char daysinmonth[] =
 		{ 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	size_t len, pos;
+	size_t pos;
 	unsigned char maxdd;
 
 	assert(data);
-
-	len = strlen(data);
-
-	/*
-	 * Data must be eight characters.
-	 *
-	 */
-	if (GS1_LINTER_UNLIKELY(len != 8))
-		GS1_LINTER_RETURN_ERROR(
-			len < 8 ? GS1_LINTER_DATE_TOO_SHORT : GS1_LINTER_DATE_TOO_LONG,
-			0,
-			len
-		);
 
 	/*
 	 * Data must consist of all digits.
 	 *
 	 */
-	for (pos = 0; pos < len; pos++) {
+	for (pos = 0; pos < 8 && data[pos]; pos++) {
 		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_NON_DIGIT_CHARACTER,
@@ -95,6 +82,17 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmd0(const char* const dat
 				1
 			);
 	}
+
+	/*
+	 * Data must be eight characters.
+	 *
+	 */
+	if (GS1_LINTER_UNLIKELY(pos != 8 || data[8]))
+		GS1_LINTER_RETURN_ERROR(
+			(pos < 8) ? GS1_LINTER_DATE_TOO_SHORT : GS1_LINTER_DATE_TOO_LONG,
+			0,
+			pos + (data[pos] ? 1 : 0)
+		);
 
 	/*
 	 * Validate that the month is 01 to 12.
