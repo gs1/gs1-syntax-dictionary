@@ -70,14 +70,13 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pieceoftotal(const char* const
 	 * Data must consist of all digits.
 	 *
 	 */
-	for (pos = 0; data[pos]; pos++) {
+	for (pos = 0; data[pos]; pos++)
 		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_NON_DIGIT_CHARACTER,
 				pos,
 				1
 			);
-	}
 	len = pos;
 
 	/*
