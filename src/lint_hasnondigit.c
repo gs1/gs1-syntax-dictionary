@@ -48,25 +48,23 @@
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hasnondigit(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
-	size_t len, pos;
+	const char *p;
 
 	assert(data);
-
-	len = strlen(data);
 
 	/*
 	 * Data must not be all numeric
 	 *
 	 */
-	for (pos = 0; pos < len; pos++) {
-		if (GS1_LINTER_LIKELY(data[pos] < '0' || data[pos] > '9'))
+	for (p = data; *p; p++) {
+		if (GS1_LINTER_LIKELY(*p < '0' || *p > '9'))
 			break;
 	}
-	if (GS1_LINTER_UNLIKELY(pos == len))
+	if (GS1_LINTER_UNLIKELY(*p == '\0'))
 		GS1_LINTER_RETURN_ERROR(
 			GS1_LINTER_REQUIRES_NON_DIGIT_CHARACTER,
 			0,
-			len
+			(size_t)(p - data)
 		);
 
 	GS1_LINTER_RETURN_OK;
