@@ -28,6 +28,7 @@
 
 
 #include <assert.h>
+#include <ctype.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -54,7 +55,6 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pcenc(const char* const data, 
 {
 
 	const char *p, *q;
-	char pct[3] = {0};
 
 	assert(data);
 
@@ -76,8 +76,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pcenc(const char* const data, 
 				(size_t)(q - p)
 			);
 
-		memcpy(pct, p + 1, 2);
-		if (GS1_LINTER_UNLIKELY(strspn(pct, "0123456789ABCDEFabcdef") != 2))
+		if (GS1_LINTER_UNLIKELY(!isxdigit(p[1]) || !isxdigit(p[2])))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_INVALID_PERCENT_SEQUENCE,
 				(size_t)(p - data),
