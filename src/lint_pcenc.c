@@ -54,12 +54,11 @@
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pcenc(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
-	const char *p, *q;
+	const char *p;
 
 	assert(data);
 
 	p = data;
-	q = data + strlen(data);
 
 	/*
 	 * Find each instance of "%" in the data and ensure that there are at
@@ -67,14 +66,17 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pcenc(const char* const data, 
 	 * represent a hex value.
 	 *
 	 */
-	while (p != q && (p = strchr(p, '%')) != NULL) {
+	while ((p = strchr(p, '%')) != NULL) {
 
-		if (GS1_LINTER_UNLIKELY(q - p < 3))
+		if (GS1_LINTER_UNLIKELY(!p[1] || !p[2])) {
+			size_t remaining = 0;
+			if (p[1]) remaining = p[2] ? 2 : 1;
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_INVALID_PERCENT_SEQUENCE,
 				(size_t)(p - data),
-				(size_t)(q - p)
+				remaining + 1
 			);
+		}
 
 		if (GS1_LINTER_UNLIKELY(!isxdigit(p[1]) || !isxdigit(p[2])))
 			GS1_LINTER_RETURN_ERROR(
