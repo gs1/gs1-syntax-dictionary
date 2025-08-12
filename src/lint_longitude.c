@@ -51,28 +51,15 @@
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_longitude(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
-	size_t len, pos;
+	size_t pos;
 
 	assert(data);
-
-	len = strlen(data);
-
-	/*
-	 * Data must be 10 characters.
-	 *
-	 */
-	if (GS1_LINTER_UNLIKELY(len != 10))
-		GS1_LINTER_RETURN_ERROR(
-			GS1_LINTER_LONGITUDE_INVALID_LENGTH,
-			0,
-			len
-		);
 
 	/*
 	 * Data must consist of all digits.
 	 *
 	 */
-	for (pos = 0; pos < len; pos++) {
+	for (pos = 0; pos < 10 && data[pos]; pos++) {
 		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
 			GS1_LINTER_RETURN_ERROR(
 				GS1_LINTER_NON_DIGIT_CHARACTER,
@@ -80,6 +67,17 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_longitude(const char* const da
 				1
 			);
 	}
+
+	/*
+	 * Data must be 10 characters.
+	 *
+	 */
+	if (GS1_LINTER_UNLIKELY(pos != 10 || data[10]))
+		GS1_LINTER_RETURN_ERROR(
+			GS1_LINTER_LONGITUDE_INVALID_LENGTH,
+			0,
+			pos + (data[pos] ? 1 : 0)
+		);
 
 	/*
 	 * The longitude must be within the range 0000000000 to 3600000000.
