@@ -66,7 +66,19 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pieceoftotal(const char* const
 
 	assert(data);
 
-	len = strlen(data);
+	/*
+	 * Data must consist of all digits.
+	 *
+	 */
+	for (pos = 0; data[pos]; pos++) {
+		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_NON_DIGIT_CHARACTER,
+				pos,
+				1
+			);
+	}
+	len = pos;
 
 	/*
 	 * Data must be a non-zero, even number of characters.
@@ -78,19 +90,6 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_pieceoftotal(const char* const
 			0,
 			len
 		);
-
-	/*
-	 * Data must consist of all digits.
-	 *
-	 */
-	for (pos = 0; pos < len; pos++) {
-		if (GS1_LINTER_UNLIKELY(data[pos] < '0' || data[pos] > '9'))
-			GS1_LINTER_RETURN_ERROR(
-				GS1_LINTER_NON_DIGIT_CHARACTER,
-				pos,
-				1
-			);
-	}
 
 	/*
 	 * Determine whether either the piece number or total piece count is
