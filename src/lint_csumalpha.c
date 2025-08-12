@@ -113,7 +113,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 	};
 
 	size_t pos, len;
-	unsigned int sum = 0;
+	uint32_t sum = 0;	/* Sufficient for 97-prime implementation */
 
 	assert(data);
 
@@ -179,7 +179,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_csumalpha(const char* const da
 			);
 		sum += (unsigned int)(cset82_weights[(unsigned char)data[pos]] - 1) * primes[len - 3 - pos];
 	}
-	sum %= 1021;
+	sum %= 1021;	/* Overflow not possible with uint32_t */
 
 	if (GS1_LINTER_UNLIKELY(data[len-2] != cset32[sum >> 5] || data[len-1] != cset32[sum & 31]))
 		GS1_LINTER_RETURN_ERROR(
@@ -242,6 +242,9 @@ void test_lint_csumalpha(void)
 
 	UNIT_TEST_PASS(gs1_lint_csumalpha, "12345678901234567890123456789012345678901234567890"
 					   "12345678901234567890123456789012345678901234567HA");  // len = 99
+
+	UNIT_TEST_PASS(gs1_lint_csumalpha, "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+					   "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzUA");  // Maximum implementation sum
 
 	UNIT_TEST_FAIL(gs1_lint_csumalpha, "12345678901234567890123456789012345678901234567890"
 					   "123456789012345678901234567890123456789012345678ZZ",
