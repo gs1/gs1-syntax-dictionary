@@ -52,14 +52,21 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_hyphen(const char* const data,
 	assert(data);
 
 	if (GS1_LINTER_UNLIKELY(*data == '\0'))
-		GS1_LINTER_RETURN_ERROR(GS1_LINTER_NOT_HYPHEN, 0, 0);
+		GS1_LINTER_RETURN_ERROR(
+			GS1_LINTER_NOT_HYPHEN,
+			0,
+			0
+		);
 
-	for (p = data; *p; p++) {
+	for (p = data; *p; p++)
 		if (GS1_LINTER_UNLIKELY(*p != '-')) {
 			while (*p) p++;
-			GS1_LINTER_RETURN_ERROR(GS1_LINTER_NOT_HYPHEN, 0, (size_t)(p - data));
+			GS1_LINTER_RETURN_ERROR(
+				GS1_LINTER_NOT_HYPHEN,
+				0,
+				(size_t)(p - data)
+			);
 		}
-	}
 
 	GS1_LINTER_RETURN_OK;
 
