@@ -169,7 +169,7 @@ void test_lint_gcppos2(void)
 	 *  IAAAAAA|A => Bad; I*A*AAAAAA
 	 */
 	memcpy(expect, data, (size_t)GCP_MIN_LENGTH);
-	expect[GCP_MIN_LENGTH+2] = '\0';
+	expect[GCP_MIN_LENGTH+4] = '\0';
 	for (i = GCP_MIN_LENGTH; i >= 1; i--) {
 		data[i] = 'A';
 		memcpy(&expect[i], "*A*A", 4);
