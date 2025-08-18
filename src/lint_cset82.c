@@ -30,6 +30,7 @@
 
 #include <assert.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #include "gs1syntaxdictionary.h"
 #include "gs1syntaxdictionary-utils.h"
