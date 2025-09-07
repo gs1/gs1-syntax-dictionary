@@ -83,7 +83,7 @@ $(function() {
 <dd>
 To enable this linter to hook into an alternative PackageTypeCode lookup function (provided by the user) the GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP_H macro may be set to the name of a header file to be included that defines a custom <code>GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP</code> macro. </dd>
 <dd>
-If provided, the GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP macro shall invoke whatever functionality is available in the user-provided lookup function, then using the result must assign to a locally-scoped variable as follows:<ul>
+If provided, the GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP macro shall invoke whatever functionality is available in the user-provided lookup function using the first argument, then using the result must assign to second (output) argument as follows:<ul>
 <li><code>valid</code>: Set to 1 if the lookup was successful. Otherwise 0.</li>
 </ul>
 </dd></dl>
@@ -105,7 +105,7 @@ If provided, the GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP macro shall invoke whatev
 <div class="line"><span class="lineno">   84</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">   85</span><span class="comment">         */</span></div>
 <div class="line"><span class="lineno">   86</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP</span></div>
-<div class="line"><span class="lineno">   87</span><span class="preprocessor">#define GS1_LINTER_PACKAGE_TYPE_LOOKUP(cc) GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP(cc)</span></div>
+<div class="line"><span class="lineno">   87</span><span class="preprocessor">#define GS1_LINTER_PACKAGE_TYPE_LOOKUP(cc, valid) GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP(cc, valid)</span></div>
 <div class="line"><span class="lineno">   88</span><span class="preprocessor">#else</span></div>
 <div class="line"><span class="lineno">   89</span> </div>
 <div class="line"><span class="lineno">   90</span>        <span class="comment">/*</span></div>
@@ -155,12 +155,12 @@ If provided, the GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP macro shall invoke whatev
 <div class="line"><span class="lineno">  134</span>        };</div>
 <div class="line"><span class="lineno">  135</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  136</span><span class="comment">/// \cond</span></div>
-<div class="line"><span class="lineno">  137</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_PACKAGE_TYPE_LOOKUP(cc) GS1_LINTER_BINARY_SEARCH(cc, packagetypes)</span><span class="comment"></span></div>
+<div class="line"><span class="lineno">  137</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_PACKAGE_TYPE_LOOKUP(cc, valid) GS1_LINTER_BINARY_SEARCH(cc, packagetypes, valid)</span><span class="comment"></span></div>
 <div class="line"><span class="lineno">  138</span><span class="comment">/// \endcond</span></div>
 <div class="line"><span class="lineno">  139</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  140</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">  141</span> </div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordtype">int</span> valid = 0;</div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordtype">int</span> valid;</div>
 <div class="line"><span class="lineno">  143</span> </div>
 <div class="line"><span class="lineno">  144</span>        assert(data);</div>
 <div class="line"><span class="lineno">  145</span> </div>
@@ -168,7 +168,7 @@ If provided, the GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP macro shall invoke whatev
 <div class="line"><span class="lineno">  147</span><span class="comment">         * Ensure that the data is in the list.</span></div>
 <div class="line"><span class="lineno">  148</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  149</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  150</span>        GS1_LINTER_PACKAGE_TYPE_LOOKUP(data);</div>
+<div class="line"><span class="lineno">  150</span>        GS1_LINTER_PACKAGE_TYPE_LOOKUP(data, valid);</div>
 <div class="line"><span class="lineno">  151</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a>(valid))</div>
 <div class="line"><span class="lineno">  152</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
 <div class="line"><span class="lineno">  153</span> </div>
@@ -185,7 +185,7 @@ If provided, the GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP macro shall invoke whatev
 <div class="line"><span class="lineno">  164</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_abdc5ee13b97ac3a0273f106f56795999"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a></div><div class="ttdeci">#define GS1_LINTER_LIKELY(x)</div><div class="ttdoc">Implemention may provide hint to the compiler that the expression is likely to be true.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:63</div></div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_abdc5ee13b97ac3a0273f106f56795999"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a></div><div class="ttdeci">#define GS1_LINTER_LIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be true.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:63</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa774498863fca0e6bd4f4a201b8e8c714"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa774498863fca0e6bd4f4a201b8e8c714">GS1_LINTER_INVALID_PACKAGE_TYPE</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_PACKAGE_TYPE</div><div class="ttdoc">A valid PackageTypeCode is required.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:198</div></div>
 </div><!-- fragment -->
 </div>

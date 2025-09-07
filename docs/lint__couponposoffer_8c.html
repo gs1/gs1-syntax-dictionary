@@ -106,134 +106,134 @@ $(function() {
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa89be1e5efca9c91933be6c915bb092d0" title="The coupon&#39;s Serial Number is shorter than what is indicated by its VLI.">GS1_LINTER_COUPON_TRUNCATED_SERIAL_NUMBER</a> if the data contains a Serial Number that is shorter than specified by its length indicator. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa4c4403d48c83ffd717a7ea6590711b5" title="The coupon contains excess data after the recognised optional fields.">GS1_LINTER_COUPON_EXCESS_DATA</a> if the data contains excess data following the Serial Number. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   73</span>{</div>
-<div class="line"><span class="lineno">   74</span> </div>
-<div class="line"><span class="lineno">   75</span>        <span class="keywordtype">size_t</span> pos;</div>
-<div class="line"><span class="lineno">   76</span>        <span class="keywordtype">int</span> vli;</div>
-<div class="line"><span class="lineno">   77</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *p, *q;</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>        assert(data);</div>
+<div class="fragment"><div class="line"><span class="lineno">   72</span>{</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><span class="lineno">   75</span>        <span class="keywordtype">int</span> vli;</div>
+<div class="line"><span class="lineno">   76</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *p, *q;</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>        assert(data);</div>
+<div class="line"><span class="lineno">   79</span> </div>
 <div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span> </div>
-<div class="line"><span class="lineno">   82</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   83</span><span class="comment">         * Data must consist of all digits.</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   85</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   86</span>        <span class="keywordflow">for</span> (pos = 0; data[pos] != <span class="charliteral">&#39;\0&#39;</span>; pos++) {</div>
-<div class="line"><span class="lineno">   87</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[pos] &lt; <span class="charliteral">&#39;0&#39;</span> || data[pos] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
-<div class="line"><span class="lineno">   88</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   89</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">   90</span>                                pos,</div>
-<div class="line"><span class="lineno">   91</span>                                1</div>
-<div class="line"><span class="lineno">   92</span>                        );</div>
-<div class="line"><span class="lineno">   93</span>        }</div>
-<div class="line"><span class="lineno">   94</span> </div>
-<div class="line"><span class="lineno">   95</span>        p = data;</div>
-<div class="line"><span class="lineno">   96</span>        q = data + pos;</div>
+<div class="line"><span class="lineno">   81</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">         * Data must consist of all digits.</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   84</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">for</span> (pos = 0; data[pos] != <span class="charliteral">&#39;\0&#39;</span>; pos++) {</div>
+<div class="line"><span class="lineno">   86</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[pos] &lt; <span class="charliteral">&#39;0&#39;</span> || data[pos] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
+<div class="line"><span class="lineno">   87</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   88</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   89</span>                                pos,</div>
+<div class="line"><span class="lineno">   90</span>                                1</div>
+<div class="line"><span class="lineno">   91</span>                        );</div>
+<div class="line"><span class="lineno">   92</span>        }</div>
+<div class="line"><span class="lineno">   93</span> </div>
+<div class="line"><span class="lineno">   94</span>        p = data;</div>
+<div class="line"><span class="lineno">   95</span>        q = data + pos;</div>
+<div class="line"><span class="lineno">   96</span> </div>
 <div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span> </div>
-<div class="line"><span class="lineno">   99</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  100</span><span class="comment">         * Validate the Format ID.</span></div>
-<div class="line"><span class="lineno">  101</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  102</span><span class="comment">         * Valid Format IDs are &quot;0&quot; and &quot;1&quot;.</span></div>
-<div class="line"><span class="lineno">  103</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  104</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  105</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(p == q))</div>
-<div class="line"><span class="lineno">  106</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  107</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa26041685ee9f50e636da9b991703778d">GS1_LINTER_COUPON_MISSING_FORMAT_CODE</a>,</div>
-<div class="line"><span class="lineno">  108</span>                        0,</div>
-<div class="line"><span class="lineno">  109</span>                        (<span class="keywordtype">size_t</span>)(q - data)</div>
-<div class="line"><span class="lineno">  110</span>                );</div>
-<div class="line"><span class="lineno">  111</span> </div>
-<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(*p != <span class="charliteral">&#39;0&#39;</span> &amp;&amp; *p != <span class="charliteral">&#39;1&#39;</span>))</div>
-<div class="line"><span class="lineno">  113</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  114</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa2e647ecb9647ca628f73f741669ca604">GS1_LINTER_COUPON_INVALID_FORMAT_CODE</a>,</div>
-<div class="line"><span class="lineno">  115</span>                        (<span class="keywordtype">size_t</span>)(p - data),</div>
-<div class="line"><span class="lineno">  116</span>                        1</div>
-<div class="line"><span class="lineno">  117</span>                );</div>
+<div class="line"><span class="lineno">   98</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   99</span><span class="comment">         * Validate the Format ID.</span></div>
+<div class="line"><span class="lineno">  100</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  101</span><span class="comment">         * Valid Format IDs are &quot;0&quot; and &quot;1&quot;.</span></div>
+<div class="line"><span class="lineno">  102</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  103</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(p == q))</div>
+<div class="line"><span class="lineno">  105</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  106</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa26041685ee9f50e636da9b991703778d">GS1_LINTER_COUPON_MISSING_FORMAT_CODE</a>,</div>
+<div class="line"><span class="lineno">  107</span>                        0,</div>
+<div class="line"><span class="lineno">  108</span>                        (<span class="keywordtype">size_t</span>)(q - data)</div>
+<div class="line"><span class="lineno">  109</span>                );</div>
+<div class="line"><span class="lineno">  110</span> </div>
+<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(*p != <span class="charliteral">&#39;0&#39;</span> &amp;&amp; *p != <span class="charliteral">&#39;1&#39;</span>))</div>
+<div class="line"><span class="lineno">  112</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  113</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa2e647ecb9647ca628f73f741669ca604">GS1_LINTER_COUPON_INVALID_FORMAT_CODE</a>,</div>
+<div class="line"><span class="lineno">  114</span>                        (<span class="keywordtype">size_t</span>)(p - data),</div>
+<div class="line"><span class="lineno">  115</span>                        1</div>
+<div class="line"><span class="lineno">  116</span>                );</div>
+<div class="line"><span class="lineno">  117</span> </div>
 <div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span> </div>
-<div class="line"><span class="lineno">  120</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  121</span><span class="comment">         * Validate the Funder VLI is in the range &quot;0&quot; to &quot;6&quot; and that the</span></div>
-<div class="line"><span class="lineno">  122</span><span class="comment">         * following Funder ID has the corresponding length (plus 6).</span></div>
-<div class="line"><span class="lineno">  123</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  124</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  125</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(++p == q))</div>
-<div class="line"><span class="lineno">  126</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  127</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8aad660e405e9a1c16c7d3825de97d24">GS1_LINTER_COUPON_MISSING_FUNDER_VLI</a>,</div>
-<div class="line"><span class="lineno">  128</span>                        0,</div>
-<div class="line"><span class="lineno">  129</span>                        (<span class="keywordtype">size_t</span>)(q - data)</div>
-<div class="line"><span class="lineno">  130</span>                );</div>
-<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(*p &gt; <span class="charliteral">&#39;6&#39;</span>))</div>
-<div class="line"><span class="lineno">  132</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  133</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab6b4312ea9ea2b82803cd42bc37e11ef">GS1_LINTER_COUPON_INVALID_FUNDER_LENGTH</a>,</div>
-<div class="line"><span class="lineno">  134</span>                        (<span class="keywordtype">size_t</span>)(p - data),</div>
-<div class="line"><span class="lineno">  135</span>                        1</div>
-<div class="line"><span class="lineno">  136</span>                );</div>
-<div class="line"><span class="lineno">  137</span>        vli = *p - <span class="charliteral">&#39;0&#39;</span> + 6;</div>
-<div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(q - ++p &lt; vli))</div>
-<div class="line"><span class="lineno">  140</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  141</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaef114ba3761ead49198b42c32c9e01f2">GS1_LINTER_COUPON_TRUNCATED_FUNDER</a>,</div>
-<div class="line"><span class="lineno">  142</span>                        (p == q) ? 0                  : (size_t)(p - data),</div>
-<div class="line"><span class="lineno">  143</span>                        (p == q) ? (size_t)(q - data) : (size_t)(q - p)</div>
-<div class="line"><span class="lineno">  144</span>                );</div>
-<div class="line"><span class="lineno">  145</span> </div>
-<div class="line"><span class="lineno">  146</span>        p += vli;</div>
+<div class="line"><span class="lineno">  119</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment">         * Validate the Funder VLI is in the range &quot;0&quot; to &quot;6&quot; and that the</span></div>
+<div class="line"><span class="lineno">  121</span><span class="comment">         * following Funder ID has the corresponding length (plus 6).</span></div>
+<div class="line"><span class="lineno">  122</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(++p == q))</div>
+<div class="line"><span class="lineno">  125</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  126</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8aad660e405e9a1c16c7d3825de97d24">GS1_LINTER_COUPON_MISSING_FUNDER_VLI</a>,</div>
+<div class="line"><span class="lineno">  127</span>                        0,</div>
+<div class="line"><span class="lineno">  128</span>                        (<span class="keywordtype">size_t</span>)(q - data)</div>
+<div class="line"><span class="lineno">  129</span>                );</div>
+<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(*p &gt; <span class="charliteral">&#39;6&#39;</span>))</div>
+<div class="line"><span class="lineno">  131</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  132</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aab6b4312ea9ea2b82803cd42bc37e11ef">GS1_LINTER_COUPON_INVALID_FUNDER_LENGTH</a>,</div>
+<div class="line"><span class="lineno">  133</span>                        (<span class="keywordtype">size_t</span>)(p - data),</div>
+<div class="line"><span class="lineno">  134</span>                        1</div>
+<div class="line"><span class="lineno">  135</span>                );</div>
+<div class="line"><span class="lineno">  136</span>        vli = *p - <span class="charliteral">&#39;0&#39;</span> + 6;</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(q - ++p &lt; vli))</div>
+<div class="line"><span class="lineno">  139</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  140</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaef114ba3761ead49198b42c32c9e01f2">GS1_LINTER_COUPON_TRUNCATED_FUNDER</a>,</div>
+<div class="line"><span class="lineno">  141</span>                        (p == q) ? 0                  : (size_t)(p - data),</div>
+<div class="line"><span class="lineno">  142</span>                        (p == q) ? (size_t)(q - data) : (size_t)(q - p)</div>
+<div class="line"><span class="lineno">  143</span>                );</div>
+<div class="line"><span class="lineno">  144</span> </div>
+<div class="line"><span class="lineno">  145</span>        p += vli;</div>
+<div class="line"><span class="lineno">  146</span> </div>
 <div class="line"><span class="lineno">  147</span> </div>
-<div class="line"><span class="lineno">  148</span> </div>
-<div class="line"><span class="lineno">  149</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  150</span><span class="comment">         * Validate the existence of the six digit Offer Code.</span></div>
-<div class="line"><span class="lineno">  151</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  152</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(q - p &lt; 6))</div>
-<div class="line"><span class="lineno">  154</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  155</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa920e2c69a351efb3caf2d4612146d2bf">GS1_LINTER_COUPON_TRUNCATED_OFFER_CODE</a>,</div>
-<div class="line"><span class="lineno">  156</span>                        (p == q) ? 0                  : (size_t)(p - data),</div>
-<div class="line"><span class="lineno">  157</span>                        (p == q) ? (size_t)(q - data) : (size_t)(q - p)</div>
-<div class="line"><span class="lineno">  158</span>                );</div>
-<div class="line"><span class="lineno">  159</span> </div>
-<div class="line"><span class="lineno">  160</span>        p += 6;</div>
+<div class="line"><span class="lineno">  148</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  149</span><span class="comment">         * Validate the existence of the six digit Offer Code.</span></div>
+<div class="line"><span class="lineno">  150</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  151</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  152</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(q - p &lt; 6))</div>
+<div class="line"><span class="lineno">  153</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  154</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa920e2c69a351efb3caf2d4612146d2bf">GS1_LINTER_COUPON_TRUNCATED_OFFER_CODE</a>,</div>
+<div class="line"><span class="lineno">  155</span>                        (p == q) ? 0                  : (size_t)(p - data),</div>
+<div class="line"><span class="lineno">  156</span>                        (p == q) ? (size_t)(q - data) : (size_t)(q - p)</div>
+<div class="line"><span class="lineno">  157</span>                );</div>
+<div class="line"><span class="lineno">  158</span> </div>
+<div class="line"><span class="lineno">  159</span>        p += 6;</div>
+<div class="line"><span class="lineno">  160</span> </div>
 <div class="line"><span class="lineno">  161</span> </div>
-<div class="line"><span class="lineno">  162</span> </div>
-<div class="line"><span class="lineno">  163</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  164</span><span class="comment">         * Validate that the Serial Number follows its VLI and has the</span></div>
-<div class="line"><span class="lineno">  165</span><span class="comment">         * corresponding length (plus 6).</span></div>
-<div class="line"><span class="lineno">  166</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  167</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  168</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(p == q))</div>
-<div class="line"><span class="lineno">  169</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  170</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6c1f2dd461c9c876abe60362fd8a70d2">GS1_LINTER_COUPON_MISSING_SERIAL_NUMBER_VLI</a>,</div>
-<div class="line"><span class="lineno">  171</span>                        0,</div>
-<div class="line"><span class="lineno">  172</span>                        (<span class="keywordtype">size_t</span>)(q - data)</div>
-<div class="line"><span class="lineno">  173</span>                );</div>
-<div class="line"><span class="lineno">  174</span>        vli = *p - <span class="charliteral">&#39;0&#39;</span> + 6;</div>
-<div class="line"><span class="lineno">  175</span> </div>
-<div class="line"><span class="lineno">  176</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(q - ++p &lt; vli))</div>
-<div class="line"><span class="lineno">  177</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  178</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa89be1e5efca9c91933be6c915bb092d0">GS1_LINTER_COUPON_TRUNCATED_SERIAL_NUMBER</a>,</div>
-<div class="line"><span class="lineno">  179</span>                        (p == q) ? 0                  : (size_t)(p - data),</div>
-<div class="line"><span class="lineno">  180</span>                        (p == q) ? (size_t)(q - data) : (size_t)(q - p)</div>
-<div class="line"><span class="lineno">  181</span>                );</div>
-<div class="line"><span class="lineno">  182</span> </div>
-<div class="line"><span class="lineno">  183</span>        p += vli;</div>
+<div class="line"><span class="lineno">  162</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  163</span><span class="comment">         * Validate that the Serial Number follows its VLI and has the</span></div>
+<div class="line"><span class="lineno">  164</span><span class="comment">         * corresponding length (plus 6).</span></div>
+<div class="line"><span class="lineno">  165</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  166</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  167</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(p == q))</div>
+<div class="line"><span class="lineno">  168</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  169</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6c1f2dd461c9c876abe60362fd8a70d2">GS1_LINTER_COUPON_MISSING_SERIAL_NUMBER_VLI</a>,</div>
+<div class="line"><span class="lineno">  170</span>                        0,</div>
+<div class="line"><span class="lineno">  171</span>                        (<span class="keywordtype">size_t</span>)(q - data)</div>
+<div class="line"><span class="lineno">  172</span>                );</div>
+<div class="line"><span class="lineno">  173</span>        vli = *p - <span class="charliteral">&#39;0&#39;</span> + 6;</div>
+<div class="line"><span class="lineno">  174</span> </div>
+<div class="line"><span class="lineno">  175</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(q - ++p &lt; vli))</div>
+<div class="line"><span class="lineno">  176</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  177</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa89be1e5efca9c91933be6c915bb092d0">GS1_LINTER_COUPON_TRUNCATED_SERIAL_NUMBER</a>,</div>
+<div class="line"><span class="lineno">  178</span>                        (p == q) ? 0                  : (size_t)(p - data),</div>
+<div class="line"><span class="lineno">  179</span>                        (p == q) ? (size_t)(q - data) : (size_t)(q - p)</div>
+<div class="line"><span class="lineno">  180</span>                );</div>
+<div class="line"><span class="lineno">  181</span> </div>
+<div class="line"><span class="lineno">  182</span>        p += vli;</div>
+<div class="line"><span class="lineno">  183</span> </div>
 <div class="line"><span class="lineno">  184</span> </div>
-<div class="line"><span class="lineno">  185</span> </div>
-<div class="line"><span class="lineno">  186</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  187</span><span class="comment">         * Report any excess data that follows the Serial Number.</span></div>
-<div class="line"><span class="lineno">  188</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  189</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  190</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(p != q))</div>
-<div class="line"><span class="lineno">  191</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  192</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa4c4403d48c83ffd717a7ea6590711b5">GS1_LINTER_COUPON_EXCESS_DATA</a>,</div>
-<div class="line"><span class="lineno">  193</span>                        (<span class="keywordtype">size_t</span>)(p - data),</div>
-<div class="line"><span class="lineno">  194</span>                        (<span class="keywordtype">size_t</span>)(q - p)</div>
-<div class="line"><span class="lineno">  195</span>                );</div>
-<div class="line"><span class="lineno">  196</span> </div>
-<div class="line"><span class="lineno">  197</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">  198</span> </div>
-<div class="line"><span class="lineno">  199</span>}</div>
-<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implemention may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
+<div class="line"><span class="lineno">  185</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  186</span><span class="comment">         * Report any excess data that follows the Serial Number.</span></div>
+<div class="line"><span class="lineno">  187</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  188</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  189</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(p != q))</div>
+<div class="line"><span class="lineno">  190</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  191</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa4c4403d48c83ffd717a7ea6590711b5">GS1_LINTER_COUPON_EXCESS_DATA</a>,</div>
+<div class="line"><span class="lineno">  192</span>                        (<span class="keywordtype">size_t</span>)(p - data),</div>
+<div class="line"><span class="lineno">  193</span>                        (<span class="keywordtype">size_t</span>)(q - p)</div>
+<div class="line"><span class="lineno">  194</span>                );</div>
+<div class="line"><span class="lineno">  195</span> </div>
+<div class="line"><span class="lineno">  196</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  197</span> </div>
+<div class="line"><span class="lineno">  198</span>}</div>
+<div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa26041685ee9f50e636da9b991703778d"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa26041685ee9f50e636da9b991703778d">GS1_LINTER_COUPON_MISSING_FORMAT_CODE</a></div><div class="ttdeci">@ GS1_LINTER_COUPON_MISSING_FORMAT_CODE</div><div class="ttdoc">The coupon's Format Code is missing.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:123</div></div>
