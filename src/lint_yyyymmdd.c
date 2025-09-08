@@ -53,7 +53,11 @@
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yyyymmdd(const char* const data, size_t* const err_pos, size_t* const err_len)
 {
 
-	const gs1_lint_err_t ret = gs1_lint_yyyymmd0(data, err_pos, err_len);
+	gs1_lint_err_t ret;
+
+	assert(data);
+
+	ret = gs1_lint_yyyymmd0(data, err_pos, err_len);
 
 	assert(ret == GS1_LINTER_OK ||
 	       ret == GS1_LINTER_DATE_TOO_SHORT ||
