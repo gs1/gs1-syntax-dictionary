@@ -35,7 +35,7 @@ ifeq ($(MAKECMDGOALS),fuzzer)
 SANITIZE = yes
 FUZZER_SAN_OPT = ,fuzzer
 FUZZER_CORPUS = corpus
-FUZZER_MAX_LEN = 103
+FUZZER_MAX_LEN = 125
 endif
 
 

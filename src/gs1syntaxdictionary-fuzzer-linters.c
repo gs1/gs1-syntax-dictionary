@@ -29,36 +29,22 @@
 #error
 #endif
 
-#define RUN_LINTER(l,s,ep,el)	l(s,ep,el)
+#define RUN_LINTER(lint,s,l,ep,el)	lint(s,l,ep,el)
 
 #define MAX_DATA 4096
 
 
 int LLVMFuzzerTestOneInput(const uint8_t* const buf, size_t len) {
 
-	char data[MAX_DATA+1];
-	size_t err_pos[1], err_len[1];
+	size_t err_pos, err_len;
 	gs1_lint_err_t err;
 
-	if (len > MAX_DATA)
-		return 0;
-
-	memcpy(data, buf, len);
-	data[len] = '\0';
-	len = strlen(data);	// Might be shorter still due to nulls in buf
-
-	err = RUN_LINTER(LINTER, data, err_pos, err_len);
-
-	assert(memcmp(data, buf, len) == 0);
+	err = RUN_LINTER(LINTER, (char*)buf, len, &err_pos, &err_len);
 
 	if (err != GS1_LINTER_OK) {
-		assert(*err_pos < len || *err_pos == 0);
-		assert(*err_pos + *err_len <= len);
+		assert(err_pos < len || err_pos == 0);
+		assert(err_pos + err_len <= len);
 	}
-
-	RUN_LINTER(LINTER, data, NULL, err_len);
-	RUN_LINTER(LINTER, data, err_pos, NULL);
-	RUN_LINTER(LINTER, data, NULL, NULL);
 
 	return 0;
 
