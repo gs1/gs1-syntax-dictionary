@@ -94,7 +94,7 @@ If provided, the GS1_LINTER_CUSTOM_ISO4217_LOOKUP macro shall invoke whatever fu
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -103,96 +103,96 @@ If provided, the GS1_LINTER_CUSTOM_ISO4217_LOOKUP macro shall invoke whatever fu
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa3747f7cc753554728b149ae2b87399d" title="A valid ISO 4217 three-digit currency code is required.">GS1_LINTER_NOT_ISO4217</a> if the data is not a valid three-digit currency code. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   79</span>{</div>
-<div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment">         * Allow for a custom replacement of the lookup code to be provided.</span></div>
-<div class="line"><span class="lineno">   83</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   85</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_ISO4217_LOOKUP</span></div>
-<div class="line"><span class="lineno">   86</span><span class="preprocessor">#define GS1_LINTER_ISO4217_LOOKUP(cc, cc_len, valid) GS1_LINTER_CUSTOM_ISO4217_LOOKUP(cc, cc_len, valid)</span></div>
-<div class="line"><span class="lineno">   87</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">         *  Set of ISO 4217 three-digit currency codes</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   92</span><span class="comment">         *  MAINTENANCE NOTE:</span></div>
-<div class="line"><span class="lineno">   93</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment">         *  Updates to the ISO 4217 three-digit currency code list are provided</span></div>
-<div class="line"><span class="lineno">   95</span><span class="comment">         *  here:</span></div>
-<div class="line"><span class="lineno">   96</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   97</span><span class="comment">         *  https://www.six-group.com/en/products-services/financial-information/data-standards.html</span></div>
-<div class="line"><span class="lineno">   98</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   99</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  100</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint64_t iso4217[] = {</div>
-<div class="line"><span class="lineno">  101</span><span class="preprocessor">#if __STDC_VERSION__ &gt;= 202311L</span></div>
-<div class="line"><span class="lineno">  102</span>                0b0000000010001000000000000000000010001000000010001011100000001000,  <span class="comment">// 000-063: 008 012 032 036 044 048 050-052 060</span></div>
-<div class="line"><span class="lineno">  103</span>                0b1000100010000000000010000010000010000000100010000000100000001000,  <span class="comment">// 064-127: 064 068 072 084 090 096 104 108 116 124</span></div>
-<div class="line"><span class="lineno">  104</span>                0b0000100010000000100000001000100000000000001000100000000000001000,  <span class="comment">// 128-191: 132 136 144 152 156 170 174 188</span></div>
-<div class="line"><span class="lineno">  105</span>                0b1000000000010000100000100000001000000010100000100010000000000000,  <span class="comment">// 192-255: 192 203 208 214 222 230 232 238 242</span></div>
-<div class="line"><span class="lineno">  106</span>                0b0000001000000010000000000000000000001000000000000000000000000000,  <span class="comment">// 256-319: 262 270 292</span></div>
-<div class="line"><span class="lineno">  107</span>                0b1000100010001000000010001000100010001000100010001000000010000000,  <span class="comment">// 320-383: 320 324 328 332 340 344 348 352 356 360 364 368 376</span></div>
-<div class="line"><span class="lineno">  108</span>                0b0000100010001010100010001010001001100010001000100010000000000010,  <span class="comment">// 384-447: 388 392 396 398 400 404 408 410 414 417-418 422 426 430 434 446</span></div>
-<div class="line"><span class="lineno">  109</span>                0b0000001000100010000000000000000010001000000000001010000010000000,  <span class="comment">// 448-511: 454 458 462 480 484 496 498 504</span></div>
-<div class="line"><span class="lineno">  110</span>                0b1000100000001000000011000000000000001000001000100000001000000000,  <span class="comment">// 512-575: 512 516 524 532-533 548 554 558 566</span></div>
-<div class="line"><span class="lineno">  111</span>                0b0010000000100010000000101000100010000000000000000000000000100000,  <span class="comment">// 576-639: 578 586 590 598 600 604 608 634</span></div>
-<div class="line"><span class="lineno">  112</span>                0b0001001000000010000000000000000000000000001000000010000000000010,  <span class="comment">// 640-703: 643 646 654 682 690 702</span></div>
-<div class="line"><span class="lineno">  113</span>                0b1010001000000000000000001000000000000000000010001000100010001000,  <span class="comment">// 704-767: 704 706 710 728 748 752 756 760 764</span></div>
-<div class="line"><span class="lineno">  114</span>                0b0000000010001000100010000000000010000001000000000010000000100000,  <span class="comment">// 768-831: 776 780 784 788 800 807 818 826</span></div>
-<div class="line"><span class="lineno">  115</span>                0b0010000010000000000000000010100000000000000000000010001000000000,  <span class="comment">// 832-895: 834 840 858 860 882 886</span></div>
-<div class="line"><span class="lineno">  116</span>                0b0000010000000000000000000000111111100110101011011011111111011111,  <span class="comment">// 896-959: 901 924-930 933-934 936 938 940-941 943-944 946-953 955-959</span></div>
-<div class="line"><span class="lineno">  117</span>                0b1111110111111101111111001110001000100101000000000000000000000000,  <span class="comment">// 960-999: 960-965 967-973 975-981 984-986 990 994 997 999</span></div>
-<div class="line"><span class="lineno">  118</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  119</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  120</span><span class="comment">                 *  Fallback for compilers lacking binary literal support.</span></div>
-<div class="line"><span class="lineno">  121</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  122</span><span class="comment">                 *  Generated from the above data with:</span></div>
-<div class="line"><span class="lineno">  123</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  124</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf(&quot;0x%016lx, &quot;, iso4217[i]); };</span></div>
-<div class="line"><span class="lineno">  125</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  126</span><span class="comment">                 */</span></div>
-<div class="line"><span class="lineno">  127</span>                0x008800008808b808, 0x8880082080880808, 0x0880808800220008, 0x8010820202822000,</div>
-<div class="line"><span class="lineno">  128</span>                0x0202000008000000, 0x8888088888888080, 0x088a88a262222002, 0x022200008800a080,</div>
-<div class="line"><span class="lineno">  129</span>                0x88080c0008220200, 0x2022028880000020, 0x1202000000202002, 0xa200008000088888,</div>
-<div class="line"><span class="lineno">  130</span>                0x0088880081002020, 0x2080002800002200, 0x0400000fe6adbfdf, 0xfdfdfce225000000,</div>
-<div class="line"><span class="lineno">  131</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  132</span>        };</div>
-<div class="line"><span class="lineno">  133</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  134</span><span class="comment">/// \cond</span></div>
-<div class="line"><span class="lineno">  135</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_ISO4217_LOOKUP(cc, cc_len, valid) do {                               \</span></div>
-<div class="line"><span class="lineno">  136</span><span class="preprocessor">        valid = 0;                                                                      \</span></div>
-<div class="line"><span class="lineno">  137</span><span class="preprocessor">        if (cc_len == 3 &amp;&amp; isdigit(cc[0]) &amp;&amp; isdigit(cc[1]) &amp;&amp; isdigit(cc[2])) {        \</span></div>
-<div class="line"><span class="lineno">  138</span><span class="preprocessor">                int v = (cc[0] - &#39;0&#39;) * 100 + (cc[1] - &#39;0&#39;) * 10 + cc[2] - &#39;0&#39;;         \</span></div>
-<div class="line"><span class="lineno">  139</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, iso4217, valid);                          \</span></div>
-<div class="line"><span class="lineno">  140</span><span class="preprocessor">        }                                                                               \</span></div>
-<div class="line"><span class="lineno">  141</span><span class="preprocessor">} while (0)</span><span class="comment"></span></div>
-<div class="line"><span class="lineno">  142</span><span class="comment">/// \endcond</span></div>
-<div class="line"><span class="lineno">  143</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  144</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  145</span> </div>
-<div class="line"><span class="lineno">  146</span>        <span class="keywordtype">int</span> valid;</div>
-<div class="line"><span class="lineno">  147</span> </div>
-<div class="line"><span class="lineno">  148</span>        assert(data);</div>
-<div class="line"><span class="lineno">  149</span> </div>
-<div class="line"><span class="lineno">  150</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  151</span><span class="comment">         * Ensure that the data is in the list.</span></div>
-<div class="line"><span class="lineno">  152</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  153</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  154</span>        GS1_LINTER_ISO4217_LOOKUP(data, data_len, valid);</div>
-<div class="line"><span class="lineno">  155</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a>(valid))</div>
-<div class="line"><span class="lineno">  156</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">  157</span> </div>
-<div class="line"><span class="lineno">  158</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  159</span><span class="comment">         * If not valid then indicate an error.</span></div>
-<div class="line"><span class="lineno">  160</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  161</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  162</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  163</span>                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa3747f7cc753554728b149ae2b87399d">GS1_LINTER_NOT_ISO4217</a>,</div>
-<div class="line"><span class="lineno">  164</span>                0,</div>
-<div class="line"><span class="lineno">  165</span>                data_len</div>
-<div class="line"><span class="lineno">  166</span>        );</div>
-<div class="line"><span class="lineno">  167</span> </div>
-<div class="line"><span class="lineno">  168</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   78</span>{</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">         * Allow for a custom replacement of the lookup code to be provided.</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   84</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_ISO4217_LOOKUP</span></div>
+<div class="line"><span class="lineno">   85</span><span class="preprocessor">#define GS1_LINTER_ISO4217_LOOKUP(cc, cc_len, valid) GS1_LINTER_CUSTOM_ISO4217_LOOKUP(cc, cc_len, valid)</span></div>
+<div class="line"><span class="lineno">   86</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   89</span><span class="comment">         *  Set of ISO 4217 three-digit currency codes</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">         *  MAINTENANCE NOTE:</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment">         *  Updates to the ISO 4217 three-digit currency code list are provided</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment">         *  here:</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   96</span><span class="comment">         *  https://www.six-group.com/en/products-services/financial-information/data-standards.html</span></div>
+<div class="line"><span class="lineno">   97</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   98</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   99</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint64_t iso4217[] = {</div>
+<div class="line"><span class="lineno">  100</span><span class="preprocessor">#if __STDC_VERSION__ &gt;= 202311L</span></div>
+<div class="line"><span class="lineno">  101</span>                0b0000000010001000000000000000000010001000000010001011100000001000,  <span class="comment">// 000-063: 008 012 032 036 044 048 050-052 060</span></div>
+<div class="line"><span class="lineno">  102</span>                0b1000100010000000000010000010000010000000100010000000100000001000,  <span class="comment">// 064-127: 064 068 072 084 090 096 104 108 116 124</span></div>
+<div class="line"><span class="lineno">  103</span>                0b0000100010000000100000001000100000000000001000100000000000001000,  <span class="comment">// 128-191: 132 136 144 152 156 170 174 188</span></div>
+<div class="line"><span class="lineno">  104</span>                0b1000000000010000100000100000001000000010100000100010000000000000,  <span class="comment">// 192-255: 192 203 208 214 222 230 232 238 242</span></div>
+<div class="line"><span class="lineno">  105</span>                0b0000001000000010000000000000000000001000000000000000000000000000,  <span class="comment">// 256-319: 262 270 292</span></div>
+<div class="line"><span class="lineno">  106</span>                0b1000100010001000000010001000100010001000100010001000000010000000,  <span class="comment">// 320-383: 320 324 328 332 340 344 348 352 356 360 364 368 376</span></div>
+<div class="line"><span class="lineno">  107</span>                0b0000100010001010100010001010001001100010001000100010000000000010,  <span class="comment">// 384-447: 388 392 396 398 400 404 408 410 414 417-418 422 426 430 434 446</span></div>
+<div class="line"><span class="lineno">  108</span>                0b0000001000100010000000000000000010001000000000001010000010000000,  <span class="comment">// 448-511: 454 458 462 480 484 496 498 504</span></div>
+<div class="line"><span class="lineno">  109</span>                0b1000100000001000000011000000000000001000001000100000001000000000,  <span class="comment">// 512-575: 512 516 524 532-533 548 554 558 566</span></div>
+<div class="line"><span class="lineno">  110</span>                0b0010000000100010000000101000100010000000000000000000000000100000,  <span class="comment">// 576-639: 578 586 590 598 600 604 608 634</span></div>
+<div class="line"><span class="lineno">  111</span>                0b0001001000000010000000000000000000000000001000000010000000000010,  <span class="comment">// 640-703: 643 646 654 682 690 702</span></div>
+<div class="line"><span class="lineno">  112</span>                0b1010001000000000000000001000000000000000000010001000100010001000,  <span class="comment">// 704-767: 704 706 710 728 748 752 756 760 764</span></div>
+<div class="line"><span class="lineno">  113</span>                0b0000000010001000100010000000000010000001000000000010000000100000,  <span class="comment">// 768-831: 776 780 784 788 800 807 818 826</span></div>
+<div class="line"><span class="lineno">  114</span>                0b0010000010000000000000000010100000000000000000000010001000000000,  <span class="comment">// 832-895: 834 840 858 860 882 886</span></div>
+<div class="line"><span class="lineno">  115</span>                0b0000010000000000000000000000111111100110101011011011111111011111,  <span class="comment">// 896-959: 901 924-930 933-934 936 938 940-941 943-944 946-953 955-959</span></div>
+<div class="line"><span class="lineno">  116</span>                0b1111110111111101111111001110001000100101000000000000000000000000,  <span class="comment">// 960-999: 960-965 967-973 975-981 984-986 990 994 997 999</span></div>
+<div class="line"><span class="lineno">  117</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  118</span>                <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  119</span><span class="comment">                 *  Fallback for compilers lacking binary literal support.</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">  121</span><span class="comment">                 *  Generated from the above data with:</span></div>
+<div class="line"><span class="lineno">  122</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso4217) / sizeof(iso4217[0]); i++) { printf(&quot;0x%016lx, &quot;, iso4217[i]); };</span></div>
+<div class="line"><span class="lineno">  124</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment">                 */</span></div>
+<div class="line"><span class="lineno">  126</span>                0x008800008808b808, 0x8880082080880808, 0x0880808800220008, 0x8010820202822000,</div>
+<div class="line"><span class="lineno">  127</span>                0x0202000008000000, 0x8888088888888080, 0x088a88a262222002, 0x022200008800a080,</div>
+<div class="line"><span class="lineno">  128</span>                0x88080c0008220200, 0x2022028880000020, 0x1202000000202002, 0xa200008000088888,</div>
+<div class="line"><span class="lineno">  129</span>                0x0088880081002020, 0x2080002800002200, 0x0400000fe6adbfdf, 0xfdfdfce225000000,</div>
+<div class="line"><span class="lineno">  130</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  131</span>        };</div>
+<div class="line"><span class="lineno">  132</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  133</span><span class="comment">/// \cond</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_ISO4217_LOOKUP(cc, cc_len, valid) do {                               \</span></div>
+<div class="line"><span class="lineno">  135</span><span class="preprocessor">        valid = 0;                                                                      \</span></div>
+<div class="line"><span class="lineno">  136</span><span class="preprocessor">        if (cc_len == 3 &amp;&amp; isdigit(cc[0]) &amp;&amp; isdigit(cc[1]) &amp;&amp; isdigit(cc[2])) {        \</span></div>
+<div class="line"><span class="lineno">  137</span><span class="preprocessor">                int v = (cc[0] - &#39;0&#39;) * 100 + (cc[1] - &#39;0&#39;) * 10 + cc[2] - &#39;0&#39;;         \</span></div>
+<div class="line"><span class="lineno">  138</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, iso4217, valid);                          \</span></div>
+<div class="line"><span class="lineno">  139</span><span class="preprocessor">        }                                                                               \</span></div>
+<div class="line"><span class="lineno">  140</span><span class="preprocessor">} while (0)</span><span class="comment"></span></div>
+<div class="line"><span class="lineno">  141</span><span class="comment">/// \endcond</span></div>
+<div class="line"><span class="lineno">  142</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  143</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  144</span> </div>
+<div class="line"><span class="lineno">  145</span>        <span class="keywordtype">int</span> valid;</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>        assert(data);</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  150</span><span class="comment">         * Ensure that the data is in the list.</span></div>
+<div class="line"><span class="lineno">  151</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  152</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  153</span>        GS1_LINTER_ISO4217_LOOKUP(data, data_len, valid);</div>
+<div class="line"><span class="lineno">  154</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a>(valid))</div>
+<div class="line"><span class="lineno">  155</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  158</span><span class="comment">         * If not valid then indicate an error.</span></div>
+<div class="line"><span class="lineno">  159</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  160</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  161</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  162</span>                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa3747f7cc753554728b149ae2b87399d">GS1_LINTER_NOT_ISO4217</a>,</div>
+<div class="line"><span class="lineno">  163</span>                0,</div>
+<div class="line"><span class="lineno">  164</span>                data_len</div>
+<div class="line"><span class="lineno">  165</span>        );</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_abdc5ee13b97ac3a0273f106f56795999"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a></div><div class="ttdeci">#define GS1_LINTER_LIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be true.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:63</div></div>
