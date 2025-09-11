@@ -65,15 +65,15 @@ Macros</h2></td></tr>
 <tr class="memitem:a6557a8d6acc9f80fd03228ee88bed20a" id="r_a6557a8d6acc9f80fd03228ee88bed20a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gs1syntaxdictionary-utils_8h.html#a6557a8d6acc9f80fd03228ee88bed20a">GS1_LINTER_BITFIELD_LOOKUP</a>(bit,  field,  valid)</td></tr>
 <tr class="memdesc:a6557a8d6acc9f80fd03228ee88bed20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a lookup of a position in a bit field.  <br /></td></tr>
 <tr class="separator:a6557a8d6acc9f80fd03228ee88bed20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba7f7b60e31cca36ca95beff1a92dda2" id="r_aba7f7b60e31cca36ca95beff1a92dda2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gs1syntaxdictionary-utils_8h.html#aba7f7b60e31cca36ca95beff1a92dda2">GS1_LINTER_BINARY_SEARCH</a>(needle,  haystack,  valid)</td></tr>
-<tr class="memdesc:aba7f7b60e31cca36ca95beff1a92dda2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a binary search for a search term in a sorted set of strings.  <br /></td></tr>
-<tr class="separator:aba7f7b60e31cca36ca95beff1a92dda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ece0bf236884bd758bd222740128c3" id="r_a92ece0bf236884bd758bd222740128c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gs1syntaxdictionary-utils_8h.html#a92ece0bf236884bd758bd222740128c3">GS1_LINTER_BINARY_SEARCH</a>(needle,  needle_len,  haystack,  valid)</td></tr>
+<tr class="memdesc:a92ece0bf236884bd758bd222740128c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a binary search for a search term in a sorted set of strings.  <br /></td></tr>
+<tr class="separator:a92ece0bf236884bd758bd222740128c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Purpose</h2>
 <div class="textblock"><p>This header provides utility macros used by the reference linter functions. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="aba7f7b60e31cca36ca95beff1a92dda2" name="aba7f7b60e31cca36ca95beff1a92dda2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba7f7b60e31cca36ca95beff1a92dda2">&#9670;&#160;</a></span>GS1_LINTER_BINARY_SEARCH</h2>
+<a id="a92ece0bf236884bd758bd222740128c3" name="a92ece0bf236884bd758bd222740128c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ece0bf236884bd758bd222740128c3">&#9670;&#160;</a></span>GS1_LINTER_BINARY_SEARCH</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -83,6 +83,12 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">needle, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">needle_len, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -103,29 +109,34 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                            \</div>
-<div class="line">        <span class="keywordtype">size_t</span> s = 0;                                           \</div>
-<div class="line">        <span class="keywordtype">size_t</span> e = <span class="keyword">sizeof</span>(haystack) / <span class="keyword">sizeof</span>(haystack[0]);      \</div>
-<div class="line">        valid = 0;                                              \</div>
-<div class="line">        while (s &lt; e) {                                         \</div>
-<div class="line">                <span class="keyword">const</span> <span class="keywordtype">size_t</span> m = s + (e - s) / 2;               \</div>
-<div class="line">                <span class="keyword">const</span> <span class="keywordtype">int</span> cmp = strcmp(haystack[m], needle);    \</div>
-<div class="line">                if (cmp &lt; 0)                                    \</div>
-<div class="line">                        s = m + 1;                              \</div>
-<div class="line">                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cmp &gt; 0)                               \</div>
-<div class="line">                        e = m;                                  \</div>
-<div class="line">                <span class="keywordflow">else</span> {                                          \</div>
-<div class="line">                        valid = 1;                              \</div>
-<div class="line">                        <span class="keywordflow">break</span>;                                  \</div>
-<div class="line">                }                                               \</div>
-<div class="line">        }                                                       \</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                    \</div>
+<div class="line">        <span class="keywordtype">size_t</span> s = 0;                                                   \</div>
+<div class="line">        <span class="keywordtype">size_t</span> e = <span class="keyword">sizeof</span>(haystack) / <span class="keyword">sizeof</span>(haystack[0]);              \</div>
+<div class="line">        valid = 0;                                                      \</div>
+<div class="line">        while (s &lt; e) {                                                 \</div>
+<div class="line">                <span class="keyword">const</span> <span class="keywordtype">size_t</span> m = s + (e - s) / 2;                       \</div>
+<div class="line">                <span class="keyword">const</span> <span class="keywordtype">size_t</span> haystack_len = strlen(haystack[m]);        \</div>
+<div class="line">                <span class="keyword">const</span> <span class="keywordtype">size_t</span> min_len = needle_len &lt; haystack_len ?      \</div>
+<div class="line">                        needle_len : haystack_len;                      \</div>
+<div class="line">                <span class="keywordtype">int</span> cmp = memcmp(needle, haystack[m], min_len);         \</div>
+<div class="line">                if (cmp == 0 &amp;&amp; needle_len != haystack_len)             \</div>
+<div class="line">                        cmp = needle_len &lt; haystack_len ? -1 : 1;       \</div>
+<div class="line">                if (cmp == 0) {                                         \</div>
+<div class="line">                        valid = 1;                                      \</div>
+<div class="line">                        <span class="keywordflow">break</span>;                                          \</div>
+<div class="line">                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cmp &lt; 0)                                     \</div>
+<div class="line">                        e = m;                                          \</div>
+<div class="line">                else                                                    \</div>
+<div class="line">                        s = m + 1;                                      \</div>
+<div class="line">        }                                                               \</div>
 <div class="line">} <span class="keywordflow">while</span> (0)</div>
 </div><!-- fragment -->
 <p>Perform a binary search for a search term in a sorted set of strings. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">needle</td><td>A search term string to be exactly matched. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">haystack</td><td>A array of strings to be searched. The array must be otherwise the matching behaviour is undefined. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">needle_len</td><td>Length of the needle string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">haystack</td><td>A array of strings to be searched. The array must be sorted, otherwise the matching behaviour is undefined. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">valid</td><td>Set to <code>1</code> if <code>needle</code> is found in <code>haystack</code>, otherwise set to <code>0</code>. </td></tr>
   </table>
   </dd>

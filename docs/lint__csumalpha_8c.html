@@ -48,8 +48,8 @@ $(function() {
 <dl class="section remark"><dt>Remarks</dt><dd>The process for validating the GS1 alphanumeric check character pair is described in the <a href="https://www.gs1.org/genspecs">GS1 General Specifications</a> section "Check character
 calculation (for alphanumeric keys)". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a427afcaf8fecfe7431e9b579061763ed" name="a427afcaf8fecfe7431e9b579061763ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a427afcaf8fecfe7431e9b579061763ed">&#9670;&#160;</a></span>gs1_lint_csumalpha()</h2>
+<a id="affd30e7cdf31a59e4dd2b6330cbd723d" name="affd30e7cdf31a59e4dd2b6330cbd723d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd30e7cdf31a59e4dd2b6330cbd723d">&#9670;&#160;</a></span>gs1_lint_csumalpha()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -59,6 +59,12 @@ calculation (for alphanumeric keys)". </dd></dl>
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -82,7 +88,8 @@ calculation (for alphanumeric keys)". </dd></dl>
 <p>Used to ensure that the AI component has a valid alphanumeric check character pair.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. Must not be <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -96,91 +103,90 @@ calculation (for alphanumeric keys)". </dd></dl>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5b689ccb0bf7fdc46a6bb6bfc2b92707" title="The component is too long to perform an alphanumeric check character pair calculation.">GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION</a> if the data is too long for this implementation of the check character pair algorithm. <code>GS1_LINTER_INVALID_CSET82_CHARACTER</code> if any of the data characters are not in CSET 82.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The return value <code>GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION</code> represents exceeding an implementation-specific limit. Some implementations may choose to support longer data inputs. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   68</span>{</div>
-<div class="line"><span class="lineno">   69</span> </div>
-<div class="line"><span class="lineno">   70</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   71</span><span class="comment">         *  Set of prime weights used to derive alpha check characters.</span></div>
-<div class="line"><span class="lineno">   72</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   73</span><span class="comment">         *  Here we have the first 97 since that is the maximum length of any</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">         *  AI is currently 99. Implementations may choose to support longer</span></div>
-<div class="line"><span class="lineno">   75</span><span class="comment">         *  data inputs.</span></div>
-<div class="line"><span class="lineno">   76</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   77</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   78</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> primes[] = {</div>
-<div class="line"><span class="lineno">   79</span>                  2,   3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,</div>
-<div class="line"><span class="lineno">   80</span>                 41,  43,  47,  53,  59,  61,  67,  71,  73,  79,  83,  89,</div>
-<div class="line"><span class="lineno">   81</span>                 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151,</div>
-<div class="line"><span class="lineno">   82</span>                157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223,</div>
-<div class="line"><span class="lineno">   83</span>                227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281,</div>
-<div class="line"><span class="lineno">   84</span>                283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359,</div>
-<div class="line"><span class="lineno">   85</span>                367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433,</div>
-<div class="line"><span class="lineno">   86</span>                439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503,</div>
-<div class="line"><span class="lineno">   87</span>                509</div>
-<div class="line"><span class="lineno">   88</span>        };</div>
-<div class="line"><span class="lineno">   89</span> </div>
-<div class="line"><span class="lineno">   90</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment">         * Sequence of all characters in CSET 32, ordered by weight.</span></div>
-<div class="line"><span class="lineno">   92</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   93</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> cset32 = <span class="stringliteral">&quot;23456789ABCDEFGHJKLMNPQRSTUVWXYZ&quot;</span>;</div>
-<div class="line"><span class="lineno">   94</span> </div>
-<div class="line"><span class="lineno">   95</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   96</span><span class="comment">         * CSET82 character weights lookup table (0 = invalid; weight off by 1)</span></div>
-<div class="line"><span class="lineno">   97</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   98</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> cset82_weights[256] = {</div>
-<div class="line"><span class="lineno">   99</span>                [<span class="charliteral">&#39;!&#39;</span>] = 1, [<span class="charliteral">&#39;&quot;&#39;</span>] = 2, [<span class="charliteral">&#39;%&#39;</span>] = 3, [<span class="charliteral">&#39;&amp;&#39;</span>] = 4, [<span class="charliteral">&#39;\&#39;&#39;</span>] = 5, [<span class="charliteral">&#39;(&#39;</span>] = 6,</div>
-<div class="line"><span class="lineno">  100</span>                [<span class="charliteral">&#39;)&#39;</span>] = 7, [<span class="charliteral">&#39;*&#39;</span>] = 8, [<span class="charliteral">&#39;+&#39;</span>] = 9, [<span class="charliteral">&#39;,&#39;</span>] = 10, [<span class="charliteral">&#39;-&#39;</span>] = 11, [<span class="charliteral">&#39;.&#39;</span>] = 12,</div>
-<div class="line"><span class="lineno">  101</span>                [<span class="charliteral">&#39;/&#39;</span>] = 13, [<span class="charliteral">&#39;0&#39;</span>] = 14, [<span class="charliteral">&#39;1&#39;</span>] = 15, [<span class="charliteral">&#39;2&#39;</span>] = 16, [<span class="charliteral">&#39;3&#39;</span>] = 17, [<span class="charliteral">&#39;4&#39;</span>] = 18,</div>
-<div class="line"><span class="lineno">  102</span>                [<span class="charliteral">&#39;5&#39;</span>] = 19, [<span class="charliteral">&#39;6&#39;</span>] = 20, [<span class="charliteral">&#39;7&#39;</span>] = 21, [<span class="charliteral">&#39;8&#39;</span>] = 22, [<span class="charliteral">&#39;9&#39;</span>] = 23, [<span class="charliteral">&#39;:&#39;</span>] = 24,</div>
-<div class="line"><span class="lineno">  103</span>                [<span class="charliteral">&#39;;&#39;</span>] = 25, [<span class="charliteral">&#39;&lt;&#39;</span>] = 26, [<span class="charliteral">&#39;=&#39;</span>] = 27, [<span class="charliteral">&#39;&gt;&#39;</span>] = 28, [<span class="charliteral">&#39;?&#39;</span>] = 29, [<span class="charliteral">&#39;A&#39;</span>] = 30,</div>
-<div class="line"><span class="lineno">  104</span>                [<span class="charliteral">&#39;B&#39;</span>] = 31, [<span class="charliteral">&#39;C&#39;</span>] = 32, [<span class="charliteral">&#39;D&#39;</span>] = 33, [<span class="charliteral">&#39;E&#39;</span>] = 34, [<span class="charliteral">&#39;F&#39;</span>] = 35, [<span class="charliteral">&#39;G&#39;</span>] = 36,</div>
-<div class="line"><span class="lineno">  105</span>                [<span class="charliteral">&#39;H&#39;</span>] = 37, [<span class="charliteral">&#39;I&#39;</span>] = 38, [<span class="charliteral">&#39;J&#39;</span>] = 39, [<span class="charliteral">&#39;K&#39;</span>] = 40, [<span class="charliteral">&#39;L&#39;</span>] = 41, [<span class="charliteral">&#39;M&#39;</span>] = 42,</div>
-<div class="line"><span class="lineno">  106</span>                [<span class="charliteral">&#39;N&#39;</span>] = 43, [<span class="charliteral">&#39;O&#39;</span>] = 44, [<span class="charliteral">&#39;P&#39;</span>] = 45, [<span class="charliteral">&#39;Q&#39;</span>] = 46, [<span class="charliteral">&#39;R&#39;</span>] = 47, [<span class="charliteral">&#39;S&#39;</span>] = 48,</div>
-<div class="line"><span class="lineno">  107</span>                [<span class="charliteral">&#39;T&#39;</span>] = 49, [<span class="charliteral">&#39;U&#39;</span>] = 50, [<span class="charliteral">&#39;V&#39;</span>] = 51, [<span class="charliteral">&#39;W&#39;</span>] = 52, [<span class="charliteral">&#39;X&#39;</span>] = 53, [<span class="charliteral">&#39;Y&#39;</span>] = 54,</div>
-<div class="line"><span class="lineno">  108</span>                [<span class="charliteral">&#39;Z&#39;</span>] = 55, [<span class="charliteral">&#39;_&#39;</span>] = 56, [<span class="charliteral">&#39;a&#39;</span>] = 57, [<span class="charliteral">&#39;b&#39;</span>] = 58, [<span class="charliteral">&#39;c&#39;</span>] = 59, [<span class="charliteral">&#39;d&#39;</span>] = 60,</div>
-<div class="line"><span class="lineno">  109</span>                [<span class="charliteral">&#39;e&#39;</span>] = 61, [<span class="charliteral">&#39;f&#39;</span>] = 62, [<span class="charliteral">&#39;g&#39;</span>] = 63, [<span class="charliteral">&#39;h&#39;</span>] = 64, [<span class="charliteral">&#39;i&#39;</span>] = 65, [<span class="charliteral">&#39;j&#39;</span>] = 66,</div>
-<div class="line"><span class="lineno">  110</span>                [<span class="charliteral">&#39;k&#39;</span>] = 67, [<span class="charliteral">&#39;l&#39;</span>] = 68, [<span class="charliteral">&#39;m&#39;</span>] = 69, [<span class="charliteral">&#39;n&#39;</span>] = 70, [<span class="charliteral">&#39;o&#39;</span>] = 71, [<span class="charliteral">&#39;p&#39;</span>] = 72,</div>
-<div class="line"><span class="lineno">  111</span>                [<span class="charliteral">&#39;q&#39;</span>] = 73, [<span class="charliteral">&#39;r&#39;</span>] = 74, [<span class="charliteral">&#39;s&#39;</span>] = 75, [<span class="charliteral">&#39;t&#39;</span>] = 76, [<span class="charliteral">&#39;u&#39;</span>] = 77, [<span class="charliteral">&#39;v&#39;</span>] = 78,</div>
-<div class="line"><span class="lineno">  112</span>                [<span class="charliteral">&#39;w&#39;</span>] = 79, [<span class="charliteral">&#39;x&#39;</span>] = 80, [<span class="charliteral">&#39;y&#39;</span>] = 81, [<span class="charliteral">&#39;z&#39;</span>] = 82</div>
-<div class="line"><span class="lineno">  113</span>        };</div>
-<div class="line"><span class="lineno">  114</span> </div>
-<div class="line"><span class="lineno">  115</span>        <span class="keywordtype">size_t</span> pos, len;</div>
-<div class="line"><span class="lineno">  116</span>        uint32_t sum = 0;       <span class="comment">/* Sufficient for 97-prime implementation */</span></div>
-<div class="line"><span class="lineno">  117</span> </div>
-<div class="line"><span class="lineno">  118</span>        assert(data);</div>
-<div class="line"><span class="lineno">  119</span> </div>
-<div class="line"><span class="lineno">  120</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  121</span><span class="comment">         * Find length constraining data to the number of primes that we have.</span></div>
-<div class="line"><span class="lineno">  122</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  123</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">for</span> (len = 0; data[len] != <span class="charliteral">&#39;\0&#39;</span>; len++) {</div>
-<div class="line"><span class="lineno">  125</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(len &gt;= <span class="keyword">sizeof</span>(primes) / <span class="keyword">sizeof</span>(primes[0]) + 2))</div>
-<div class="line"><span class="lineno">  126</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  127</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5b689ccb0bf7fdc46a6bb6bfc2b92707">GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION</a>,</div>
-<div class="line"><span class="lineno">  128</span>                                0,</div>
-<div class="line"><span class="lineno">  129</span>                                len + 1</div>
-<div class="line"><span class="lineno">  130</span>                        );</div>
-<div class="line"><span class="lineno">  131</span>        }</div>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>{</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   72</span><span class="comment">         *  Set of prime weights used to derive alpha check characters.</span></div>
+<div class="line"><span class="lineno">   73</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">         *  Here we have the first 97 since that is the maximum length of any</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">         *  AI is currently 99. Implementations may choose to support longer</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">         *  data inputs.</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   78</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   79</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> primes[] = {</div>
+<div class="line"><span class="lineno">   80</span>                  2,   3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,</div>
+<div class="line"><span class="lineno">   81</span>                 41,  43,  47,  53,  59,  61,  67,  71,  73,  79,  83,  89,</div>
+<div class="line"><span class="lineno">   82</span>                 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151,</div>
+<div class="line"><span class="lineno">   83</span>                157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223,</div>
+<div class="line"><span class="lineno">   84</span>                227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281,</div>
+<div class="line"><span class="lineno">   85</span>                283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359,</div>
+<div class="line"><span class="lineno">   86</span>                367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433,</div>
+<div class="line"><span class="lineno">   87</span>                439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503,</div>
+<div class="line"><span class="lineno">   88</span>                509</div>
+<div class="line"><span class="lineno">   89</span>        };</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">         * Sequence of all characters in CSET 32, ordered by weight.</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   94</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span> cset32 = <span class="stringliteral">&quot;23456789ABCDEFGHJKLMNPQRSTUVWXYZ&quot;</span>;</div>
+<div class="line"><span class="lineno">   95</span> </div>
+<div class="line"><span class="lineno">   96</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   97</span><span class="comment">         * CSET82 character weights lookup table (0 = invalid; weight off by 1)</span></div>
+<div class="line"><span class="lineno">   98</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   99</span>        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> cset82_weights[256] = {</div>
+<div class="line"><span class="lineno">  100</span>                [<span class="charliteral">&#39;!&#39;</span>] = 1, [<span class="charliteral">&#39;&quot;&#39;</span>] = 2, [<span class="charliteral">&#39;%&#39;</span>] = 3, [<span class="charliteral">&#39;&amp;&#39;</span>] = 4, [<span class="charliteral">&#39;\&#39;&#39;</span>] = 5, [<span class="charliteral">&#39;(&#39;</span>] = 6,</div>
+<div class="line"><span class="lineno">  101</span>                [<span class="charliteral">&#39;)&#39;</span>] = 7, [<span class="charliteral">&#39;*&#39;</span>] = 8, [<span class="charliteral">&#39;+&#39;</span>] = 9, [<span class="charliteral">&#39;,&#39;</span>] = 10, [<span class="charliteral">&#39;-&#39;</span>] = 11, [<span class="charliteral">&#39;.&#39;</span>] = 12,</div>
+<div class="line"><span class="lineno">  102</span>                [<span class="charliteral">&#39;/&#39;</span>] = 13, [<span class="charliteral">&#39;0&#39;</span>] = 14, [<span class="charliteral">&#39;1&#39;</span>] = 15, [<span class="charliteral">&#39;2&#39;</span>] = 16, [<span class="charliteral">&#39;3&#39;</span>] = 17, [<span class="charliteral">&#39;4&#39;</span>] = 18,</div>
+<div class="line"><span class="lineno">  103</span>                [<span class="charliteral">&#39;5&#39;</span>] = 19, [<span class="charliteral">&#39;6&#39;</span>] = 20, [<span class="charliteral">&#39;7&#39;</span>] = 21, [<span class="charliteral">&#39;8&#39;</span>] = 22, [<span class="charliteral">&#39;9&#39;</span>] = 23, [<span class="charliteral">&#39;:&#39;</span>] = 24,</div>
+<div class="line"><span class="lineno">  104</span>                [<span class="charliteral">&#39;;&#39;</span>] = 25, [<span class="charliteral">&#39;&lt;&#39;</span>] = 26, [<span class="charliteral">&#39;=&#39;</span>] = 27, [<span class="charliteral">&#39;&gt;&#39;</span>] = 28, [<span class="charliteral">&#39;?&#39;</span>] = 29, [<span class="charliteral">&#39;A&#39;</span>] = 30,</div>
+<div class="line"><span class="lineno">  105</span>                [<span class="charliteral">&#39;B&#39;</span>] = 31, [<span class="charliteral">&#39;C&#39;</span>] = 32, [<span class="charliteral">&#39;D&#39;</span>] = 33, [<span class="charliteral">&#39;E&#39;</span>] = 34, [<span class="charliteral">&#39;F&#39;</span>] = 35, [<span class="charliteral">&#39;G&#39;</span>] = 36,</div>
+<div class="line"><span class="lineno">  106</span>                [<span class="charliteral">&#39;H&#39;</span>] = 37, [<span class="charliteral">&#39;I&#39;</span>] = 38, [<span class="charliteral">&#39;J&#39;</span>] = 39, [<span class="charliteral">&#39;K&#39;</span>] = 40, [<span class="charliteral">&#39;L&#39;</span>] = 41, [<span class="charliteral">&#39;M&#39;</span>] = 42,</div>
+<div class="line"><span class="lineno">  107</span>                [<span class="charliteral">&#39;N&#39;</span>] = 43, [<span class="charliteral">&#39;O&#39;</span>] = 44, [<span class="charliteral">&#39;P&#39;</span>] = 45, [<span class="charliteral">&#39;Q&#39;</span>] = 46, [<span class="charliteral">&#39;R&#39;</span>] = 47, [<span class="charliteral">&#39;S&#39;</span>] = 48,</div>
+<div class="line"><span class="lineno">  108</span>                [<span class="charliteral">&#39;T&#39;</span>] = 49, [<span class="charliteral">&#39;U&#39;</span>] = 50, [<span class="charliteral">&#39;V&#39;</span>] = 51, [<span class="charliteral">&#39;W&#39;</span>] = 52, [<span class="charliteral">&#39;X&#39;</span>] = 53, [<span class="charliteral">&#39;Y&#39;</span>] = 54,</div>
+<div class="line"><span class="lineno">  109</span>                [<span class="charliteral">&#39;Z&#39;</span>] = 55, [<span class="charliteral">&#39;_&#39;</span>] = 56, [<span class="charliteral">&#39;a&#39;</span>] = 57, [<span class="charliteral">&#39;b&#39;</span>] = 58, [<span class="charliteral">&#39;c&#39;</span>] = 59, [<span class="charliteral">&#39;d&#39;</span>] = 60,</div>
+<div class="line"><span class="lineno">  110</span>                [<span class="charliteral">&#39;e&#39;</span>] = 61, [<span class="charliteral">&#39;f&#39;</span>] = 62, [<span class="charliteral">&#39;g&#39;</span>] = 63, [<span class="charliteral">&#39;h&#39;</span>] = 64, [<span class="charliteral">&#39;i&#39;</span>] = 65, [<span class="charliteral">&#39;j&#39;</span>] = 66,</div>
+<div class="line"><span class="lineno">  111</span>                [<span class="charliteral">&#39;k&#39;</span>] = 67, [<span class="charliteral">&#39;l&#39;</span>] = 68, [<span class="charliteral">&#39;m&#39;</span>] = 69, [<span class="charliteral">&#39;n&#39;</span>] = 70, [<span class="charliteral">&#39;o&#39;</span>] = 71, [<span class="charliteral">&#39;p&#39;</span>] = 72,</div>
+<div class="line"><span class="lineno">  112</span>                [<span class="charliteral">&#39;q&#39;</span>] = 73, [<span class="charliteral">&#39;r&#39;</span>] = 74, [<span class="charliteral">&#39;s&#39;</span>] = 75, [<span class="charliteral">&#39;t&#39;</span>] = 76, [<span class="charliteral">&#39;u&#39;</span>] = 77, [<span class="charliteral">&#39;v&#39;</span>] = 78,</div>
+<div class="line"><span class="lineno">  113</span>                [<span class="charliteral">&#39;w&#39;</span>] = 79, [<span class="charliteral">&#39;x&#39;</span>] = 80, [<span class="charliteral">&#39;y&#39;</span>] = 81, [<span class="charliteral">&#39;z&#39;</span>] = 82</div>
+<div class="line"><span class="lineno">  114</span>        };</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><span class="lineno">  117</span>        uint32_t sum = 0;       <span class="comment">/* Sufficient for 97-prime implementation */</span></div>
+<div class="line"><span class="lineno">  118</span> </div>
+<div class="line"><span class="lineno">  119</span>        assert(data);</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span> </div>
+<div class="line"><span class="lineno">  122</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment">         * Constrain data to the number of primes that we have.</span></div>
+<div class="line"><span class="lineno">  124</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &gt; <span class="keyword">sizeof</span>(primes) / <span class="keyword">sizeof</span>(primes[0]) + 2))</div>
+<div class="line"><span class="lineno">  127</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  128</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa5b689ccb0bf7fdc46a6bb6bfc2b92707">GS1_LINTER_TOO_LONG_FOR_CHECK_PAIR_IMPLEMENTATION</a>,</div>
+<div class="line"><span class="lineno">  129</span>                        0,</div>
+<div class="line"><span class="lineno">  130</span>                        data_len</div>
+<div class="line"><span class="lineno">  131</span>                );</div>
 <div class="line"><span class="lineno">  132</span> </div>
 <div class="line"><span class="lineno">  133</span>        <span class="comment">/*</span></div>
 <div class="line"><span class="lineno">  134</span><span class="comment">         * Data must include at least the check character pair.</span></div>
 <div class="line"><span class="lineno">  135</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  136</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(len &lt; 2))</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &lt; 2))</div>
 <div class="line"><span class="lineno">  138</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  139</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa80bf1b9b059dcae14f11f56a8ea200f5">GS1_LINTER_TOO_SHORT_FOR_CHECK_PAIR</a>,</div>
 <div class="line"><span class="lineno">  140</span>                        0,</div>
-<div class="line"><span class="lineno">  141</span>                        len</div>
+<div class="line"><span class="lineno">  141</span>                        data_len</div>
 <div class="line"><span class="lineno">  142</span>                );</div>
 <div class="line"><span class="lineno">  143</span> </div>
 <div class="line"><span class="lineno">  144</span>        <span class="comment">/*</span></div>
 <div class="line"><span class="lineno">  145</span><span class="comment">         * Handling the two-character case now avoids conditionals later.</span></div>
 <div class="line"><span class="lineno">  146</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  147</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  148</span>        <span class="keywordflow">if</span> (len == 2) {</div>
+<div class="line"><span class="lineno">  148</span>        <span class="keywordflow">if</span> (data_len == 2) {</div>
 <div class="line"><span class="lineno">  149</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[0] != <span class="charliteral">&#39;2&#39;</span> || data[1] != <span class="charliteral">&#39;2&#39;</span>))</div>
 <div class="line"><span class="lineno">  150</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  151</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa646a6a5aad1b3f30532dff5d93a50118">GS1_LINTER_INCORRECT_CHECK_PAIR</a>,</div>
-<div class="line"><span class="lineno">  152</span>                                len - 2,</div>
+<div class="line"><span class="lineno">  152</span>                                data_len - 2,</div>
 <div class="line"><span class="lineno">  153</span>                                2</div>
 <div class="line"><span class="lineno">  154</span>                        );</div>
 <div class="line"><span class="lineno">  155</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
@@ -201,21 +207,21 @@ calculation (for alphanumeric keys)". </dd></dl>
 <div class="line"><span class="lineno">  170</span><span class="comment">         * positions in CSET 32.</span></div>
 <div class="line"><span class="lineno">  171</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  172</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">for</span> (pos = 0; pos &lt; len - 2; pos++) {</div>
+<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">for</span> (pos = 0; pos &lt; data_len - 2; pos++) {</div>
 <div class="line"><span class="lineno">  174</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(cset82_weights[(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>)data[pos]] == 0))</div>
 <div class="line"><span class="lineno">  175</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  176</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6f6993026ffc8f4caa4e4aa0c9df0dcb">GS1_LINTER_INVALID_CSET82_CHARACTER</a>,</div>
 <div class="line"><span class="lineno">  177</span>                                pos,</div>
 <div class="line"><span class="lineno">  178</span>                                1</div>
 <div class="line"><span class="lineno">  179</span>                        );</div>
-<div class="line"><span class="lineno">  180</span>                sum += (<span class="keywordtype">unsigned</span> int)(cset82_weights[(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>)data[pos]] - 1) * primes[len - 3 - pos];</div>
+<div class="line"><span class="lineno">  180</span>                sum += (<span class="keywordtype">unsigned</span> int)(cset82_weights[(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>)data[pos]] - 1) * primes[data_len - 3 - pos];</div>
 <div class="line"><span class="lineno">  181</span>        }</div>
 <div class="line"><span class="lineno">  182</span>        sum %= 1021;    <span class="comment">/* Overflow not possible with uint32_t */</span></div>
 <div class="line"><span class="lineno">  183</span> </div>
-<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[len-2] != cset32[sum &gt;&gt; 5] || data[len-1] != cset32[sum &amp; 31]))</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[data_len-2] != cset32[sum &gt;&gt; 5] || data[data_len-1] != cset32[sum &amp; 31]))</div>
 <div class="line"><span class="lineno">  185</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">  186</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa646a6a5aad1b3f30532dff5d93a50118">GS1_LINTER_INCORRECT_CHECK_PAIR</a>,</div>
-<div class="line"><span class="lineno">  187</span>                        len - 2,</div>
+<div class="line"><span class="lineno">  187</span>                        data_len - 2,</div>
 <div class="line"><span class="lineno">  188</span>                        2</div>
 <div class="line"><span class="lineno">  189</span>                );</div>
 <div class="line"><span class="lineno">  190</span> </div>

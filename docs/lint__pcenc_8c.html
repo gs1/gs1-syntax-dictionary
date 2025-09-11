@@ -47,8 +47,8 @@ $(function() {
 <div class="textblock"><p>The <code>pcenc</code> linter ensures that the data has correct percent-encoding. </p>
 <dl class="section remark"><dt>Remarks</dt><dd>Percent-encoding is defined by <a href="https://www.rfc-editor.org/rfc/rfc3986.html">RFC 3986: Uniform Resource Identifier (URI): Generic Syntax</a> section "2.1. Percent-Encoding". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="af486aef3042f6e163911b8b66124640f" name="af486aef3042f6e163911b8b66124640f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af486aef3042f6e163911b8b66124640f">&#9670;&#160;</a></span>gs1_lint_pcenc()</h2>
+<a id="a9c4002380d2b236466e2a8f2f668b8d7" name="a9c4002380d2b236466e2a8f2f668b8d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c4002380d2b236466e2a8f2f668b8d7">&#9670;&#160;</a></span>gs1_lint_pcenc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -58,6 +58,12 @@ $(function() {
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -81,7 +87,8 @@ $(function() {
 <p>Used to ensure that an AI component conforms with correct percent encoding.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. Must not be <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -90,46 +97,42 @@ $(function() {
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa88a7389f442b517e45775d0307d2df29" title="The input contains an invalid percent hex-encoding &quot;%hh&quot; sequence.">GS1_LINTER_INVALID_PERCENT_SEQUENCE</a> if the data contains an invalid percent sequence. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>{</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *p;</div>
-<div class="line"><span class="lineno">   58</span> </div>
-<div class="line"><span class="lineno">   59</span>        assert(data);</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>        p = data;</div>
-<div class="line"><span class="lineno">   62</span> </div>
-<div class="line"><span class="lineno">   63</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   64</span><span class="comment">         * Find each instance of &quot;%&quot; in the data and ensure that there are at</span></div>
-<div class="line"><span class="lineno">   65</span><span class="comment">         * least two following characters and that these two characters</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment">         * represent a hex value.</span></div>
-<div class="line"><span class="lineno">   67</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   68</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">while</span> ((p = strchr(p, <span class="charliteral">&#39;%&#39;</span>)) != NULL) {</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!p[1] || !p[2])) {</div>
-<div class="line"><span class="lineno">   72</span>                        <span class="keywordtype">size_t</span> remaining = 0;</div>
-<div class="line"><span class="lineno">   73</span>                        <span class="keywordflow">if</span> (p[1]) remaining = p[2] ? 2 : 1;</div>
-<div class="line"><span class="lineno">   74</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   75</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa88a7389f442b517e45775d0307d2df29">GS1_LINTER_INVALID_PERCENT_SEQUENCE</a>,</div>
-<div class="line"><span class="lineno">   76</span>                                (<span class="keywordtype">size_t</span>)(p - data),</div>
-<div class="line"><span class="lineno">   77</span>                                remaining + 1</div>
-<div class="line"><span class="lineno">   78</span>                        );</div>
-<div class="line"><span class="lineno">   79</span>                }</div>
-<div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!isxdigit(p[1]) || !isxdigit(p[2])))</div>
-<div class="line"><span class="lineno">   82</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   83</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa88a7389f442b517e45775d0307d2df29">GS1_LINTER_INVALID_PERCENT_SEQUENCE</a>,</div>
-<div class="line"><span class="lineno">   84</span>                                (<span class="keywordtype">size_t</span>)(p - data),</div>
-<div class="line"><span class="lineno">   85</span>                                3</div>
-<div class="line"><span class="lineno">   86</span>                        );</div>
-<div class="line"><span class="lineno">   87</span> </div>
-<div class="line"><span class="lineno">   88</span>                p += 3;</div>
-<div class="line"><span class="lineno">   89</span> </div>
-<div class="line"><span class="lineno">   90</span>        }</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">   93</span> </div>
-<div class="line"><span class="lineno">   94</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   56</span>{</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>        assert(data);</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment">         * Find each instance of &quot;%&quot; in the data and ensure that there are at</span></div>
+<div class="line"><span class="lineno">   64</span><span class="comment">         * least two following characters and that these two characters</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment">         * represent a hex value.</span></div>
+<div class="line"><span class="lineno">   66</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   67</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">for</span> (pos = 0; pos &lt; data_len; pos++) {</div>
+<div class="line"><span class="lineno">   69</span>                <span class="keywordflow">if</span> (data[pos] == <span class="charliteral">&#39;%&#39;</span>) {</div>
+<div class="line"><span class="lineno">   70</span>                        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(pos + 2 &gt;= data_len)) {</div>
+<div class="line"><span class="lineno">   71</span>                                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   72</span>                                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa88a7389f442b517e45775d0307d2df29">GS1_LINTER_INVALID_PERCENT_SEQUENCE</a>,</div>
+<div class="line"><span class="lineno">   73</span>                                        pos,</div>
+<div class="line"><span class="lineno">   74</span>                                        data_len - pos</div>
+<div class="line"><span class="lineno">   75</span>                                );</div>
+<div class="line"><span class="lineno">   76</span>                        }</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>                        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!isxdigit(data[pos + 1]) || !isxdigit(data[pos + 2])))</div>
+<div class="line"><span class="lineno">   79</span>                                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   80</span>                                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa88a7389f442b517e45775d0307d2df29">GS1_LINTER_INVALID_PERCENT_SEQUENCE</a>,</div>
+<div class="line"><span class="lineno">   81</span>                                        pos,</div>
+<div class="line"><span class="lineno">   82</span>                                        3</div>
+<div class="line"><span class="lineno">   83</span>                                );</div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span>                        pos += 2;  <span class="comment">/* Skip the two hex digits, loop will increment past &#39;%&#39; */</span></div>
+<div class="line"><span class="lineno">   86</span>                }</div>
+<div class="line"><span class="lineno">   87</span>        }</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>

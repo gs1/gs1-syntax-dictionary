@@ -48,8 +48,8 @@ $(function() {
 <dl class="section remark"><dt>Remarks</dt><dd>CSET 64 is defined in the <a href="https://www.gs1.org/genspecs">GS1 General Specifications</a> table "GS1 AI encodable
 character set 64 (file-safe / URI-safe base64)". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a6b4857ae72a80a68bb3f4cc9abe7088b" name="a6b4857ae72a80a68bb3f4cc9abe7088b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b4857ae72a80a68bb3f4cc9abe7088b">&#9670;&#160;</a></span>gs1_lint_cset64()</h2>
+<a id="ac86f585ee748548448aa7e235a3ba0d7" name="ac86f585ee748548448aa7e235a3ba0d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac86f585ee748548448aa7e235a3ba0d7">&#9670;&#160;</a></span>gs1_lint_cset64()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -59,6 +59,12 @@ character set 64 (file-safe / URI-safe base64)". </dd></dl>
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -83,7 +89,8 @@ character set 64 (file-safe / URI-safe base64)". </dd></dl>
 <p>Note: The length of the component is validated by the framework that calls this function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -109,15 +116,15 @@ character set 64 (file-safe / URI-safe base64)". </dd></dl>
 <div class="line"><span class="lineno">   74</span> </div>
 <div class="line"><span class="lineno">   75</span>        assert(data);</div>
 <div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   78</span><span class="comment">         * Count padding characters from the end</span></div>
-<div class="line"><span class="lineno">   79</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   81</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">for</span> (pads = 0; pads &lt; len &amp;&amp; data[len - pads - 1] == <span class="charliteral">&#39;=&#39;</span>; pads++);</div>
-<div class="line"><span class="lineno">   83</span>        len -= pads;</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   79</span><span class="comment">         * Count padding characters from the end</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   82</span>        <span class="keywordflow">for</span> (pads = 0; pads &lt; data_len &amp;&amp; data[data_len - pads - 1] == <span class="charliteral">&#39;=&#39;</span>; pads++);</div>
+<div class="line"><span class="lineno">   83</span>        len = data_len - pads;</div>
 <div class="line"><span class="lineno">   84</span> </div>
-<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(pads &gt; 2 || (pads &gt; 0 &amp;&amp; (len + pads) % 3 != 0)))</div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(pads &gt; 2 || (pads &gt; 0 &amp;&amp; data_len % 3 != 0)))</div>
 <div class="line"><span class="lineno">   86</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">   87</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa03b58f629dc7afbce071c654146c5ba0">GS1_LINTER_INVALID_CSET64_PADDING</a>,</div>
 <div class="line"><span class="lineno">   88</span>                        len,</div>

@@ -47,8 +47,8 @@ $(function() {
 <div class="textblock"><p>The <code>gcppos2</code> linter checks whether an input starts with a GS1 Company Prefix ("GCP") from its second character position. </p>
 <dl class="section remark"><dt>Remarks</dt><dd>The GCP is defined in the <a href="https://www.gs1.org/genspecs">GS1 General Specifications</a> section "GS1 Company Prefix". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="afde2456842e447d78d8075b39652a4b1" name="afde2456842e447d78d8075b39652a4b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afde2456842e447d78d8075b39652a4b1">&#9670;&#160;</a></span>gs1_lint_gcppos2()</h2>
+<a id="ab5decf363a2afc0adc673a15e9e24dc2" name="ab5decf363a2afc0adc673a15e9e24dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5decf363a2afc0adc673a15e9e24dc2">&#9670;&#160;</a></span>gs1_lint_gcppos2()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -58,6 +58,12 @@ $(function() {
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -81,7 +87,8 @@ $(function() {
 <p>Used to ensure that an AI component starts with a GCP from its second position.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -100,14 +107,14 @@ $(function() {
 <div class="line"><span class="lineno">   61</span> </div>
 <div class="line"><span class="lineno">   62</span>        assert(data);</div>
 <div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!data[0] || !data[1]))</div>
+<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &lt; 2))</div>
 <div class="line"><span class="lineno">   65</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">   66</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa61f78ece2ed5b906673287778b8aa35d">GS1_LINTER_TOO_SHORT_FOR_GCP</a>,</div>
 <div class="line"><span class="lineno">   67</span>                        0,</div>
-<div class="line"><span class="lineno">   68</span>                        !data[0] ? 0 : 1</div>
+<div class="line"><span class="lineno">   68</span>                        data_len</div>
 <div class="line"><span class="lineno">   69</span>                );</div>
 <div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#adaccd573a710dced3c8adcf11f34c20a">gs1_lint_gcppos1</a>(data + 1, err_pos, err_len);</div>
+<div class="line"><span class="lineno">   71</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#a7f378123f543996936beb08e8047812c">gs1_lint_gcppos1</a>(data + 1, data_len - 1, err_pos, err_len);</div>
 <div class="line"><span class="lineno">   72</span> </div>
 <div class="line"><span class="lineno">   73</span>        assert(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> ||</div>
 <div class="line"><span class="lineno">   74</span>               ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa61f78ece2ed5b906673287778b8aa35d">GS1_LINTER_TOO_SHORT_FOR_GCP</a> ||</div>
@@ -127,12 +134,12 @@ $(function() {
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_a7f378123f543996936beb08e8047812c"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#a7f378123f543996936beb08e8047812c">gs1_lint_gcppos1</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos1(const char *data, size_t data_len, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_gcppos1.c:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a></div><div class="ttdeci">gs1_lint_err_t</div><div class="ttdoc">Linter return codes other than GS1_LINTER_OK indicate an error condition.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa61f78ece2ed5b906673287778b8aa35d"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa61f78ece2ed5b906673287778b8aa35d">GS1_LINTER_TOO_SHORT_FOR_GCP</a></div><div class="ttdeci">@ GS1_LINTER_TOO_SHORT_FOR_GCP</div><div class="ttdoc">The component is shorter than the minimum length GS1 Company Prefix.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:199</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa6410d0a0faf04a269ff6dd36bf0859f9"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6410d0a0faf04a269ff6dd36bf0859f9">GS1_LINTER_GCP_DATASOURCE_OFFLINE</a></div><div class="ttdeci">@ GS1_LINTER_GCP_DATASOURCE_OFFLINE</div><div class="ttdoc">The data source for GCP lookups is offline.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:87</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a></div><div class="ttdeci">@ GS1_LINTER_OK</div><div class="ttdoc">No issues were detected by the linter.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:77</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_GCP_PREFIX</div><div class="ttdoc">The GS1 Company Prefix is invalid.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:89</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_adaccd573a710dced3c8adcf11f34c20a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#adaccd573a710dced3c8adcf11f34c20a">gs1_lint_gcppos1</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos1(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_gcppos1.c:102</div></div>
 </div><!-- fragment -->
 </div>
 </div>

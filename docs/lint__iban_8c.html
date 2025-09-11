@@ -61,8 +61,8 @@ Macros</h2></td></tr>
 <div class="textblock"><p>The <code>iban</code> linter ensures that the data conforms to the format required for an International Bank Account Number (IBAN) number. </p>
 <dl class="section remark"><dt>Remarks</dt><dd>The format for an IBAN is specified by <a href="https://www.iso.org/standard/81090.html">ISO 13616-1: Financial services - International bank account number (IBAN) - Part 1: Structure of the IBAN</a>. </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a1498a6f8a0308089f0b776b350001ef8" name="a1498a6f8a0308089f0b776b350001ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1498a6f8a0308089f0b776b350001ef8">&#9670;&#160;</a></span>gs1_lint_iban()</h2>
+<a id="a81dda9a9dfd40d1f6985749fe1096567" name="a81dda9a9dfd40d1f6985749fe1096567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81dda9a9dfd40d1f6985749fe1096567">&#9670;&#160;</a></span>gs1_lint_iban()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -72,6 +72,12 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -95,7 +101,8 @@ Macros</h2></td></tr>
 <p>Used to validate that an AI component conforms to the format required for an IBAN.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. Must not be <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -112,11 +119,10 @@ Macros</h2></td></tr>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa69e716ee855ebacaaf48297dd8a0cb1b" title="The IBAN contains an invalid character.">GS1_LINTER_INVALID_IBAN_CHARACTER</a> if the data contains a character that isn't permissible within an IBAN. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8506634bd87de75d12584fab83321295" title="The IBAN must start with a valid ISO 3166 two-character country code.">GS1_LINTER_ILLEGAL_IBAN_COUNTRY_CODE</a> if the leading two characters are not a valid ISO 3166 alpha-2 country code. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   68</span>{</div>
-<div class="line"><span class="lineno">   69</span> </div>
-<div class="line"><span class="lineno">   70</span>        <span class="keywordtype">char</span> cc[3] = {0};</div>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>{</div>
+<div class="line"><span class="lineno">   70</span> </div>
 <div class="line"><span class="lineno">   71</span>        <a class="code hl_enumeration" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a> ret;</div>
-<div class="line"><span class="lineno">   72</span>        <span class="keywordtype">size_t</span> len = 0, pos;</div>
+<div class="line"><span class="lineno">   72</span>        <span class="keywordtype">size_t</span> pos;</div>
 <div class="line"><span class="lineno">   73</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> csum = 0;</div>
 <div class="line"><span class="lineno">   74</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> weight;</div>
 <div class="line"><span class="lineno">   75</span> </div>
@@ -140,82 +146,71 @@ Macros</h2></td></tr>
 <div class="line"><span class="lineno">   93</span><span class="comment">         * Require at least 4 characters before main loop</span></div>
 <div class="line"><span class="lineno">   94</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">   95</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!data[0] || !data[1] || !data[2] || !data[3]))</div>
+<div class="line"><span class="lineno">   96</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &lt; 4))</div>
 <div class="line"><span class="lineno">   97</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">   98</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8f60dbebec48f04c894535660dafbc9c">GS1_LINTER_IBAN_TOO_SHORT</a>,</div>
 <div class="line"><span class="lineno">   99</span>                        0,</div>
-<div class="line"><span class="lineno">  100</span>                        strlen(data)</div>
+<div class="line"><span class="lineno">  100</span>                        data_len</div>
 <div class="line"><span class="lineno">  101</span>                );</div>
 <div class="line"><span class="lineno">  102</span> </div>
 <div class="line"><span class="lineno">  103</span>        <span class="comment">/*</span></div>
 <div class="line"><span class="lineno">  104</span><span class="comment">         * Validate the leading two-character country code</span></div>
 <div class="line"><span class="lineno">  105</span><span class="comment">         *</span></div>
 <div class="line"><span class="lineno">  106</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  107</span>        memcpy(cc, data, 2);</div>
-<div class="line"><span class="lineno">  108</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#a3c8426d5679408f1a99bf438c9808984">gs1_lint_iso3166alpha2</a>(cc, err_pos, err_len);</div>
-<div class="line"><span class="lineno">  109</span>        assert(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>);</div>
-<div class="line"><span class="lineno">  110</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>))</div>
-<div class="line"><span class="lineno">  111</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  112</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8506634bd87de75d12584fab83321295">GS1_LINTER_ILLEGAL_IBAN_COUNTRY_CODE</a>,</div>
-<div class="line"><span class="lineno">  113</span>                        0,</div>
-<div class="line"><span class="lineno">  114</span>                        2</div>
-<div class="line"><span class="lineno">  115</span>                );</div>
-<div class="line"><span class="lineno">  116</span> </div>
-<div class="line"><span class="lineno">  117</span>        pos = 4;        <span class="comment">/* Start at first data character after the check characters */</span></div>
-<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">do</span> {</div>
-<div class="line"><span class="lineno">  119</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(pos &gt; <a class="code hl_define" href="lint__iban_8c.html#a74f4aab503c0eb0589cee9778d5ce7fc">IBAN_MAX_LENGTH</a>)) {</div>
-<div class="line"><span class="lineno">  120</span>                        <span class="keywordflow">while</span> (data[pos]) pos++;</div>
-<div class="line"><span class="lineno">  121</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  122</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae9b72428907e8caf4e80a1f1aa147fad">GS1_LINTER_IBAN_TOO_LONG</a>,</div>
-<div class="line"><span class="lineno">  123</span>                                0,</div>
-<div class="line"><span class="lineno">  124</span>                                pos</div>
-<div class="line"><span class="lineno">  125</span>                        );</div>
-<div class="line"><span class="lineno">  126</span>                }</div>
-<div class="line"><span class="lineno">  127</span> </div>
-<div class="line"><span class="lineno">  128</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  129</span><span class="comment">                 * Wrap at end of data and record length</span></div>
-<div class="line"><span class="lineno">  130</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  131</span><span class="comment">                 */</span></div>
-<div class="line"><span class="lineno">  132</span>                <span class="keywordflow">if</span> (!data[pos]) {</div>
-<div class="line"><span class="lineno">  133</span>                        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(pos &lt;= <a class="code hl_define" href="lint__iban_8c.html#aa8ba19ef5353cb52a76985f0ab3b664a">IBAN_MIN_LENGTH</a>))</div>
-<div class="line"><span class="lineno">  134</span>                                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  135</span>                                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8f60dbebec48f04c894535660dafbc9c">GS1_LINTER_IBAN_TOO_SHORT</a>,</div>
-<div class="line"><span class="lineno">  136</span>                                        0,</div>
-<div class="line"><span class="lineno">  137</span>                                        pos</div>
-<div class="line"><span class="lineno">  138</span>                                );</div>
-<div class="line"><span class="lineno">  139</span>                        len = pos;</div>
-<div class="line"><span class="lineno">  140</span>                        pos = 0;</div>
-<div class="line"><span class="lineno">  141</span>                }</div>
-<div class="line"><span class="lineno">  142</span> </div>
-<div class="line"><span class="lineno">  143</span>                weight = iban_weights[(<span class="keywordtype">unsigned</span> char)data[pos]];</div>
-<div class="line"><span class="lineno">  144</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(weight == 0))</div>
-<div class="line"><span class="lineno">  145</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  146</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa69e716ee855ebacaaf48297dd8a0cb1b">GS1_LINTER_INVALID_IBAN_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">  147</span>                                pos,</div>
-<div class="line"><span class="lineno">  148</span>                                1</div>
-<div class="line"><span class="lineno">  149</span>                        );</div>
-<div class="line"><span class="lineno">  150</span> </div>
-<div class="line"><span class="lineno">  151</span>                csum *= weight &lt;= 10 ? 10 : 100;</div>
-<div class="line"><span class="lineno">  152</span>                csum += weight - 1;</div>
-<div class="line"><span class="lineno">  153</span>                csum %= 97;</div>
-<div class="line"><span class="lineno">  154</span>                pos++;</div>
+<div class="line"><span class="lineno">  107</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#a7a30ba42907fc01721573161dd962fad">gs1_lint_iso3166alpha2</a>(data, 2, err_pos, err_len);</div>
+<div class="line"><span class="lineno">  108</span>        assert(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4">GS1_LINTER_OK</a> || ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>);</div>
+<div class="line"><span class="lineno">  109</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(ret == <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>))</div>
+<div class="line"><span class="lineno">  110</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  111</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8506634bd87de75d12584fab83321295">GS1_LINTER_ILLEGAL_IBAN_COUNTRY_CODE</a>,</div>
+<div class="line"><span class="lineno">  112</span>                        0,</div>
+<div class="line"><span class="lineno">  113</span>                        2</div>
+<div class="line"><span class="lineno">  114</span>                );</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &gt; <a class="code hl_define" href="lint__iban_8c.html#a74f4aab503c0eb0589cee9778d5ce7fc">IBAN_MAX_LENGTH</a>))</div>
+<div class="line"><span class="lineno">  117</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  118</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae9b72428907e8caf4e80a1f1aa147fad">GS1_LINTER_IBAN_TOO_LONG</a>,</div>
+<div class="line"><span class="lineno">  119</span>                        0,</div>
+<div class="line"><span class="lineno">  120</span>                        data_len</div>
+<div class="line"><span class="lineno">  121</span>                );</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &lt;= <a class="code hl_define" href="lint__iban_8c.html#aa8ba19ef5353cb52a76985f0ab3b664a">IBAN_MIN_LENGTH</a>))</div>
+<div class="line"><span class="lineno">  124</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  125</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa8f60dbebec48f04c894535660dafbc9c">GS1_LINTER_IBAN_TOO_SHORT</a>,</div>
+<div class="line"><span class="lineno">  126</span>                        0,</div>
+<div class="line"><span class="lineno">  127</span>                        data_len</div>
+<div class="line"><span class="lineno">  128</span>                );</div>
+<div class="line"><span class="lineno">  129</span> </div>
+<div class="line"><span class="lineno">  130</span>        <span class="comment">/* Process characters from position 4 to end, then positions 0-3 */</span></div>
+<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">for</span> (pos = 4; pos &lt; data_len + 4; pos++) {</div>
+<div class="line"><span class="lineno">  132</span>                <span class="keywordtype">size_t</span> actual_pos = (pos &lt; data_len) ? pos : (pos - data_len);</div>
+<div class="line"><span class="lineno">  133</span>                </div>
+<div class="line"><span class="lineno">  134</span>                weight = iban_weights[(<span class="keywordtype">unsigned</span> char)data[actual_pos]];</div>
+<div class="line"><span class="lineno">  135</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(weight == 0))</div>
+<div class="line"><span class="lineno">  136</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  137</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa69e716ee855ebacaaf48297dd8a0cb1b">GS1_LINTER_INVALID_IBAN_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">  138</span>                                actual_pos,</div>
+<div class="line"><span class="lineno">  139</span>                                1</div>
+<div class="line"><span class="lineno">  140</span>                        );</div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>                csum *= weight &lt;= 10 ? 10 : 100;</div>
+<div class="line"><span class="lineno">  143</span>                csum += weight - 1;</div>
+<div class="line"><span class="lineno">  144</span>                csum %= 97;</div>
+<div class="line"><span class="lineno">  145</span>        }</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(csum != 1))</div>
+<div class="line"><span class="lineno">  148</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  149</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80">GS1_LINTER_INCORRECT_IBAN_CHECKSUM</a>,</div>
+<div class="line"><span class="lineno">  150</span>                        2,</div>
+<div class="line"><span class="lineno">  151</span>                        2</div>
+<div class="line"><span class="lineno">  152</span>                );</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
 <div class="line"><span class="lineno">  155</span> </div>
-<div class="line"><span class="lineno">  156</span>        } <span class="keywordflow">while</span> (pos &lt; 4 || len == 0);  <span class="comment">/* Until we wrap and pass the CC */</span></div>
-<div class="line"><span class="lineno">  157</span> </div>
-<div class="line"><span class="lineno">  158</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(csum != 1))</div>
-<div class="line"><span class="lineno">  159</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  160</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80">GS1_LINTER_INCORRECT_IBAN_CHECKSUM</a>,</div>
-<div class="line"><span class="lineno">  161</span>                        2,</div>
-<div class="line"><span class="lineno">  162</span>                        2</div>
-<div class="line"><span class="lineno">  163</span>                );</div>
-<div class="line"><span class="lineno">  164</span> </div>
-<div class="line"><span class="lineno">  165</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">  166</span> </div>
-<div class="line"><span class="lineno">  167</span>}</div>
+<div class="line"><span class="lineno">  156</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
-<div class="ttc" id="ags1syntaxdictionary_8h_html_a3c8426d5679408f1a99bf438c9808984"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#a3c8426d5679408f1a99bf438c9808984">gs1_lint_iso3166alpha2</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166alpha2(const char *data, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_iso3166alpha2.c:75</div></div>
+<div class="ttc" id="ags1syntaxdictionary_8h_html_a7a30ba42907fc01721573161dd962fad"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#a7a30ba42907fc01721573161dd962fad">gs1_lint_iso3166alpha2</a></div><div class="ttdeci">GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_iso3166alpha2(const char *data, size_t data_len, size_t *err_pos, size_t *err_len)</div><div class="ttdef"><b>Definition</b> lint_iso3166alpha2.c:77</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1a"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1a">gs1_lint_err_t</a></div><div class="ttdeci">gs1_lint_err_t</div><div class="ttdoc">Linter return codes other than GS1_LINTER_OK indicate an error condition.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa41e9aea18c3b54f64dec8cbf1f4cee80">GS1_LINTER_INCORRECT_IBAN_CHECKSUM</a></div><div class="ttdeci">@ GS1_LINTER_INCORRECT_IBAN_CHECKSUM</div><div class="ttdoc">The IBAN is invalid since the check characters are incorrect.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:104</div></div>
 <div class="ttc" id="ags1syntaxdictionary_8h_html_ad006ed90e392f9cec9d744a94cb8ef1aa69e716ee855ebacaaf48297dd8a0cb1b"><div class="ttname"><a href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa69e716ee855ebacaaf48297dd8a0cb1b">GS1_LINTER_INVALID_IBAN_CHARACTER</a></div><div class="ttdeci">@ GS1_LINTER_INVALID_IBAN_CHARACTER</div><div class="ttdoc">The IBAN contains an invalid character.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary.h:102</div></div>

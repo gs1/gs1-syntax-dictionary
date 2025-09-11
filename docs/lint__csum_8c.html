@@ -47,8 +47,8 @@ $(function() {
 <div class="textblock"><p>The <code>csum</code> linter ensures that the data has a valid numeric check digit. </p>
 <dl class="section remark"><dt>Remarks</dt><dd>The process for validating the standard GS1 numeric check digit is described in the <a href="https://www.gs1.org/genspecs">GS1 General Specifications</a> section "Standard check digit calculations for GS1 data structures". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a9386ad176fc603c60d34fdff9a170a91" name="a9386ad176fc603c60d34fdff9a170a91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9386ad176fc603c60d34fdff9a170a91">&#9670;&#160;</a></span>gs1_lint_csum()</h2>
+<a id="a2bff2681ac9370fab41e460706ab041c" name="a2bff2681ac9370fab41e460706ab041c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bff2681ac9370fab41e460706ab041c">&#9670;&#160;</a></span>gs1_lint_csum()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -58,6 +58,12 @@ $(function() {
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -81,7 +87,8 @@ $(function() {
 <p>Use to ensure that the AI component has a valid numeric check digit.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -97,75 +104,72 @@ $(function() {
 <div class="fragment"><div class="line"><span class="lineno">   57</span>{</div>
 <div class="line"><span class="lineno">   58</span> </div>
 <div class="line"><span class="lineno">   59</span>        <span class="keywordtype">int</span> weight;</div>
-<div class="line"><span class="lineno">   60</span>        <span class="keywordtype">int</span> parity = 0;</div>
-<div class="line"><span class="lineno">   61</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *p;</div>
-<div class="line"><span class="lineno">   62</span>        <span class="keywordtype">size_t</span> len;</div>
-<div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>        assert(data);</div>
-<div class="line"><span class="lineno">   65</span> </div>
-<div class="line"><span class="lineno">   66</span>        len = strlen(data);</div>
-<div class="line"><span class="lineno">   67</span> </div>
-<div class="line"><span class="lineno">   68</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   69</span><span class="comment">         * Data must include at least the check digit.</span></div>
-<div class="line"><span class="lineno">   70</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   71</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   72</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(*data == <span class="charliteral">&#39;\0&#39;</span>))</div>
-<div class="line"><span class="lineno">   73</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   74</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa2a41464404213b7b863d920a3f47dd2">GS1_LINTER_TOO_SHORT_FOR_CHECK_DIGIT</a>,</div>
-<div class="line"><span class="lineno">   75</span>                        0,</div>
-<div class="line"><span class="lineno">   76</span>                        0</div>
-<div class="line"><span class="lineno">   77</span>                );</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">         * Calculate the sum of the numeric values of the data, excluding the</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment">         * check digit, weighted by alternating ...3:1:3 values, from right to</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment">         * left.</span></div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><span class="lineno">   61</span>        <span class="keywordtype">int</span> parity = 0;</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>        assert(data);</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   66</span><span class="comment">         * Data must include at least the check digit.</span></div>
+<div class="line"><span class="lineno">   67</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   68</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len == 0))</div>
+<div class="line"><span class="lineno">   70</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   71</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaa2a41464404213b7b863d920a3f47dd2">GS1_LINTER_TOO_SHORT_FOR_CHECK_DIGIT</a>,</div>
+<div class="line"><span class="lineno">   72</span>                        0,</div>
+<div class="line"><span class="lineno">   73</span>                        0</div>
+<div class="line"><span class="lineno">   74</span>                );</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment">         * Calculate the sum of the numeric values of the data, excluding the</span></div>
+<div class="line"><span class="lineno">   78</span><span class="comment">         * check digit, weighted by alternating ...3:1:3 values, from right to</span></div>
+<div class="line"><span class="lineno">   79</span><span class="comment">         * left.</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">         * The check digit is valid if its value, when added to the data</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">         * checksum, makes the overall sum a multiple of 10.</span></div>
 <div class="line"><span class="lineno">   83</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">         * The check digit is valid if its value, when added to the data</span></div>
-<div class="line"><span class="lineno">   85</span><span class="comment">         * checksum, makes the overall sum a multiple of 10.</span></div>
-<div class="line"><span class="lineno">   86</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   87</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   88</span>        weight = len % 2 == 0 ? 3 : 1;</div>
-<div class="line"><span class="lineno">   89</span>        p = data;</div>
-<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">while</span> (*(p+1)) {</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   93</span><span class="comment">                 * Data must consist of all digits.</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">   95</span><span class="comment">                 */</span></div>
-<div class="line"><span class="lineno">   96</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(*p &lt; <span class="charliteral">&#39;0&#39;</span> || *p &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
-<div class="line"><span class="lineno">   97</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   98</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">   99</span>                                (<span class="keywordtype">size_t</span>)(p - data),</div>
-<div class="line"><span class="lineno">  100</span>                                1</div>
-<div class="line"><span class="lineno">  101</span>                        );</div>
-<div class="line"><span class="lineno">  102</span> </div>
-<div class="line"><span class="lineno">  103</span>                parity += weight * (*p++ - <span class="charliteral">&#39;0&#39;</span>);</div>
-<div class="line"><span class="lineno">  104</span>                weight = 4 - weight;</div>
-<div class="line"><span class="lineno">  105</span>        }</div>
-<div class="line"><span class="lineno">  106</span> </div>
-<div class="line"><span class="lineno">  107</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  108</span><span class="comment">         * Check character must also be a digit.</span></div>
-<div class="line"><span class="lineno">  109</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  110</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(*p &lt; <span class="charliteral">&#39;0&#39;</span> || *p &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
-<div class="line"><span class="lineno">  112</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  113</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">  114</span>                        len - 1,</div>
-<div class="line"><span class="lineno">  115</span>                        1</div>
-<div class="line"><span class="lineno">  116</span>                );</div>
-<div class="line"><span class="lineno">  117</span>        parity = (10 - parity % 10) % 10;</div>
-<div class="line"><span class="lineno">  118</span> </div>
-<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(parity + <span class="charliteral">&#39;0&#39;</span> != *p))</div>
-<div class="line"><span class="lineno">  120</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  121</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac47c44e490214b22f3461ea92d4d460f">GS1_LINTER_INCORRECT_CHECK_DIGIT</a>,</div>
-<div class="line"><span class="lineno">  122</span>                        len - 1,</div>
-<div class="line"><span class="lineno">  123</span>                        1</div>
-<div class="line"><span class="lineno">  124</span>                );</div>
-<div class="line"><span class="lineno">  125</span> </div>
-<div class="line"><span class="lineno">  126</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">  127</span> </div>
-<div class="line"><span class="lineno">  128</span>}</div>
+<div class="line"><span class="lineno">   84</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   85</span>        weight = data_len % 2 == 0 ? 3 : 1;</div>
+<div class="line"><span class="lineno">   86</span>        </div>
+<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">for</span> (pos = 0; pos &lt; data_len - 1; pos++) {</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>                <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">                 * Data must consist of all digits.</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">                 */</span></div>
+<div class="line"><span class="lineno">   93</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[pos] &lt; <span class="charliteral">&#39;0&#39;</span> || data[pos] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
+<div class="line"><span class="lineno">   94</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   95</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   96</span>                                pos,</div>
+<div class="line"><span class="lineno">   97</span>                                1</div>
+<div class="line"><span class="lineno">   98</span>                        );</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>                parity += weight * (data[pos] - <span class="charliteral">&#39;0&#39;</span>);</div>
+<div class="line"><span class="lineno">  101</span>                weight = 4 - weight;</div>
+<div class="line"><span class="lineno">  102</span>        }</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  105</span><span class="comment">         * Check character must also be a digit.</span></div>
+<div class="line"><span class="lineno">  106</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  107</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[data_len - 1] &lt; <span class="charliteral">&#39;0&#39;</span> || data[data_len - 1] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
+<div class="line"><span class="lineno">  109</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  110</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">  111</span>                        data_len - 1,</div>
+<div class="line"><span class="lineno">  112</span>                        1</div>
+<div class="line"><span class="lineno">  113</span>                );</div>
+<div class="line"><span class="lineno">  114</span>        parity = (10 - parity % 10) % 10;</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(parity + <span class="charliteral">&#39;0&#39;</span> != data[data_len - 1]))</div>
+<div class="line"><span class="lineno">  117</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  118</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aac47c44e490214b22f3461ea92d4d460f">GS1_LINTER_INCORRECT_CHECK_DIGIT</a>,</div>
+<div class="line"><span class="lineno">  119</span>                        data_len - 1,</div>
+<div class="line"><span class="lineno">  120</span>                        1</div>
+<div class="line"><span class="lineno">  121</span>                );</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  124</span> </div>
+<div class="line"><span class="lineno">  125</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>

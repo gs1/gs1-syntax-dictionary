@@ -48,8 +48,8 @@ $(function() {
 <dl class="section remark"><dt>Remarks</dt><dd>The two-digit AIDC media type codes are defined in the <a href="https://www.gs1.org/genspecs">GS1 General Specifications</a> table "AIDC media type
 values". </dd></dl>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="a4d951b5be43a9ddd9ffc403a1014d4bb" name="a4d951b5be43a9ddd9ffc403a1014d4bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d951b5be43a9ddd9ffc403a1014d4bb">&#9670;&#160;</a></span>gs1_lint_mediatype()</h2>
+<a id="a1ac953825dec001d17d947323e2f6cd2" name="a1ac953825dec001d17d947323e2f6cd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ac953825dec001d17d947323e2f6cd2">&#9670;&#160;</a></span>gs1_lint_mediatype()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -59,6 +59,12 @@ values". </dd></dl>
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -82,13 +88,15 @@ values". </dd></dl>
 <p>Used to validate that an AI component is a valid AIDC media type.</p>
 <dl class="section note"><dt>Note</dt><dd>To enable this linter to hook into an alternative AIDC media type lookup function (provided by the user) the GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP_H macro may be set to the name of a header file to be included that defines a custom <code>GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP</code> macro. </dd>
 <dd>
-If provided, the GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP macro shall invoke whatever functionality is available in the user-provided lookup function using the first argument, then using the result must assign to second (output) argument as follows:<ul>
+If provided, the GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP macro shall invoke whatever functionality is available in the user-provided lookup function using the first and second arguments, then using the result must assign to third (output) argument as follows:<ul>
 <li><code>valid</code>: Set to 1 if the lookup was successful. Otherwise 0.</li>
 </ul>
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data parameter. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -97,85 +105,86 @@ If provided, the GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP macro shall invoke whatever
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa02a030a2ecb487dc1565783e4ad657bf" title="A valid AIDC media type is required.">GS1_LINTER_INVALID_MEDIA_TYPE</a> if the data is not a num-3 country code. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   79</span>{</div>
-<div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment">         * Allow for a custom replacement of the lookup code to be provided.</span></div>
-<div class="line"><span class="lineno">   83</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   84</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   85</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP</span></div>
-<div class="line"><span class="lineno">   86</span><span class="preprocessor">#define GS1_LINTER_MEDIA_TYPE_LOOKUP(cc, valid) GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP(cc, valid)</span></div>
-<div class="line"><span class="lineno">   87</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   88</span> </div>
-<div class="line"><span class="lineno">   89</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">         *  Set of valid AIDC media type values</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   92</span><span class="comment">         *  MAINTENANCE NOTE:</span></div>
+<div class="fragment"><div class="line"><span class="lineno">   81</span>{</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   84</span><span class="comment">         * Allow for a custom replacement of the lookup code to be provided.</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   87</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP</span></div>
+<div class="line"><span class="lineno">   88</span><span class="preprocessor">#define GS1_LINTER_MEDIA_TYPE_LOOKUP(cc, cc_len, valid) GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP(cc, cc_len, valid)</span></div>
+<div class="line"><span class="lineno">   89</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">         *  Set of valid AIDC media type values</span></div>
 <div class="line"><span class="lineno">   93</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment">         *  Updates to the AIDC media type list shall be announced by GSCN</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment">         *  MAINTENANCE NOTE:</span></div>
 <div class="line"><span class="lineno">   95</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   96</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   97</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t mediatypes[] = {</div>
-<div class="line"><span class="lineno">   98</span><span class="preprocessor">#if __STDC_VERSION__ &gt;= 202311L</span></div>
-<div class="line"><span class="lineno">   99</span>                0b01111111, 0b11100000,         <span class="comment">// 00:    Not used</span></div>
-<div class="line"><span class="lineno">  100</span>                                                <span class="comment">// 01-10: ICCBBA assignments</span></div>
-<div class="line"><span class="lineno">  101</span>                                                <span class="comment">// 11-15: Reserved for future assignment by ICCBBA</span></div>
-<div class="line"><span class="lineno">  102</span>                0b00000000, 0b00000000,         <span class="comment">// 16-29: Reserved for future assignment by ICCBBA</span></div>
-<div class="line"><span class="lineno">  103</span>                                                <span class="comment">// 30-31: Reserved for future assignment by GS1</span></div>
-<div class="line"><span class="lineno">  104</span>                0b00000000, 0b00000000,         <span class="comment">// 32-47: Reserved for future assignment by GS1</span></div>
-<div class="line"><span class="lineno">  105</span>                0b00000000, 0b00000000,         <span class="comment">// 48-59: Reserved for future assignment by GS1</span></div>
-<div class="line"><span class="lineno">  106</span>                                                <span class="comment">// 60-63: Reserved for future assignment by ICCBBA or GS1</span></div>
-<div class="line"><span class="lineno">  107</span>                0b00000000, 0b00000000,         <span class="comment">// 64-79: Reserved for future assignment by ICCBBA or GS1</span></div>
-<div class="line"><span class="lineno">  108</span>                0b11111111, 0b11111111,         <span class="comment">// 80-95: ICCBBA local / national use</span></div>
-<div class="line"><span class="lineno">  109</span>                0b11110000,                     <span class="comment">// 96-99: ICCBBA local / national use</span></div>
-<div class="line"><span class="lineno">  110</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  111</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  112</span><span class="comment">                 *  Fallback for compilers lacking binary literal support.</span></div>
-<div class="line"><span class="lineno">  113</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  114</span><span class="comment">                 *  Generated from the above data with:</span></div>
+<div class="line"><span class="lineno">   96</span><span class="comment">         *  Updates to the AIDC media type list shall be announced by GSCN</span></div>
+<div class="line"><span class="lineno">   97</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   98</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   99</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint8_t mediatypes[] = {</div>
+<div class="line"><span class="lineno">  100</span><span class="preprocessor">#if __STDC_VERSION__ &gt;= 202311L</span></div>
+<div class="line"><span class="lineno">  101</span>                0b01111111, 0b11100000,         <span class="comment">// 00:    Not used</span></div>
+<div class="line"><span class="lineno">  102</span>                                                <span class="comment">// 01-10: ICCBBA assignments</span></div>
+<div class="line"><span class="lineno">  103</span>                                                <span class="comment">// 11-15: Reserved for future assignment by ICCBBA</span></div>
+<div class="line"><span class="lineno">  104</span>                0b00000000, 0b00000000,         <span class="comment">// 16-29: Reserved for future assignment by ICCBBA</span></div>
+<div class="line"><span class="lineno">  105</span>                                                <span class="comment">// 30-31: Reserved for future assignment by GS1</span></div>
+<div class="line"><span class="lineno">  106</span>                0b00000000, 0b00000000,         <span class="comment">// 32-47: Reserved for future assignment by GS1</span></div>
+<div class="line"><span class="lineno">  107</span>                0b00000000, 0b00000000,         <span class="comment">// 48-59: Reserved for future assignment by GS1</span></div>
+<div class="line"><span class="lineno">  108</span>                                                <span class="comment">// 60-63: Reserved for future assignment by ICCBBA or GS1</span></div>
+<div class="line"><span class="lineno">  109</span>                0b00000000, 0b00000000,         <span class="comment">// 64-79: Reserved for future assignment by ICCBBA or GS1</span></div>
+<div class="line"><span class="lineno">  110</span>                0b11111111, 0b11111111,         <span class="comment">// 80-95: ICCBBA local / national use</span></div>
+<div class="line"><span class="lineno">  111</span>                0b11110000,                     <span class="comment">// 96-99: ICCBBA local / national use</span></div>
+<div class="line"><span class="lineno">  112</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  113</span>                <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  114</span><span class="comment">                 *  Fallback for compilers lacking binary literal support.</span></div>
 <div class="line"><span class="lineno">  115</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  116</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(mediatypes) / sizeof(mediatypes[0]); i++) { printf(&quot;0x%02x, &quot;, mediatypes[i]); };</span></div>
+<div class="line"><span class="lineno">  116</span><span class="comment">                 *  Generated from the above data with:</span></div>
 <div class="line"><span class="lineno">  117</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  118</span><span class="comment">                 */</span></div>
-<div class="line"><span class="lineno">  119</span>                0x7f, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xf0,</div>
-<div class="line"><span class="lineno">  120</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  121</span>        };</div>
-<div class="line"><span class="lineno">  122</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  123</span><span class="comment">/// \cond</span></div>
-<div class="line"><span class="lineno">  124</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_MEDIA_TYPE_LOOKUP(cc, valid) do {                            \</span></div>
-<div class="line"><span class="lineno">  125</span><span class="preprocessor">        valid = 0;                                                              \</span></div>
-<div class="line"><span class="lineno">  126</span><span class="preprocessor">        if (strlen(cc) == 2 &amp;&amp; isdigit(cc[0]) &amp;&amp; isdigit(cc[1])) {              \</span></div>
-<div class="line"><span class="lineno">  127</span><span class="preprocessor">                int v = (cc[0] - &#39;0&#39;) * 10 + (cc[1] - &#39;0&#39;);                     \</span></div>
-<div class="line"><span class="lineno">  128</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, mediatypes, valid);               \</span></div>
-<div class="line"><span class="lineno">  129</span><span class="preprocessor">        }                                                                       \</span></div>
-<div class="line"><span class="lineno">  130</span><span class="preprocessor">} while (0)</span><span class="comment"></span></div>
-<div class="line"><span class="lineno">  131</span><span class="comment">/// \endcond</span></div>
-<div class="line"><span class="lineno">  132</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  133</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  134</span> </div>
-<div class="line"><span class="lineno">  135</span>        <span class="keywordtype">int</span> valid;</div>
+<div class="line"><span class="lineno">  118</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(mediatypes) / sizeof(mediatypes[0]); i++) { printf(&quot;0x%02x, &quot;, mediatypes[i]); };</span></div>
+<div class="line"><span class="lineno">  119</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment">                 */</span></div>
+<div class="line"><span class="lineno">  121</span>                0x7f, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xf0,</div>
+<div class="line"><span class="lineno">  122</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  123</span>        };</div>
+<div class="line"><span class="lineno">  124</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  125</span><span class="comment">/// \cond</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_MEDIA_TYPE_LOOKUP(cc, cc_len, valid) do {                    \</span></div>
+<div class="line"><span class="lineno">  127</span><span class="preprocessor">        valid = 0;                                                              \</span></div>
+<div class="line"><span class="lineno">  128</span><span class="preprocessor">        if (cc_len == 2 &amp;&amp; isdigit(cc[0]) &amp;&amp; isdigit(cc[1])) {          \</span></div>
+<div class="line"><span class="lineno">  129</span><span class="preprocessor">                int v = (cc[0] - &#39;0&#39;) * 10 + (cc[1] - &#39;0&#39;);                     \</span></div>
+<div class="line"><span class="lineno">  130</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, mediatypes, valid);               \</span></div>
+<div class="line"><span class="lineno">  131</span><span class="preprocessor">        }                                                                       \</span></div>
+<div class="line"><span class="lineno">  132</span><span class="preprocessor">} while (0)</span><span class="comment"></span></div>
+<div class="line"><span class="lineno">  133</span><span class="comment">/// \endcond</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  135</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">  136</span> </div>
-<div class="line"><span class="lineno">  137</span>        assert(data);</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordtype">int</span> valid;</div>
 <div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  140</span><span class="comment">         * Ensure that the data is in the list.</span></div>
-<div class="line"><span class="lineno">  141</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  142</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  143</span>        GS1_LINTER_MEDIA_TYPE_LOOKUP(data, valid);</div>
-<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a>(valid))</div>
-<div class="line"><span class="lineno">  145</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">  146</span> </div>
-<div class="line"><span class="lineno">  147</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  148</span><span class="comment">         * If not valid then indicate an error.</span></div>
-<div class="line"><span class="lineno">  149</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  150</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  151</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  152</span>                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa02a030a2ecb487dc1565783e4ad657bf">GS1_LINTER_INVALID_MEDIA_TYPE</a>,</div>
-<div class="line"><span class="lineno">  153</span>                0,</div>
-<div class="line"><span class="lineno">  154</span>                strlen(data)</div>
-<div class="line"><span class="lineno">  155</span>        );</div>
-<div class="line"><span class="lineno">  156</span> </div>
-<div class="line"><span class="lineno">  157</span>}</div>
+<div class="line"><span class="lineno">  139</span>        assert(data);</div>
+<div class="line"><span class="lineno">  140</span> </div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  143</span><span class="comment">         * Ensure that the data is in the list.</span></div>
+<div class="line"><span class="lineno">  144</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  145</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  146</span>        GS1_LINTER_MEDIA_TYPE_LOOKUP(data, data_len, valid);</div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a>(valid))</div>
+<div class="line"><span class="lineno">  148</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  151</span><span class="comment">         * If not valid then indicate an error.</span></div>
+<div class="line"><span class="lineno">  152</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  153</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  154</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  155</span>                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa02a030a2ecb487dc1565783e4ad657bf">GS1_LINTER_INVALID_MEDIA_TYPE</a>,</div>
+<div class="line"><span class="lineno">  156</span>                0,</div>
+<div class="line"><span class="lineno">  157</span>                data_len</div>
+<div class="line"><span class="lineno">  158</span>        );</div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_abdc5ee13b97ac3a0273f106f56795999"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a></div><div class="ttdeci">#define GS1_LINTER_LIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be true.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:63</div></div>

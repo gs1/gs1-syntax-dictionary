@@ -46,8 +46,8 @@ $(function() {
 <a name="details" id="details"></a><h2 class="groupheader">Purpose</h2>
 <div class="textblock"><p>The <code>nonzero</code> linter ensures that the given data has a non-zero value. </p>
 </div><h2 class="groupheader">Functional Description</h2>
-<a id="ac317de181ee2ae4a287c0000db174359" name="ac317de181ee2ae4a287c0000db174359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac317de181ee2ae4a287c0000db174359">&#9670;&#160;</a></span>gs1_lint_nonzero()</h2>
+<a id="a53aef8b215bf24b16841c4090bde3048" name="a53aef8b215bf24b16841c4090bde3048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53aef8b215bf24b16841c4090bde3048">&#9670;&#160;</a></span>gs1_lint_nonzero()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -57,6 +57,12 @@ $(function() {
           <td>(</td>
           <td class="paramtype">const char *const&#160;</td>
           <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -80,7 +86,8 @@ $(function() {
 <p>Used to validate that a numeric AI component has a non-zero value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the null-terminated data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. Must not be <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -91,34 +98,34 @@ $(function() {
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa7291aca3416d6d6dc1997d2c2fc94a85" title="A non-zero value is required.">GS1_LINTER_ILLEGAL_ZERO_VALUE</a> if the data has a zero value. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049" title="A non-digit character was found where a digit is expected.">GS1_LINTER_NON_DIGIT_CHARACTER</a> if the data contains non-digit characters. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   50</span>{</div>
-<div class="line"><span class="lineno">   51</span> </div>
-<div class="line"><span class="lineno">   52</span>        <span class="keywordtype">size_t</span> pos;</div>
-<div class="line"><span class="lineno">   53</span>        <span class="keywordtype">int</span> has_nonzero = 0;</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>        assert(data);</div>
-<div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        <span class="keywordflow">for</span> (pos = 0; data[pos]; pos++) {</div>
-<div class="line"><span class="lineno">   58</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[pos] &lt; <span class="charliteral">&#39;0&#39;</span> || data[pos] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
-<div class="line"><span class="lineno">   59</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   60</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
-<div class="line"><span class="lineno">   61</span>                                pos,</div>
-<div class="line"><span class="lineno">   62</span>                                1</div>
-<div class="line"><span class="lineno">   63</span>                        );</div>
-<div class="line"><span class="lineno">   64</span>                <span class="keywordflow">if</span> (data[pos] != <span class="charliteral">&#39;0&#39;</span>)</div>
-<div class="line"><span class="lineno">   65</span>                        has_nonzero = 1;</div>
-<div class="line"><span class="lineno">   66</span>        }</div>
-<div class="line"><span class="lineno">   67</span> </div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!has_nonzero))</div>
-<div class="line"><span class="lineno">   69</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">   70</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa7291aca3416d6d6dc1997d2c2fc94a85">GS1_LINTER_ILLEGAL_ZERO_VALUE</a>,</div>
-<div class="line"><span class="lineno">   71</span>                        0,</div>
-<div class="line"><span class="lineno">   72</span>                        pos</div>
-<div class="line"><span class="lineno">   73</span>                );</div>
-<div class="line"><span class="lineno">   74</span> </div>
-<div class="line"><span class="lineno">   75</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>{</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordtype">size_t</span> pos;</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordtype">int</span> has_nonzero = 0;</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>        assert(data);</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordflow">for</span> (pos = 0; pos &lt; data_len; pos++) {</div>
+<div class="line"><span class="lineno">   59</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[pos] &lt; <span class="charliteral">&#39;0&#39;</span> || data[pos] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
+<div class="line"><span class="lineno">   60</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   61</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aaed0e062ce1322b28761e946a40bc7049">GS1_LINTER_NON_DIGIT_CHARACTER</a>,</div>
+<div class="line"><span class="lineno">   62</span>                                pos,</div>
+<div class="line"><span class="lineno">   63</span>                                1</div>
+<div class="line"><span class="lineno">   64</span>                        );</div>
+<div class="line"><span class="lineno">   65</span>                <span class="keywordflow">if</span> (data[pos] != <span class="charliteral">&#39;0&#39;</span>)</div>
+<div class="line"><span class="lineno">   66</span>                        has_nonzero = 1;</div>
+<div class="line"><span class="lineno">   67</span>        }</div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!has_nonzero))</div>
+<div class="line"><span class="lineno">   70</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">   71</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa7291aca3416d6d6dc1997d2c2fc94a85">GS1_LINTER_ILLEGAL_ZERO_VALUE</a>,</div>
+<div class="line"><span class="lineno">   72</span>                        0,</div>
+<div class="line"><span class="lineno">   73</span>                        data_len</div>
+<div class="line"><span class="lineno">   74</span>                );</div>
+<div class="line"><span class="lineno">   75</span> </div>
+<div class="line"><span class="lineno">   76</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
