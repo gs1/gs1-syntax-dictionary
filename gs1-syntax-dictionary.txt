@@ -257,7 +257,7 @@
 7001        ?  N13                               req=01,02,8006,8026                              # NSN
 7002        ?  X..30                             req=01,02                                        # MEAT CUT
 7003        ?  N6,yymmdd N4,hhmi                 req=01,02                                        # EXPIRY TIME
-7004        ?  N..4                              req=01 req=10                                    # ACTIVE POTENCY
+7004        ?  N..4                              req=01+10                                        # ACTIVE POTENCY
 7005        ?  X..12                             req=01,02                                        # CATCH AREA
 7006        ?  N6,yymmdd                         req=01,02                                        # FIRST FREEZE DATE
 7007        ?  N6,yymmdd [N6],yymmdd             req=01,02                                        # HARVEST DATE
