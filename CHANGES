@@ -1,5 +1,6 @@
 XXXX-XX-XX
 
+* The data titles for units of measure were aligned with GSCN 25-081.
 * The linter function specification was changed to require a parameter defining the input length to process.
 * The "key" linter was renamed to "gcppos1".
 * The "keyoff1" linter was renamed to "gcppos2", and was added to AIs (8006) and (8026).
