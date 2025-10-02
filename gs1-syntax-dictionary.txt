@@ -184,12 +184,12 @@
 3530-3535  *?  N6                                req=00,01 ex=353n                                # AREA (in²), log
 3540-3545  *?  N6                                req=00,01 ex=354n                                # AREA (ft²), log
 3550-3555  *?  N6                                req=00,01 ex=355n                                # AREA (yd²), log
-3560-3565  *?  N6                                req=01,02 ex=356n                                # NET WEIGHT (t oz)
+3560-3565  *?  N6                                req=01,02 ex=356n                                # NET WEIGHT (tr oz)
 3570-3575  *?  N6                                req=01,02 ex=357n                                # NET VOLUME (oz)
-3600-3605  *?  N6                                req=01,02 ex=360n                                # NET VOLUME (qt)
+3600-3605  *?  N6                                req=01,02 ex=360n                                # NET VOLUME (qt (US))
 3610-3615  *?  N6                                req=01,02 ex=361n                                # NET VOLUME (gal.)
-3620-3625  *?  N6                                req=00,01 ex=362n                                # VOLUME (qt), log
-3630-3635  *?  N6                                req=00,01 ex=363n                                # VOLUME (gal.), log
+3620-3625  *?  N6                                req=00,01 ex=362n                                # VOLUME (qt (US)), log
+3630-3635  *?  N6                                req=00,01 ex=363n                                # VOLUME (gal (US)), log
 3640-3645  *?  N6                                req=01,02 ex=364n                                # VOLUME (in³)
 3650-3655  *?  N6                                req=01,02 ex=365n                                # VOLUME (ft³)
 3660-3665  *?  N6                                req=01,02 ex=366n                                # VOLUME (yd³)
