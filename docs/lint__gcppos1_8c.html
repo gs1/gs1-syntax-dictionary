@@ -106,7 +106,6 @@ If provided, the GS1_LINTER_CUSTOM_GCP_LOOKUP macro shall invoke whatever API is
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data parameter. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -122,51 +121,51 @@ If provided, the GS1_LINTER_CUSTOM_GCP_LOOKUP macro shall invoke whatever API is
 <dl class="section note"><dt>Note</dt><dd>When GCP lookup service is provided by the user, it will be called with strings whose prefix may be one of (1) a regular GCP, (2) a UPC Company Code normalised to a regular GCP (by prefixing "0"), or (3) a GS1-8 Prefix normalised to a regular GCP by prefixing "00000". </dd>
 <dd>
 The choice of whether or not to assign <code>offline = 1</code> in order to return <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6410d0a0faf04a269ff6dd36bf0859f9" title="The data source for GCP lookups is offline.">GS1_LINTER_GCP_DATASOURCE_OFFLINE</a> when a user-provided GCP lookup service is unavailable is implementation specific. It depends on whether the desired behaviour is to fail open (return <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a>) or to fail closed (return <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6410d0a0faf04a269ff6dd36bf0859f9" title="The data source for GCP lookups is offline.">GS1_LINTER_GCP_DATASOURCE_OFFLINE</a>). In the case that it is desirable to fail open then in addition to assigning <code>offline = 0</code> it is necessary to assign <code>valid = 1</code> to avoid returning <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6" title="The GS1 Company Prefix is invalid.">GS1_LINTER_INVALID_GCP_PREFIX</a>, which would be misleading in the event of service outage. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  104</span>{</div>
-<div class="line"><span class="lineno">  105</span> </div>
-<div class="line"><span class="lineno">  106</span>        <span class="keywordtype">size_t</span> i;</div>
-<div class="line"><span class="lineno">  107</span> </div>
-<div class="line"><span class="lineno">  108</span>        assert(data);</div>
-<div class="line"><span class="lineno">  109</span> </div>
-<div class="line"><span class="lineno">  110</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  111</span><span class="comment">         * Any character within the minimum-length GCP prefix that is outside</span></div>
-<div class="line"><span class="lineno">  112</span><span class="comment">         * the range &#39;0&#39; to &#39;9&#39; is illegal.</span></div>
-<div class="line"><span class="lineno">  113</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  114</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  115</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &lt; <a class="code hl_define" href="lint__gcppos1_8c.html#a0656af033f7dd8528ade2ac4ab977663">GCP_MIN_LENGTH</a>))</div>
-<div class="line"><span class="lineno">  116</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  117</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa61f78ece2ed5b906673287778b8aa35d">GS1_LINTER_TOO_SHORT_FOR_GCP</a>,</div>
-<div class="line"><span class="lineno">  118</span>                        0,</div>
-<div class="line"><span class="lineno">  119</span>                        data_len</div>
-<div class="line"><span class="lineno">  120</span>                );</div>
-<div class="line"><span class="lineno">  121</span> </div>
-<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code hl_define" href="lint__gcppos1_8c.html#a0656af033f7dd8528ade2ac4ab977663">GCP_MIN_LENGTH</a>; i++) {</div>
-<div class="line"><span class="lineno">  123</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[i] &lt; <span class="charliteral">&#39;0&#39;</span> || data[i] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
-<div class="line"><span class="lineno">  124</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  125</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a>,</div>
-<div class="line"><span class="lineno">  126</span>                                i,</div>
-<div class="line"><span class="lineno">  127</span>                                1</div>
-<div class="line"><span class="lineno">  128</span>                        );</div>
-<div class="line"><span class="lineno">  129</span>        }</div>
-<div class="line"><span class="lineno">  130</span> </div>
-<div class="line"><span class="lineno">  131</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  132</span><span class="comment">         * Call the custom GCP lookup routine if one has been provided.</span></div>
-<div class="line"><span class="lineno">  133</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  134</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  135</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_GCP_LOOKUP</span></div>
-<div class="line"><span class="lineno">  136</span>{</div>
-<div class="line"><span class="lineno">  137</span>        <span class="keywordtype">int</span> valid, offline;</div>
-<div class="line"><span class="lineno">  138</span>        GS1_LINTER_CUSTOM_GCP_LOOKUP(data, data_len, valid, offline);</div>
-<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(offline))</div>
-<div class="line"><span class="lineno">  140</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(<a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6410d0a0faf04a269ff6dd36bf0859f9">GS1_LINTER_GCP_DATASOURCE_OFFLINE</a>, 0, 0);</div>
-<div class="line"><span class="lineno">  141</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!valid))</div>
-<div class="line"><span class="lineno">  142</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(<a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a>, 0, 0);</div>
-<div class="line"><span class="lineno">  143</span>}</div>
-<div class="line"><span class="lineno">  144</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  145</span> </div>
-<div class="line"><span class="lineno">  146</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">  147</span> </div>
-<div class="line"><span class="lineno">  148</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  103</span>{</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>        <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><span class="lineno">  106</span> </div>
+<div class="line"><span class="lineno">  107</span>        assert(data);</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  110</span><span class="comment">         * Any character within the minimum-length GCP prefix that is outside</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment">         * the range &#39;0&#39; to &#39;9&#39; is illegal.</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  113</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data_len &lt; <a class="code hl_define" href="lint__gcppos1_8c.html#a0656af033f7dd8528ade2ac4ab977663">GCP_MIN_LENGTH</a>))</div>
+<div class="line"><span class="lineno">  115</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  116</span>                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa61f78ece2ed5b906673287778b8aa35d">GS1_LINTER_TOO_SHORT_FOR_GCP</a>,</div>
+<div class="line"><span class="lineno">  117</span>                        0,</div>
+<div class="line"><span class="lineno">  118</span>                        data_len</div>
+<div class="line"><span class="lineno">  119</span>                );</div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>        <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code hl_define" href="lint__gcppos1_8c.html#a0656af033f7dd8528ade2ac4ab977663">GCP_MIN_LENGTH</a>; i++) {</div>
+<div class="line"><span class="lineno">  122</span>                <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(data[i] &lt; <span class="charliteral">&#39;0&#39;</span> || data[i] &gt; <span class="charliteral">&#39;9&#39;</span>))</div>
+<div class="line"><span class="lineno">  123</span>                        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  124</span>                                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a>,</div>
+<div class="line"><span class="lineno">  125</span>                                i,</div>
+<div class="line"><span class="lineno">  126</span>                                1</div>
+<div class="line"><span class="lineno">  127</span>                        );</div>
+<div class="line"><span class="lineno">  128</span>        }</div>
+<div class="line"><span class="lineno">  129</span> </div>
+<div class="line"><span class="lineno">  130</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  131</span><span class="comment">         * Call the custom GCP lookup routine if one has been provided.</span></div>
+<div class="line"><span class="lineno">  132</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  133</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  134</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_GCP_LOOKUP</span></div>
+<div class="line"><span class="lineno">  135</span>{</div>
+<div class="line"><span class="lineno">  136</span>        <span class="keywordtype">int</span> valid, offline;</div>
+<div class="line"><span class="lineno">  137</span>        GS1_LINTER_CUSTOM_GCP_LOOKUP(data, data_len, valid, offline);</div>
+<div class="line"><span class="lineno">  138</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(offline))</div>
+<div class="line"><span class="lineno">  139</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(<a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa6410d0a0faf04a269ff6dd36bf0859f9">GS1_LINTER_GCP_DATASOURCE_OFFLINE</a>, 0, 0);</div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!valid))</div>
+<div class="line"><span class="lineno">  141</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(<a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aadcfdef955bfee29c907afb9b195dfbe6">GS1_LINTER_INVALID_GCP_PREFIX</a>, 0, 0);</div>
+<div class="line"><span class="lineno">  142</span>}</div>
+<div class="line"><span class="lineno">  143</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  144</span> </div>
+<div class="line"><span class="lineno">  145</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a5e2f4cb3019ed19ff162953123523abd"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a></div><div class="ttdeci">#define GS1_LINTER_UNLIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be false.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:76</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>

@@ -159,12 +159,12 @@ If provided, the GS1_LINTER_CUSTOM_ISO4217_LOOKUP macro shall invoke whatever fu
 <div class="line"><span class="lineno">  131</span>        };</div>
 <div class="line"><span class="lineno">  132</span><span class="comment"></span> </div>
 <div class="line"><span class="lineno">  133</span><span class="comment">/// \cond</span></div>
-<div class="line"><span class="lineno">  134</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_ISO4217_LOOKUP(cc, cc_len, valid) do {                               \</span></div>
-<div class="line"><span class="lineno">  135</span><span class="preprocessor">        valid = 0;                                                                      \</span></div>
-<div class="line"><span class="lineno">  136</span><span class="preprocessor">        if (cc_len == 3 &amp;&amp; isdigit(cc[0]) &amp;&amp; isdigit(cc[1]) &amp;&amp; isdigit(cc[2])) {        \</span></div>
-<div class="line"><span class="lineno">  137</span><span class="preprocessor">                int v = (cc[0] - &#39;0&#39;) * 100 + (cc[1] - &#39;0&#39;) * 10 + cc[2] - &#39;0&#39;;         \</span></div>
-<div class="line"><span class="lineno">  138</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, iso4217, valid);                          \</span></div>
-<div class="line"><span class="lineno">  139</span><span class="preprocessor">        }                                                                               \</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_ISO4217_LOOKUP(cc, cc_len, valid) do {                                       \</span></div>
+<div class="line"><span class="lineno">  135</span><span class="preprocessor">        valid = 0;                                                                              \</span></div>
+<div class="line"><span class="lineno">  136</span><span class="preprocessor">        if (cc_len == 3 &amp;&amp; isdigit((int)cc[0]) &amp;&amp; isdigit((int)cc[1]) &amp;&amp; isdigit((int)cc[2])) { \</span></div>
+<div class="line"><span class="lineno">  137</span><span class="preprocessor">                int v = (cc[0] - &#39;0&#39;) * 100 + (cc[1] - &#39;0&#39;) * 10 + cc[2] - &#39;0&#39;;                 \</span></div>
+<div class="line"><span class="lineno">  138</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, iso4217, valid);                                  \</span></div>
+<div class="line"><span class="lineno">  139</span><span class="preprocessor">        }                                                                                       \</span></div>
 <div class="line"><span class="lineno">  140</span><span class="preprocessor">} while (0)</span><span class="comment"></span></div>
 <div class="line"><span class="lineno">  141</span><span class="comment">/// \endcond</span></div>
 <div class="line"><span class="lineno">  142</span><span class="comment"></span> </div>

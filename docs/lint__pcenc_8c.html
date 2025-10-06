@@ -119,7 +119,7 @@ $(function() {
 <div class="line"><span class="lineno">   74</span>                                );</div>
 <div class="line"><span class="lineno">   75</span>                        }</div>
 <div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>                        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!isxdigit(data[pos + 1]) || !isxdigit(data[pos + 2])))</div>
+<div class="line"><span class="lineno">   77</span>                        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a5e2f4cb3019ed19ff162953123523abd">GS1_LINTER_UNLIKELY</a>(!isxdigit((<span class="keywordtype">int</span>)data[pos + 1]) || !isxdigit((<span class="keywordtype">int</span>)data[pos + 2])))</div>
 <div class="line"><span class="lineno">   78</span>                                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
 <div class="line"><span class="lineno">   79</span>                                        <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aa88a7389f442b517e45775d0307d2df29">GS1_LINTER_INVALID_PERCENT_SEQUENCE</a>,</div>
 <div class="line"><span class="lineno">   80</span>                                        pos,</div>

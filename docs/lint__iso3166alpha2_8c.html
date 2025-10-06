@@ -95,7 +95,6 @@ If provided, the GS1_LINTER_CUSTOM_ISO3166ALPHA2_LOOKUP macro shall invoke whate
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Pointer to the data to be linted. Must not be <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data to be linted. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">data_len</td><td>Length of the data parameter. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_pos</td><td>To facilitate error highlighting, the start position of the bad data is written to this pointer, if not <code>NULL</code>. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">err_len</td><td>The length of the bad data is written to this pointer, if not <code>NULL</code>.</td></tr>
   </table>
@@ -104,89 +103,89 @@ If provided, the GS1_LINTER_CUSTOM_ISO3166ALPHA2_LOOKUP macro shall invoke whate
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aacb0fb15e7cbe1678d27977e4f33bf0e4" title="No issues were detected by the linter.">GS1_LINTER_OK</a> if okay. </dd>
 <dd>
 <a class="el" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83" title="A valid ISO 3166 two-character country code is required.">GS1_LINTER_NOT_ISO3166_ALPHA2</a> if the data is not a alpha-2 country code. </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">   77</span>{</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   80</span><span class="comment">         * Allow for a custom replacement of the lookup code to be provided.</span></div>
-<div class="line"><span class="lineno">   81</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   82</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   83</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_ISO3166ALPHA2_LOOKUP</span></div>
-<div class="line"><span class="lineno">   84</span><span class="preprocessor">#define GS1_LINTER_ISO3166ALPHA2_LOOKUP(cc, cc_len, valid) GS1_LINTER_CUSTOM_ISO3166ALPHA2_LOOKUP(cc, cc_len, valid)</span></div>
-<div class="line"><span class="lineno">   85</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   86</span> </div>
-<div class="line"><span class="lineno">   87</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">   88</span><span class="comment">         *  Set of ISO 3166 alpha-2 country codes</span></div>
-<div class="line"><span class="lineno">   89</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   90</span><span class="comment">         *  MAINTENANCE NOTE:</span></div>
-<div class="line"><span class="lineno">   91</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   92</span><span class="comment">         *  Updates to the ISO 3166 alpha-2 country code list are provided here:</span></div>
-<div class="line"><span class="lineno">   93</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   94</span><span class="comment">         *  https://isotc.iso.org/livelink/livelink?func=ll&amp;objId=16944257&amp;objAction=browse&amp;viewType=1</span></div>
-<div class="line"><span class="lineno">   95</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">   96</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">   97</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint64_t iso3166alpha2[] = {</div>
-<div class="line"><span class="lineno">   98</span><span class="preprocessor">#if __STDC_VERSION__ &gt;= 202311L</span></div>
-<div class="line"><span class="lineno">   99</span>                0b0001111010011010111110110111011111110111101111011011101101111011,  <span class="comment">// AA-CL: AD-AG AI AL-AM AO AQ-AU AW-AX AZ-BB BD-BJ BL-BO BQ-BT BV-BW BY-CA CC-CD CF-CH CI CK-CL</span></div>
-<div class="line"><span class="lineno">  100</span>                0b1110010011111100001000011010100000000001001010110000000001110000,  <span class="comment">// CM-EX: CM-CO CR CU-CZ DE DJ DK DM DO DZ EC EE EG-EH ER-ET</span></div>
-<div class="line"><span class="lineno">  101</span>                0b0000000000111010100100000000110111111001110111111010100000000000,  <span class="comment">// EY-HJ: FI-FJ FK FM FO FR GA-GB GD-GI GL-GN GP-GU GW GY</span></div>
-<div class="line"><span class="lineno">  102</span>                0b1011000101100000000110000001111011110000000000100000001011000000,  <span class="comment">// HK-JV: HK HM-HN HR HT-HU ID-IE IL-IO IQ-IT JE JM JO-JP</span></div>
-<div class="line"><span class="lineno">  103</span>                0b0000000010111000110101000010111110000010100000011111001010111111,  <span class="comment">// JW-MH: KE KG-KI KM-KN KP KR KW KY-KZ LA-LC LI LK LR-LV LY MA MC-MH</span></div>
-<div class="line"><span class="lineno">  104</span>                0b0011111111111111111010111010010011010010000100000000000010000000,  <span class="comment">// MI-OT: MK-NA NC NE-NG NI NL NO-NP NR NU NZ OM</span></div>
-<div class="line"><span class="lineno">  105</span>                0b0000001000111100111100011100101010000000000000000000000000000010,  <span class="comment">// OU-RF: PA PE-PH PK-PN PR-PT PW PY QA RE</span></div>
-<div class="line"><span class="lineno">  106</span>                0b0000000010001010100011111011111111100111010111001101110111111001,  <span class="comment">// RG-TR: RO RS RU RW SA-SE SG-SO SR-ST SV SX-SZ TC-TD TF-TH TJ-TO TR</span></div>
-<div class="line"><span class="lineno">  107</span>                0b0101100110000010000010000010000011101010101000010000001000000000,  <span class="comment">// TS-WD: TT TV-TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU</span></div>
-<div class="line"><span class="lineno">  108</span>                0b0100000000000010000000000000000000000000000000000000100000000000,  <span class="comment">// WE-YP: WF WS YE</span></div>
-<div class="line"><span class="lineno">  109</span>                0b0001000000100000000000100000000010000000000000000000000000000000,  <span class="comment">// YQ-ZZ: YT ZA ZM ZW</span></div>
-<div class="line"><span class="lineno">  110</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  111</span>                <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  112</span><span class="comment">                 *  Fallback for compilers lacking binary literal support.</span></div>
-<div class="line"><span class="lineno">  113</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  114</span><span class="comment">                 *  Generated from the above data with:</span></div>
-<div class="line"><span class="lineno">  115</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  116</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso3166alpha2) / sizeof(iso3166alpha2[0]); i++) { printf(&quot;0x%016lx, &quot;, iso3166alpha2[i]); };</span></div>
-<div class="line"><span class="lineno">  117</span><span class="comment">                 *</span></div>
-<div class="line"><span class="lineno">  118</span><span class="comment">                 */</span></div>
-<div class="line"><span class="lineno">  119</span>                0x1e9afb77f7bdbb7b, 0xe4fc21a8012b0070, 0x003a900df9dfa800, 0xb160181ef00202c0,</div>
-<div class="line"><span class="lineno">  120</span>                0x00b8d42f8281f2bf, 0x3fffeba4d2100080, 0x023cf1ca80000002, 0x008a8fbfe75cddf9,</div>
-<div class="line"><span class="lineno">  121</span>                0x59820820eaa10200, 0x4002000000000800, 0x1020020080000000</div>
-<div class="line"><span class="lineno">  122</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  123</span>        };</div>
-<div class="line"><span class="lineno">  124</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  125</span><span class="comment">/// \cond</span></div>
-<div class="line"><span class="lineno">  126</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_ISO3166ALPHA2_LOOKUP(cc, cc_len, valid) do {                                 \</span></div>
-<div class="line"><span class="lineno">  127</span><span class="preprocessor">        valid = 0;                                                                              \</span></div>
-<div class="line"><span class="lineno">  128</span><span class="preprocessor">        if (cc_len == 2 &amp;&amp; cc[0] &gt;= &#39;A&#39; &amp;&amp; cc[0] &lt;= &#39;Z&#39; &amp;&amp; cc[1] &gt;= &#39;A&#39; &amp;&amp; cc[1] &lt;= &#39;Z&#39;) {      \</span></div>
-<div class="line"><span class="lineno">  129</span><span class="preprocessor">                int v = (cc[0] - &#39;A&#39;) * 26 + cc[1] - &#39;A&#39;;                                       \</span></div>
-<div class="line"><span class="lineno">  130</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, iso3166alpha2, valid);                            \</span></div>
-<div class="line"><span class="lineno">  131</span><span class="preprocessor">        }                                                                                       \</span></div>
-<div class="line"><span class="lineno">  132</span><span class="preprocessor">} while (0)</span><span class="comment"></span></div>
-<div class="line"><span class="lineno">  133</span><span class="comment">/// \endcond</span></div>
-<div class="line"><span class="lineno">  134</span><span class="comment"></span> </div>
-<div class="line"><span class="lineno">  135</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  136</span> </div>
-<div class="line"><span class="lineno">  137</span>        <span class="keywordtype">int</span> valid;</div>
-<div class="line"><span class="lineno">  138</span> </div>
-<div class="line"><span class="lineno">  139</span>        assert(data);</div>
-<div class="line"><span class="lineno">  140</span> </div>
-<div class="line"><span class="lineno">  141</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  142</span><span class="comment">         * Ensure that the data is in the list.</span></div>
-<div class="line"><span class="lineno">  143</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  144</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  145</span>        GS1_LINTER_ISO3166ALPHA2_LOOKUP(data, data_len, valid);</div>
-<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a>(valid))</div>
-<div class="line"><span class="lineno">  147</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
-<div class="line"><span class="lineno">  148</span> </div>
-<div class="line"><span class="lineno">  149</span>        <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  150</span><span class="comment">         * If not valid then indicate an error.</span></div>
-<div class="line"><span class="lineno">  151</span><span class="comment">         *</span></div>
-<div class="line"><span class="lineno">  152</span><span class="comment">         */</span></div>
-<div class="line"><span class="lineno">  153</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
-<div class="line"><span class="lineno">  154</span>                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>,</div>
-<div class="line"><span class="lineno">  155</span>                0,</div>
-<div class="line"><span class="lineno">  156</span>                data_len</div>
-<div class="line"><span class="lineno">  157</span>        );</div>
-<div class="line"><span class="lineno">  158</span> </div>
-<div class="line"><span class="lineno">  159</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">   76</span>{</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   79</span><span class="comment">         * Allow for a custom replacement of the lookup code to be provided.</span></div>
+<div class="line"><span class="lineno">   80</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   82</span><span class="preprocessor">#ifdef GS1_LINTER_CUSTOM_ISO3166ALPHA2_LOOKUP</span></div>
+<div class="line"><span class="lineno">   83</span><span class="preprocessor">#define GS1_LINTER_ISO3166ALPHA2_LOOKUP(cc, cc_len, valid) GS1_LINTER_CUSTOM_ISO3166ALPHA2_LOOKUP(cc, cc_len, valid)</span></div>
+<div class="line"><span class="lineno">   84</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">         *  Set of ISO 3166 alpha-2 country codes</span></div>
+<div class="line"><span class="lineno">   88</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   89</span><span class="comment">         *  MAINTENANCE NOTE:</span></div>
+<div class="line"><span class="lineno">   90</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   91</span><span class="comment">         *  Updates to the ISO 3166 alpha-2 country code list are provided here:</span></div>
+<div class="line"><span class="lineno">   92</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment">         *  https://isotc.iso.org/livelink/livelink?func=ll&amp;objId=16944257&amp;objAction=browse&amp;viewType=1</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">   96</span>        <span class="keyword">static</span> <span class="keyword">const</span> uint64_t iso3166alpha2[] = {</div>
+<div class="line"><span class="lineno">   97</span><span class="preprocessor">#if __STDC_VERSION__ &gt;= 202311L</span></div>
+<div class="line"><span class="lineno">   98</span>                0b0001111010011010111110110111011111110111101111011011101101111011,  <span class="comment">// AA-CL: AD-AG AI AL-AM AO AQ-AU AW-AX AZ-BB BD-BJ BL-BO BQ-BT BV-BW BY-CA CC-CD CF-CH CI CK-CL</span></div>
+<div class="line"><span class="lineno">   99</span>                0b1110010011111100001000011010100000000001001010110000000001110000,  <span class="comment">// CM-EX: CM-CO CR CU-CZ DE DJ DK DM DO DZ EC EE EG-EH ER-ET</span></div>
+<div class="line"><span class="lineno">  100</span>                0b0000000000111010100100000000110111111001110111111010100000000000,  <span class="comment">// EY-HJ: FI-FJ FK FM FO FR GA-GB GD-GI GL-GN GP-GU GW GY</span></div>
+<div class="line"><span class="lineno">  101</span>                0b1011000101100000000110000001111011110000000000100000001011000000,  <span class="comment">// HK-JV: HK HM-HN HR HT-HU ID-IE IL-IO IQ-IT JE JM JO-JP</span></div>
+<div class="line"><span class="lineno">  102</span>                0b0000000010111000110101000010111110000010100000011111001010111111,  <span class="comment">// JW-MH: KE KG-KI KM-KN KP KR KW KY-KZ LA-LC LI LK LR-LV LY MA MC-MH</span></div>
+<div class="line"><span class="lineno">  103</span>                0b0011111111111111111010111010010011010010000100000000000010000000,  <span class="comment">// MI-OT: MK-NA NC NE-NG NI NL NO-NP NR NU NZ OM</span></div>
+<div class="line"><span class="lineno">  104</span>                0b0000001000111100111100011100101010000000000000000000000000000010,  <span class="comment">// OU-RF: PA PE-PH PK-PN PR-PT PW PY QA RE</span></div>
+<div class="line"><span class="lineno">  105</span>                0b0000000010001010100011111011111111100111010111001101110111111001,  <span class="comment">// RG-TR: RO RS RU RW SA-SE SG-SO SR-ST SV SX-SZ TC-TD TF-TH TJ-TO TR</span></div>
+<div class="line"><span class="lineno">  106</span>                0b0101100110000010000010000010000011101010101000010000001000000000,  <span class="comment">// TS-WD: TT TV-TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU</span></div>
+<div class="line"><span class="lineno">  107</span>                0b0100000000000010000000000000000000000000000000000000100000000000,  <span class="comment">// WE-YP: WF WS YE</span></div>
+<div class="line"><span class="lineno">  108</span>                0b0001000000100000000000100000000010000000000000000000000000000000,  <span class="comment">// YQ-ZZ: YT ZA ZM ZW</span></div>
+<div class="line"><span class="lineno">  109</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  110</span>                <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment">                 *  Fallback for compilers lacking binary literal support.</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">  113</span><span class="comment">                 *  Generated from the above data with:</span></div>
+<div class="line"><span class="lineno">  114</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">  115</span><span class="comment">                 *     for (size_t i = 0; i &lt; sizeof(iso3166alpha2) / sizeof(iso3166alpha2[0]); i++) { printf(&quot;0x%016lx, &quot;, iso3166alpha2[i]); };</span></div>
+<div class="line"><span class="lineno">  116</span><span class="comment">                 *</span></div>
+<div class="line"><span class="lineno">  117</span><span class="comment">                 */</span></div>
+<div class="line"><span class="lineno">  118</span>                0x1e9afb77f7bdbb7b, 0xe4fc21a8012b0070, 0x003a900df9dfa800, 0xb160181ef00202c0,</div>
+<div class="line"><span class="lineno">  119</span>                0x00b8d42f8281f2bf, 0x3fffeba4d2100080, 0x023cf1ca80000002, 0x008a8fbfe75cddf9,</div>
+<div class="line"><span class="lineno">  120</span>                0x59820820eaa10200, 0x4002000000000800, 0x1020020080000000</div>
+<div class="line"><span class="lineno">  121</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  122</span>        };</div>
+<div class="line"><span class="lineno">  123</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  124</span><span class="comment">/// \cond</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment"></span><span class="preprocessor">#define GS1_LINTER_ISO3166ALPHA2_LOOKUP(cc, cc_len, valid) do {                                 \</span></div>
+<div class="line"><span class="lineno">  126</span><span class="preprocessor">        valid = 0;                                                                              \</span></div>
+<div class="line"><span class="lineno">  127</span><span class="preprocessor">        if (cc_len == 2 &amp;&amp; cc[0] &gt;= &#39;A&#39; &amp;&amp; cc[0] &lt;= &#39;Z&#39; &amp;&amp; cc[1] &gt;= &#39;A&#39; &amp;&amp; cc[1] &lt;= &#39;Z&#39;) {      \</span></div>
+<div class="line"><span class="lineno">  128</span><span class="preprocessor">                int v = (cc[0] - &#39;A&#39;) * 26 + cc[1] - &#39;A&#39;;                                       \</span></div>
+<div class="line"><span class="lineno">  129</span><span class="preprocessor">                GS1_LINTER_BITFIELD_LOOKUP(v, iso3166alpha2, valid);                            \</span></div>
+<div class="line"><span class="lineno">  130</span><span class="preprocessor">        }                                                                                       \</span></div>
+<div class="line"><span class="lineno">  131</span><span class="preprocessor">} while (0)</span><span class="comment"></span></div>
+<div class="line"><span class="lineno">  132</span><span class="comment">/// \endcond</span></div>
+<div class="line"><span class="lineno">  133</span><span class="comment"></span> </div>
+<div class="line"><span class="lineno">  134</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  135</span> </div>
+<div class="line"><span class="lineno">  136</span>        <span class="keywordtype">int</span> valid;</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>        assert(data);</div>
+<div class="line"><span class="lineno">  139</span> </div>
+<div class="line"><span class="lineno">  140</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  141</span><span class="comment">         * Ensure that the data is in the list.</span></div>
+<div class="line"><span class="lineno">  142</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  143</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  144</span>        GS1_LINTER_ISO3166ALPHA2_LOOKUP(data, data_len, valid);</div>
+<div class="line"><span class="lineno">  145</span>        <span class="keywordflow">if</span> (<a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a>(valid))</div>
+<div class="line"><span class="lineno">  146</span>                <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a>;</div>
+<div class="line"><span class="lineno">  147</span> </div>
+<div class="line"><span class="lineno">  148</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  149</span><span class="comment">         * If not valid then indicate an error.</span></div>
+<div class="line"><span class="lineno">  150</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  151</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  152</span>        <a class="code hl_define" href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a>(</div>
+<div class="line"><span class="lineno">  153</span>                <a class="code hl_enumvalue" href="gs1syntaxdictionary_8h.html#ad006ed90e392f9cec9d744a94cb8ef1aae424e841da0152becf22f173a9e22b83">GS1_LINTER_NOT_ISO3166_ALPHA2</a>,</div>
+<div class="line"><span class="lineno">  154</span>                0,</div>
+<div class="line"><span class="lineno">  155</span>                data_len</div>
+<div class="line"><span class="lineno">  156</span>        );</div>
+<div class="line"><span class="lineno">  157</span> </div>
+<div class="line"><span class="lineno">  158</span>}</div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a645806acfbfd1ede9380f7f14ba18c69"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a645806acfbfd1ede9380f7f14ba18c69">GS1_LINTER_RETURN_ERROR</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_ERROR(error, position, length)</div><div class="ttdoc">Return from a linter indicating that a problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:103</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_a684610489ec0978fa22c35b774ff6a9e"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#a684610489ec0978fa22c35b774ff6a9e">GS1_LINTER_RETURN_OK</a></div><div class="ttdeci">#define GS1_LINTER_RETURN_OK</div><div class="ttdoc">Return from a linter indicating that no problem was detected with the given data.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:88</div></div>
 <div class="ttc" id="ags1syntaxdictionary-utils_8h_html_abdc5ee13b97ac3a0273f106f56795999"><div class="ttname"><a href="gs1syntaxdictionary-utils_8h.html#abdc5ee13b97ac3a0273f106f56795999">GS1_LINTER_LIKELY</a></div><div class="ttdeci">#define GS1_LINTER_LIKELY(x)</div><div class="ttdoc">Implementation may provide hint to the compiler that the expression is likely to be true.</div><div class="ttdef"><b>Definition</b> gs1syntaxdictionary-utils.h:63</div></div>
