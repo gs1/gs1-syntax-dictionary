@@ -1,5 +1,7 @@
 XXXX-XX-XX
-
+* Added "NET" to data titles for AI ranges (364n), (365n) and (366n) as approved with GSCN 25-388
+* New AIs (8040) for IMEI, (8041) for IMEI2, (8042) for ESIM and (8043) for PSIM, as approved with GSCN 25-047 and GSCN 25-388
+* New AI (717) for NHRN SRN, as approved with GSCN 25-199
 * The data titles for units of measure were aligned with GSCN 25-081.
 * The linter function specification was changed to require a parameter defining the input length to process.
 * The "key" linter was renamed to "gcppos1".
