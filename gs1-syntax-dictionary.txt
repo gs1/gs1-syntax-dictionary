@@ -332,10 +332,10 @@
 8020           X..25                             req=415                                          # REF No.
 8026        ?  N14,csum,gcppos2 N4,pieceoftotal  req=37 ex=02,8006                                # ITIP CONTENT
 8030        ?  Z..90  req=00,01+21,253,255,8003,8004,8006+21,8010+8011,8017,8018                  # DIGSIG
-8040        ?  N15                               req=01+02                                        # IMEI
-8041        ?  N15                               req=01+02+8040                                   # IMEI2
-8042        ?  N32                               req=01+02+8040                                   # ESIM
-8043        ?  N18,[N..2]                        req=01+02                                        # PSIM
+8040        ?  N15                               req=01+21                                        # IMEI
+8041        ?  N15                               req=01+21+8040                                   # IMEI2
+8042        ?  N32                               req=01+21+8040                                   # ESIM
+8043        ?  N18,[N..2]                        req=01+21                                        # PSIM
 8110        ?  X..70,couponcode
 8111        ?  N4                                req=255                                          # POINTS
 8112        ?  X..70,couponposoffer
