@@ -190,9 +190,9 @@
 3610-3615  *?  N6                                req=01,02 ex=361n                                # NET VOLUME (gal.)
 3620-3625  *?  N6                                req=00,01 ex=362n                                # VOLUME (qt (US)), log
 3630-3635  *?  N6                                req=00,01 ex=363n                                # VOLUME (gal (US)), log
-3640-3645  *?  N6                                req=01,02 ex=364n                                # VOLUME (in³)
-3650-3655  *?  N6                                req=01,02 ex=365n                                # VOLUME (ft³)
-3660-3665  *?  N6                                req=01,02 ex=366n                                # VOLUME (yd³)
+3640-3645  *?  N6                                req=01,02 ex=364n                                # NET VOLUME (in³)
+3650-3655  *?  N6                                req=01,02 ex=365n                                # NET VOLUME (ft³)
+3660-3665  *?  N6                                req=01,02 ex=366n                                # NET VOLUME (yd³)
 3670-3675  *?  N6                                req=00,01 ex=367n                                # VOLUME (in³), log
 3680-3685  *?  N6                                req=00,01 ex=368n                                # VOLUME (ft³), log
 3690-3695  *?  N6                                req=00,01 ex=369n                                # VOLUME (yd³), log
