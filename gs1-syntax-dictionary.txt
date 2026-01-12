@@ -335,7 +335,7 @@
 8040           N15                               req=01+21                                        # IMEI
 8041           N15                               req=01+21+8040                                   # IMEI2
 8042           N32                               req=01+21+8040                                   # ESIM
-8043           N18 [N..2]                        req=01+21                                        # PSIM
+8043           N18 [N..2]                        req=01+21+8040                                   # PSIM
 8110        ?  X..70,couponcode
 8111        ?  N4                                req=255                                          # POINTS
 8112        ?  X..70,couponposoffer
