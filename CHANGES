@@ -1,4 +1,5 @@
-XXXX-XX-XX
+2026-01-27
+
 * Added "NET" to data titles for AI ranges (364n), (365n) and (366n) as approved with GSCN 25-388.
 * New AIs (8040) for IMEI, (8041) for IMEI2, (8042) for ESIM and (8043) for PSIM, as approved with GSCN 25-047 and GSCN 25-388.
 * New AI (717) for NHRN SRN, as approved with GSCN 25-199.
