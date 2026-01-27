@@ -1,7 +1,7 @@
 # GS1 Barcode Syntax Dictionary
 # -----------------------------
 #
-# Release: 2026-01-27
+# Release: UNSET
 #
 # This is the GS1 Barcode Syntax Dictionary.
 #
