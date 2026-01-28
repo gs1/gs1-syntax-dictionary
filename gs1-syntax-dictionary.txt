@@ -137,7 +137,7 @@
 241         ?  X..30                             req=01,02,8006,8026                              # CUST. PART No.
 242         ?  N..6                              req=01,02,8006,8026                              # MTO VARIANT
 243         ?  X..20                             req=01                                           # PCN
-250         ?  X..30                             req=01,8006 req=21                               # SECONDARY SERIAL
+250         ?  X..30                             req=01+21,8006+21                                # SECONDARY SERIAL
 251         ?  X..30                             req=01,8006                                      # REF. TO SOURCE
 253         ?  N13,csum,gcppos1 [X..17]          dlpkey                                           # GDTI
 254            X..20                             req=414                                          # GLN EXTENSION COMPONENT
@@ -196,10 +196,10 @@
 3670-3675  *?  N6                                req=00,01 ex=367n                                # VOLUME (in³), log
 3680-3685  *?  N6                                req=00,01 ex=368n                                # VOLUME (ft³), log
 3690-3695  *?  N6                                req=00,01 ex=369n                                # VOLUME (yd³), log
-37          ?  N..8                              req=00 req=02,8026                               # COUNT
+37          ?  N..8                              req=00+02,00+8026                                # COUNT
 3900-3909   ?  N..15                             req=255,8020 ex=390n,391n,394n,8111              # AMOUNT
 3910-3919   ?  N3,iso4217 N..15                  req=8020 ex=391n                                 # AMOUNT
-3920-3929   ?  N..15                             req=01 req=30,31nn,32nn,35nn,36nn ex=392n,393n   # PRICE
+3920-3929   ?  N..15  req=01+30,01+31nn,01+32nn,01+35nn,01+36nn ex=392n,393n                      # PRICE
 3930-3939   ?  N3,iso4217 N..15                  req=30,31nn,32nn,35nn,36nn ex=393n               # PRICE
 3940-3943   ?  N4                                req=255 ex=394n,8111                             # PRCNT OFF
 3950-3955   ?  N6  req=30,31nn,32nn,35nn,36nn ex=392n,393n,395n,8005                              # PRICE/UoM
@@ -222,7 +222,7 @@
 424         ?  N3,iso3166                        req=01,02 ex=426                                 # COUNTRY - PROCESS
 425         ?  N3,iso3166 [N3],iso3166 [N3],iso3166 [N3],iso3166 [N3],iso3166  req=01,02 ex=426   # COUNTRY - DISASSEMBLY
 426         ?  N3,iso3166                        req=01,02                                        # COUNTRY - FULL PROCESS
-427         ?  X..3                              req=01,02 req=422                                # ORIGIN SUBDIVISION
+427         ?  X..3                              req=01+422,02+422                                # ORIGIN SUBDIVISION
 4300        ?  X..35,pcenc                       req=00                                           # SHIP TO COMP
 4301        ?  X..35,pcenc                       req=00                                           # SHIP TO NAME
 4302        ?  X..70,pcenc                       req=00                                           # SHIP TO ADD1
@@ -265,7 +265,7 @@
 7009        ?  X..10                             req=01,02                                        # FISHING GEAR TYPE
 7010        ?  X..2                              req=01,02                                        # PROD METHOD
 7011        ?  N6,yymmdd [N4],hhmi               req=01,02                                        # TEST BY DATE
-7020        ?  X..20                             req=01,8006 req=416                              # REFURB LOT
+7020        ?  X..20                             req=01+416,8006+416                              # REFURB LOT
 7021        ?  X..20                             req=01,8006                                      # FUNC STAT
 7022        ?  X..20                             req=7021                                         # REV STAT
 7023        ?  X..30,gcppos1                                                                      # GIAI - ASSEMBLY
