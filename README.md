@@ -3,7 +3,8 @@ GS1 Barcode Syntax Dictionary and Syntax Tests
 
 The **GS1 Barcode Syntax Dictionary** ("Syntax Dictionary") is a text file that is both human-readable and
 machine-readable, which consists of a set of entries describing each currently
-assigned GS1 Application Identifier in terms of its constituent components.
+assigned GS1 Application Identifier in terms of its constituent components for
+the purpose of input validation.
 
 The current revision of the Syntax Dictionary can be viewed and downloaded
 from here:

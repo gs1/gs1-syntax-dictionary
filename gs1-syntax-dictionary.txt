@@ -17,7 +17,7 @@
 #
 # The specification is similar to that contained in the GS1 General
 # Specifications, however the data field definition is further decomposed into
-# meaningful components that can be individually reported or validated.
+# components that can be individually validated.
 #
 # Together with a set of Linter procedures this resource can be used either
 # directly by application code or by a project's build system to generate code
