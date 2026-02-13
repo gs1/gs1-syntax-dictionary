@@ -126,8 +126,9 @@ jobs:
             install iwyu
           find . -name 'lint_*.c' \
             -exec bash -c \
-            'iwyu -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN "$1";
-            [[ $? = 2 ]] || false' _ {} \;
+            'iwyu -Xiwyu --error \
+            -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN "$1";
+            [[ $? = 0 ]] || false' _ {} \;
 
       - name: cppcheck
         working-directory: src
