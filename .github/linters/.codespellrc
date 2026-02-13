@@ -1,0 +1,5 @@
+[codespell]
+# ISO country codes and package type codes trigger false positives
+ignore-words-list = bu,fo,nd,ot,te,ue,tre
+# Skip generated, third-party, build, and corpus files
+skip = docs,src/build*,src/acutest.h,src/corpus-*,src/slow-unit-*

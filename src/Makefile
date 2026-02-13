@@ -115,12 +115,18 @@ OBJS = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
 DEPS = $(addprefix $(BUILD_DIR)/, $(ALL_SRCS:.c=.d)) $(FUZZER_OBJS:.o=.d)
 
 
-.PHONY: all clean libshared libstatic install install-static install-shared uninstall test clean-test fuzzer docs copyright
-
 default: lib
+
+.PHONY: all
 all: lib
+
+.PHONY: lib
 lib: libshared libstatic
+
+.PHONY: libshared
 libshared: $(LIB_SHARED)
+
+.PHONY: libstatic
 libstatic: $(LIB_STATIC)
 
 $(BUILD_DIR)/:
@@ -185,9 +191,11 @@ $(foreach linter,$(FUZZER_LINTERS),$(eval $(call gen-fuzzer-target,$(linter))))
 #
 #  Utility targets
 #
+.PHONY: test
 test: $(TEST_BIN)
 	$(SAN_ENV) ./$(TEST_BIN) $(TEST)
 
+.PHONY: fuzzer
 fuzzer: $(FUZZER_BINS) | $(FUZZER_CORPUSES)
 	@echo
 	@echo Start fuzzing as follows:
@@ -202,23 +210,29 @@ fuzzer: $(FUZZER_BINS) | $(FUZZER_CORPUSES)
 
 	@echo
 
+.PHONY: clean
 clean:
 	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
 
+.PHONY: clean-test
 clean-test:
 	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
 
 
+.PHONY: install
 install: install-static install-shared
 
+.PHONY: install-headers
 install-headers:
 	install -d $(DESTDIR)$(PREFIX)/include
 	install -m 0644 $(NAME).h $(DESTDIR)$(PREFIX)/include
 
+.PHONY: install-static
 install-static: libstatic install-headers
 	install -d $(DESTDIR)$(LIBDIR)
 	install -m 0644 $(BUILD_DIR)/lib$(NAME).a $(DESTDIR)$(LIBDIR)
 
+.PHONY: install-shared
 install-shared: libshared install-headers
 	install -d $(DESTDIR)$(LIBDIR)
 	install -m 0644 $(BUILD_DIR)/lib$(NAME).so.$(VERSION) $(DESTDIR)$(LIBDIR)
@@ -226,6 +240,7 @@ install-shared: libshared install-headers
 	cd $(DESTDIR)$(LIBDIR) && ln -sf lib$(NAME).so.$(VERSION) lib$(NAME).so.$(MAJOR)
 	-ldconfig
 
+.PHONY: uninstall
 uninstall:
 	$(RM) $(DESTDIR)$(PREFIX)/include/$(NAME).h
 	$(RM) $(DESTDIR)$(PREFIX)/lib/lib$(NAME).so.$(VERSION)
@@ -234,6 +249,7 @@ uninstall:
 	$(RM) $(DESTDIR)$(PREFIX)/lib/lib$(NAME).a
 	-ldconfig
 
+.PHONY: docs
 docs:
 	doxygen
 	perl -0777 -ne 'print "$$&\n" if m#<div class="directory">.*</div><!-- directory -->#s' docstmp/files.html | \
@@ -256,8 +272,22 @@ docs:
 	cp docstmp/tabs.css ../docs
 	cp docstmp/tab_*.png ../docs
 
+.PHONY: copyright
 copyright:
 	sed -i -e "s/Copyright (c) \([[:digit:]]\{4\}\)\(-[[:digit:]]\{4\}\)\{0,1\} GS1 AISBL/Copyright (c) \1-$$(date +'%Y') GS1 AISBL/" $(ALL_SRCS) $(NAME).h unittest.h Makefile Doxyfile
+
+.PHONY: superlinter
+superlinter:
+	docker run --rm \
+		-e RUN_LOCAL=true \
+		-e VALIDATE_ALL_CODEBASE=true \
+		-e DEFAULT_BRANCH=main \
+		-e IGNORE_GITIGNORED_FILES=true \
+		-e LINTER_RULES_PATH=.github/linters \
+		-e 'FILTER_REGEX_EXCLUDE=(docs/|src/build|src/acutest\.h|corpus-|src/slow-unit-)' \
+		$(shell grep -v '^\#' ../.github/linters/superlinter-disabled.env | grep '=' | sed 's/^/-e /') \
+		-v `pwd`/..:/tmp/lint \
+		ghcr.io/super-linter/super-linter:v8
 
 
 -include $(DEPS)

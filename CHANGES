@@ -26,7 +26,7 @@
 * The obsolete iso3166list linter was replaced with a deprecation stub to maintain API compatibility.
 * AI (8020) is no longer permitted as a GS1 Digital Link URI data attribute.
 * The AI (8008) component specification was simplified to "N6,yymmdd N2,hh [N2],mi [N2],ss", with new linters lint_{hh,mi,ss} created and old linters lint_{yymmddhh,mmoptss} replaced with deprecation stubs.
-* A new keyoff1 linter replaces the key linter for AIs (00), (01), (02) and (03) in which in is the second data character of the respective compoment that represents the start of a GCP.
+* A new keyoff1 linter replaces the key linter for AIs (00), (01), (02) and (03) in which it is the second data character of the respective component that represents the start of a GCP.
 
 
 2024-06-10

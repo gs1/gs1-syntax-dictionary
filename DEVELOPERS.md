@@ -3,7 +3,6 @@
 This document is for developers contributing to this project, not users of the
 project. It is authoritative for both human contributors and automated tools.
 
-
 ## Background
 
 This repository contains two related components:
@@ -27,7 +26,6 @@ The Linters are the authoritative source for validation implementations. The
 sibling project GS1 Syntax Engine vendors these linters and provides a
 framework with language bindings.
 
-
 ### Syntax Dictionary Contributions
 
 The Syntax Dictionary file format is documented in the file's header.
@@ -42,7 +40,8 @@ Importantly:
 - Maintain entries in lexical order of their AI
 - Changes to linter references must be coordinated with corresponding updates to the C linter code
 - Prefer combined `req=` expressions (e.g., `req=A+C,B+C`) over multiple `req=` attributes for more informative error messages
-- Prefer optional components over variable-length when the shorter form is valid (e.g., `N19 [N1]` rather than `N18 N..2` when 19 digits alone is valid input)
+- Prefer optional components over variable-length when the shorter form is valid
+  (e.g., `N19 [N1]` rather than `N18 N..2` when 19 digits alone is valid input)
 - Do not add the `?` flag to an AI unless the GS1 Digital Link specification permits it as a data attribute
 
 ### C Code Contribution Rules and Constraints
@@ -63,7 +62,6 @@ Importantly:
 - Backup work before running irreversible commands
 - Plan complex tasks; interview the user regarding significant design choices
 - Always search for and follow pre-existing patterns before writing code
-
 
 ## C Programming Goals
 
@@ -149,7 +147,6 @@ static const char* const iso4217[] = { "AED", "AFN", ... };
 This allows users to provide their own data sources (e.g., database lookups)
 without modifying the library code.
 
-
 ## Code Structure
 
 ### Key Files
@@ -163,7 +160,6 @@ without modifying the library code.
 | `lint_*.c`                    | Individual linter implementations with embedded tests |
 | `unittest.h`                  | Wrappers around acutest for consistent test macros    |
 
-
 ### Naming Conventions
 
 | Scope            | Prefix                       | Example                          |
@@ -172,7 +168,6 @@ without modifying the library code.
 | Error codes      | `GS1_LINTER_`                | `GS1_LINTER_ILLEGAL_DAY`         |
 | Utility macros   | `GS1_LINTER_`                | `GS1_LINTER_RETURN_OK`           |
 | Types            | `gs1_lint_` or `gs1_linter_` | `gs1_lint_err_t`, `gs1_linter_t` |
-
 
 ### Linter File Structure
 
@@ -234,7 +229,6 @@ void test_lint_example(void)
 #endif  /* UNIT_TESTS */
 ```
 
-
 ### Symbol Visibility
 
 The library is compiled with `-fvisibility=hidden`. Public functions use:
@@ -242,7 +236,6 @@ The library is compiled with `-fvisibility=hidden`. Public functions use:
 ```c
 GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_example(...);
 ```
-
 
 ## Build
 
@@ -267,7 +260,6 @@ Note: On macOS use `sysctl -n hw.ncpu` instead of `$(nproc)`.
 ```bash
 msbuild /p:Configuration=release gs1syntaxdictionary.sln
 ```
-
 
 ## Testing
 
@@ -299,7 +291,6 @@ make -j $(nproc) fuzzer
 ASAN_OPTIONS="symbolize=1 detect_leaks=1" ./build/gs1syntaxdictionary-fuzzer-lint_csum -jobs=$(nproc) -workers=$(nproc) corpus-lint_csum -max_len=125
 ```
 
-
 ## Maintenance Tasks
 
 ### Version Numbering
@@ -315,7 +306,8 @@ applicable. GSCNs identify approved changes to GS1 standards and provide
 traceability between library updates and specification changes.
 
 Example entry:
-```
+
+```text
 - Updated AI (8030) per GSCN 24-123
 ```
 
@@ -349,7 +341,7 @@ This enables developers to:
 - **Port unit tests** to verify correctness of new implementations
 
 The published documentation is available at:
-https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-tests/implementation/
+<https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-tests/implementation/>
 
 ### Adding a New Linter
 
@@ -378,7 +370,6 @@ When a linter is deprecated:
 3. Keep the function signature to maintain ABI compatibility
 4. Document the deprecation in `CHANGES`
 
-
 ## CI/CD
 
 GitHub Actions workflow (`.github/workflows/gs1syntaxdictionary.yml`) runs:
@@ -391,7 +382,6 @@ GitHub Actions workflow (`.github/workflows/gs1syntaxdictionary.yml`) runs:
 - CodeQL security analysis
 
 Releases are created when tags are pushed.
-
 
 ### Testing in gs1-syntax-engine
 
@@ -407,4 +397,3 @@ make fuzzer  # Run fuzzers to check for edge cases
 
 This ensures changes work correctly within the full framework context and
 catches edge cases that unit tests may miss.
-

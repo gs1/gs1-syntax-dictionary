@@ -1,5 +1,4 @@
-Main Page {#mainpage}
-=========
+# Main Page {#mainpage}
 
 The GS1 Barcode Syntax Dictionary contains entries describing the composition
 of each Application Identifier (AI) in the GS1 system in terms of its
@@ -15,7 +14,6 @@ available here:
 
 <https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-tests/implementation/>
 
-
 @remark
 
 For each target platform it is intended that the linters may be cross-compiled,
@@ -29,7 +27,6 @@ If the functions are being transliterated then the resulting code should be
 cross checked by additionally porting the extensive unit tests provided in the
 reference linter source files.
 
-
-### Linter reference
+## Linter reference
 
 !!!REFERENCE!!!

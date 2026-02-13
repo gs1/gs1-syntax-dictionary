@@ -1,5 +1,4 @@
-GS1 Barcode Syntax Dictionary and Syntax Tests
-==============================================
+# GS1 Barcode Syntax Dictionary and Syntax Tests
 
 The **GS1 Barcode Syntax Dictionary** ("Syntax Dictionary") is a text file that is both human-readable and
 machine-readable, which consists of a set of entries describing each currently
@@ -15,12 +14,12 @@ The contents of the dictionary are intentionally straightforward, however it is
 sufficient to facilitate certain activities that are essential for processing
 GS1 Application Identifier and GS1 Digital Link data, chiefly:
 
-  * Accurately convert between the various different representations of GS1 Application Identifier syntax data.
-    * Bracketed and unbracketed format
-    * Barcode message scan data
-    * HRI and non-HRI text
-    * GS1 Digital Link URIs
-  * Validate Application Identifier associations, in particular mutually-exclusive AIs and requisite AIs.
+* Accurately convert between the various different representations of GS1 Application Identifier syntax data.
+  * Bracketed and unbracketed format
+  * Barcode message scan data
+  * HRI and non-HRI text
+  * GS1 Digital Link URIs
+* Validate Application Identifier associations, in particular mutually-exclusive AIs and requisite AIs.
 
 The **GS1 Barcode Syntax Tests** ("Linters") are referred to by the
 AI entries within the Syntax Dictionary, and enable the user to perform
@@ -41,17 +40,15 @@ are given in the following article:
 
 This repository contains the following key artifacts:
 
-| Artifact                    | Purpose                                                                                                              |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `gs1-syntax-dictionary.txt` | The Syntax Dictionary                                                                                                |
-| `src/lint_<name>.c`         | Source for the reference Linters, which includes unit tests                                                          |
-| `src/gs1syntaxdictionary.h` | Headers file with Linter function declarations and Linter error code definitions                                     |
-| `src/gs1syntaxdictionary.c` | Optional implementations for mapping Linter names to functions and Linter error codes to error message strings       |
-| `docs/`                     | Linter function descriptions in HTML format                                                                          |
+| Artifact                    | Purpose                                                                                                 |
+| --------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `gs1-syntax-dictionary.txt` | The Syntax Dictionary                                                                                   |
+| `src/lint_<name>.c`         | Source for the reference linters, which includes unit tests                                             |
+| `src/gs1syntaxdictionary.h` | Headers file with linter function declarations and error code definitions                               |
+| `src/gs1syntaxdictionary.c` | Optional implementations for mapping linter names to functions and error codes to error message strings |
+| `docs/`                     | Linter function descriptions in HTML format                                                             |
 
-
-Documentation
--------------
+## Documentation
 
 The structure of the Syntax Dictionary is defined in detail by its introductory comments.
 
@@ -60,9 +57,7 @@ made available online here:
 
 <https://ref.gs1.org/tools/gs1-barcode-syntax-resource/syntax-tests/>
 
-
-Using the Syntax Dictionary and Linters
----------------------------------------
+## Using the Syntax Dictionary and Linters
 
 The software license for this project is permissive allowing for the source code to be vendored into a
 codebase (Open Source or proprietary) and compiled into an application, or for a
@@ -78,11 +73,16 @@ strings or GS1 Digital Link URIs.
 
 For example, depending on the requirements of the application it may need to:
 
-  * Apply the format specification rules for AIs to separate the AI element string or GS1 Digital Link URI message into distinct AIs, e.g. using FNC1 separators or predefined fixed-length.
-  * Separate AIs into parts based on their components' designated length.
-  * Apply the format specification and Linters (or a port / translation of them) to the AI components to validate their contents.
-  * Apply the AI association rules over the entirety of the AI data to validate exclusive and mandatory AI pairings and/or GS1 Digital Link path primary-key to key-qualifier associations.
-  * Construct valid GS1 barcode message data (i.e. with FNC1 in first), bracketed/unbracketed element strings, HRI/non-HRI text, and GS1 Digital Link URIs based on the AI component format specifications and AI associations.
+* Apply the format specification rules for AIs to separate the AI element string or GS1 Digital Link URI
+  message into distinct AIs, e.g. using FNC1 separators or predefined fixed-length.
+* Separate AIs into parts based on their components' designated length.
+* Apply the format specification and Linters (or a port / translation of them) to the AI components to
+  validate their contents.
+* Apply the AI association rules over the entirety of the AI data to validate exclusive and mandatory AI
+  pairings and/or GS1 Digital Link path primary-key to key-qualifier associations.
+* Construct valid GS1 barcode message data (i.e. with FNC1 in first), bracketed/unbracketed element strings,
+  HRI/non-HRI text, and GS1 Digital Link URIs based on the AI component format specifications and AI
+  associations.
 
 The **GS1 Syntax Engine** is a library that provides one such framework
 implementation of the Syntax Dictionary and Linters, and serves as an example
@@ -105,7 +105,6 @@ Syntax Engine library directly (by vendoring in the source or linking the C
 library, possibly using one of the language bindings) to entirely avoid
 implementing the Syntax Dictionary and Linter framework themselves.
 
-
 ### Building the Linters on Windows
 
 The Linters can be rebuilt on Windows using MSVC.
@@ -124,10 +123,9 @@ Or:
 
     msbuild /p:Configuration=debug gs1syntaxdictionary.sln
 
+### Building the Linters on Linux or macOS
 
-### Building the Linters on Linux or MacOS
-
-The Linters can be rebuilt on any Linux or MacOS system that has a C compiler
+The Linters can be rebuilt on any Linux or macOS system that has a C compiler
 (such as GCC or Clang).
 
 To build using the default compiler change into the `src` directory and run:
@@ -144,4 +142,3 @@ There are a number of other targets that are useful for development purposes:
 
     make test [SANITIZE=yes]  # Run the unit test suite, optionally building using LLVM sanitizers
     make fuzzer               # Build fuzzers for exercising the individual Linters. Requires LLVM libfuzzer.
-

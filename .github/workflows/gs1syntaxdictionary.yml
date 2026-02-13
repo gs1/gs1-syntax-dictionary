@@ -1,8 +1,12 @@
+---
 name: GS1 Syntax Dictionary CI
 
 on:
   push:
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
 
@@ -16,16 +20,20 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-    - name: clang CI
-      run: |
+      - name: clang CI
+        run: |
 
-        # For llvm-symbolizer
-        sudo apt-get -y --no-install-recommends install llvm
+          # For llvm-symbolizer
+          sudo apt-get -y --no-install-recommends install llvm
 
-        make -C src -j `nproc` test CC=clang SANITIZE=yes SLOW_TESTS=yes
-        make -C src -j `nproc` lib CC=clang SANITIZE=yes
+          make -C src -j "$(nproc)" test \
+            CC=clang SANITIZE=yes SLOW_TESTS=yes
+          make -C src -j "$(nproc)" lib \
+            CC=clang SANITIZE=yes
 
   ci-gcc:
 
@@ -33,12 +41,15 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-    - name: gcc CI
-      run: |
-        make -C src -j `nproc` test CC=gcc SLOW_TESTS=yes
-        make -C src -j `nproc` lib CC=gcc
+      - name: gcc CI
+        run: |
+          make -C src -j "$(nproc)" test \
+            CC=gcc SLOW_TESTS=yes
+          make -C src -j "$(nproc)" lib CC=gcc
 
   ci-msvc:
 
@@ -46,15 +57,20 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
 
-    - name: MSVC CI
-      working-directory: src
-      run: |
-        msbuild /t:Restore,Build /p:Configuration=release /p:Platform="x86" /warnaserror gs1syntaxdictionary.sln
-        build\test\Win32\Release\gs1syntaxdictionary-test.exe
+      - name: MSVC CI
+        working-directory: src
+        run: |
+          msbuild /t:Restore,Build `
+            /p:Configuration=release `
+            /p:Platform="x86" `
+            /warnaserror gs1syntaxdictionary.sln
+          build\test\Win32\Release\gs1syntaxdictionary-test.exe
 
   ci-macos:
 
@@ -62,12 +78,16 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-    - name: clang CI
-      run: |
-        make -C src -j `sysctl -n hw.logicalcpu` test SANITIZE=noleak SLOW_TESTS=yes
-        make -C src -j `sysctl -n hw.logicalcpu` lib SANITIZE=noleak
+      - name: clang CI
+        run: |
+          make -C src -j "$(sysctl -n hw.logicalcpu)" \
+            test SANITIZE=noleak SLOW_TESTS=yes
+          make -C src -j "$(sysctl -n hw.logicalcpu)" \
+            lib SANITIZE=noleak
 
   ci-scan-build:
 
@@ -75,35 +95,46 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-    - name: clang static analyser CI
-      run: |
-        sudo apt-get update
-        sudo apt-get -y --no-install-recommends install clang-tools
-        scan-build -o plist make -C src -j `nproc` test CC=clang SLOW_TESTS=yes
-        scan-build -o plist make -C src -j `nproc` lib CC=clang
-        [ "$(find plist/ -name *.html)" = '' ];
+      - name: clang static analyser CI
+        run: |
+          sudo apt-get update
+          sudo apt-get -y --no-install-recommends \
+            install clang-tools
+          scan-build -o plist \
+            make -C src -j "$(nproc)" test \
+            CC=clang SLOW_TESTS=yes
+          scan-build -o plist \
+            make -C src -j "$(nproc)" lib CC=clang
+          [ "$(find plist/ -name '*.html')" = '' ];
 
-    - name: "clang static analyzer: Store assets on failure"
-      uses: actions/upload-artifact@v4
-      with:
-        name: clang-scan.tgz
-        path: plist/**/*.html
-        retention-days: 30
-      if: ${{ failure() }}
+      - name: "clang static analyzer: Store assets on failure"
+        uses: actions/upload-artifact@v4
+        with:
+          name: clang-scan.tgz
+          path: plist/**/*.html
+          retention-days: 30
+        if: ${{ failure() }}
 
-    - name: check includes for the linters with IWYU
-      working-directory: src
-      run: |
-        sudo apt-get -y --no-install-recommends install iwyu
-        find -name 'lint_*.c' -exec bash -c 'iwyu -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN {}; [[ $? = 2 ]] || false' \;
+      - name: check includes for the linters with IWYU
+        working-directory: src
+        run: |
+          sudo apt-get -y --no-install-recommends \
+            install iwyu
+          find . -name 'lint_*.c' \
+            -exec bash -c \
+            'iwyu -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN "$1";
+            [[ $? = 2 ]] || false' _ {} \;
 
-    - name: cppcheck
-      working-directory: src
-      run: |
-        sudo apt-get -y --no-install-recommends install cppcheck
-        cppcheck --enable=all --force \
+      - name: cppcheck
+        working-directory: src
+        run: |
+          sudo apt-get -y --no-install-recommends \
+            install cppcheck
+          cppcheck --enable=all --force \
             -U GS1_LINTER_CUSTOM_GCP_LOOKUP \
             -U GS1_LINTER_CUSTOM_GCP_LOOKUP_H \
             -U GS1_LINTER_CUSTOM_ISO4217_LOOKUP \
@@ -116,8 +147,11 @@ jobs:
             -U GS1_LINTER_CUSTOM_MEDIA_TYPE_LOOKUP_H \
             -U GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP \
             -U GS1_LINTER_CUSTOM_PACKAGE_TYPE_LOOKUP_H \
-            -U CLOCK_MONOTONIC -U RUNNING_ON_VALGRIND -U TEST_FINI -U TEST_INIT \
-            --suppress=missingIncludeSystem -i gs1syntaxdictionary-fuzzer-linters.c .
+            -U CLOCK_MONOTONIC \
+            -U RUNNING_ON_VALGRIND \
+            -U TEST_FINI -U TEST_INIT \
+            --suppress=missingIncludeSystem \
+            -i gs1syntaxdictionary-fuzzer-linters.c .
 
 
   #
@@ -138,19 +172,10 @@ jobs:
 
     steps:
 
-    - name: Get version
-      id: get_version
-      run: |
-        VERSION=${GITHUB_REF/refs\/tags\//}
-        echo ::set-output name=VERSION::$VERSION
-
-    - name: Create GitHub release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: ${{ steps.get_version.outputs.VERSION }}
-        draft: true
-        prerelease: false
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          draft: true
+          prerelease: false

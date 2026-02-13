@@ -1,0 +1,8 @@
+{
+  "threshold": 5,
+  "noSymlinks": true,
+  "ignore": [
+    "**/docs/**",
+    "**/src/build/**"
+  ]
+}

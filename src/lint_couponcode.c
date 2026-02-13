@@ -564,9 +564,9 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_couponcode(const char* const d
 
 
 		/*
-		 * Validate the single-digit 3nd Purchase Requirement Code.
+		 * Validate the single-digit 3rd Purchase Requirement Code.
 		 *
-		 * Valie values for the 3nd Purchase Requirement Code are "0"
+		 * Valid values for the 3rd Purchase Requirement Code are "0"
 		 * to "4" and "9".
 		 *
 		 */
