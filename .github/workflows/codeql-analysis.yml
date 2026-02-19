@@ -37,6 +37,14 @@ jobs:
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
+          config: |
+            paths:
+              - src
+              - .github
+
+      - if: matrix.language == 'actions'
+        name: Autobuild
+        uses: github/codeql-action/autobuild@v4
 
       - if: matrix.language == 'c-cpp'
         name: Build C
