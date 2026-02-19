@@ -48,8 +48,10 @@ jobs:
       - name: gcc CI
         run: |
           make -C src -j "$(nproc)" test \
+            CC=gcc ANALYZER=yes SLOW_TESTS=yes
+          make -C src -j "$(nproc)" lib CC=gcc ANALYZER=yes
+          make -C src -j "$(nproc)" test \
             CC=gcc SLOW_TESTS=yes
-          make -C src -j "$(nproc)" lib CC=gcc
 
   ci-msvc:
 
