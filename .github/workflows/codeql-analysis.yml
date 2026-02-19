@@ -13,6 +13,7 @@ permissions: { }
 
 jobs:
   analyze:
+    if: github.repository == 'gs1/gs1-syntax-dictionary'
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
@@ -23,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['c-cpp']
+        language: ['actions', 'c-cpp']
 
     steps:
 
