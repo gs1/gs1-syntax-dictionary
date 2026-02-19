@@ -68,6 +68,10 @@ ifeq ($(SLOW_TESTS),yes)
 SLOW_TESTS_CFLAGS=-DSLOW_TESTS
 endif
 
+ifeq ($(ANALYZER),yes)
+ANALYZER_CFLAGS = -fanalyzer
+endif
+
 ifneq ($(shell uname -s),Darwin)
 LDFLAGS = -Wl,--as-needed -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now $(SAN_LDFLAGS)
 LDFLAGS_SO = -shared -Wl,-soname,lib$(NAME).so.$(MAJOR)
