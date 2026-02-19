@@ -50,8 +50,30 @@ jobs:
           make -C src -j "$(nproc)" test \
             CC=gcc ANALYZER=yes SLOW_TESTS=yes
           make -C src -j "$(nproc)" lib CC=gcc ANALYZER=yes
+
+  ci-valgrind:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Valgrind memcheck CI
+        run: |
+          sudo apt-get update
+          sudo apt-get -y --no-install-recommends install valgrind
           make -C src -j "$(nproc)" test \
             CC=gcc SLOW_TESTS=yes
+          valgrind --tool=memcheck \
+            --leak-check=full \
+            --show-leak-kinds=all \
+            --errors-for-leak-kinds=all \
+            --error-exitcode=1 \
+            --track-origins=yes \
+            -s src/build-test/gs1syntaxdictionary-test
 
   ci-msvc:
 
@@ -173,6 +195,7 @@ jobs:
     needs:
       - ci-clang
       - ci-gcc
+      - ci-valgrind
       - ci-msvc
       - ci-macos
       - ci-scan-build
