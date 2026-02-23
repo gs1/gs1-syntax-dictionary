@@ -51,6 +51,10 @@ ifeq ($(MAKECMDGOALS),clean-msan)
 BUILD_DIR = build-msan
 endif
 
+ifeq ($(MAKECMDGOALS),clean-coverage)
+BUILD_DIR = build-coverage
+endif
+
 CFLAGS_V = -fvisibility=hidden
 
 ifeq ($(SANITIZE),yes)
@@ -82,6 +86,17 @@ SAN_ENV = MSAN_SYMBOLIZER_PATH="$(shell which llvm-symbolizer)"
 endif
 
 
+# Code coverage: builds with gcov instrumentation, runs tests and
+# generates an HTML report via lcov/genhtml.
+#
+#   make coverage
+#
+ifeq ($(COVERAGE),yes)
+BUILD_DIR = build-coverage
+COV_CFLAGS = --coverage
+endif
+
+
 ifeq ($(SLOW_TESTS),yes)
 SLOW_TESTS_CFLAGS=-DSLOW_TESTS
 endif
@@ -103,7 +118,7 @@ NPROC = sysctl -n hw.ncpu
 endif
 
 LDLIBS = -lc
-CFLAGS = -g -O2 $(CFLAGS_FORTIFY) $(CFLAGS_V) -Wall -Wextra -Wconversion -Wformat=2 -Wshadow -Wdeclaration-after-statement -pedantic -Wundef -Wnull-dereference -Wstrict-prototypes -Werror -fstack-protector-strong -MMD -fPIC $(SAN_CFLAGS) $(ANALYZER_CFLAGS) $(UNIT_TEST_CFLAGS) $(DEBUG_CFLAGS) $(SLOW_TESTS_CFLAGS)
+CFLAGS = -g -O2 $(CFLAGS_FORTIFY) $(CFLAGS_V) -Wall -Wextra -Wconversion -Wformat=2 -Wshadow -Wdeclaration-after-statement -pedantic -Wundef -Wnull-dereference -Wstrict-prototypes -Werror -fstack-protector-strong -MMD -fPIC $(SAN_CFLAGS) $(COV_CFLAGS) $(ANALYZER_CFLAGS) $(UNIT_TEST_CFLAGS) $(DEBUG_CFLAGS) $(SLOW_TESTS_CFLAGS)
 
 TEST_BIN = $(BUILD_DIR)/$(NAME)-test
 
@@ -217,6 +232,20 @@ $(foreach linter,$(FUZZER_LINTERS),$(eval $(call gen-fuzzer-target,$(linter))))
 test: $(TEST_BIN)
 	$(SAN_ENV) ./$(TEST_BIN) $(TEST)
 
+.PHONY: coverage
+coverage:
+	$(MAKE) COVERAGE=yes SLOW_TESTS=yes test
+	lcov --capture --directory build-coverage \
+		--output-file build-coverage/coverage.info
+	lcov --ignore-errors unused \
+		--remove build-coverage/coverage.info \
+		'*/gs1syntaxdictionary-test.c' \
+		--output-file build-coverage/coverage.info
+	genhtml build-coverage/coverage.info \
+		--output-directory build-coverage/coverage-report
+	@echo
+	@echo "Coverage report: build-coverage/coverage-report/index.html"
+
 .PHONY: fuzzer
 fuzzer: $(FUZZER_BINS) | $(FUZZER_CORPUSES)
 	@echo
@@ -243,6 +272,10 @@ clean-test:
 .PHONY: clean-msan
 clean-msan:
 	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
+
+.PHONY: clean-coverage
+clean-coverage:
+	$(RM) -r build-coverage
 
 
 .PHONY: install
