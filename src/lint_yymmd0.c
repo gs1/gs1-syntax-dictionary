@@ -1,5 +1,5 @@
 /*
- * GS1 Barcode Syntax Dictionary. Copyright (c) 2022-2024 GS1 AISBL.
+ * GS1 Barcode Syntax Dictionary. Copyright (c) 2022-2026 GS1 AISBL.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,7 +106,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_yymmd0(const char* const data,
 	} else if (YY - CURRENT_YEAR > -50) {
 		yyyymmdd[0] = '2'; yyyymmdd[1] = '0';
 	} else {
-		yyyymmdd[0] = '2'; yyyymmdd[1] = '1';
+		yyyymmdd[0] = '2'; yyyymmdd[1] = '1';	/* LCOV_EXCL_LINE */
 	}
 
 	ret = gs1_lint_yyyymmd0(yyyymmdd, 8, err_pos, err_len);

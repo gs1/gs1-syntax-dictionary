@@ -233,6 +233,8 @@ coverage:
 		--output-directory build-coverage/coverage-report
 	@echo
 	@echo "Coverage report: build-coverage/coverage-report/index.html"
+	lcov --fail-under-lines 100 --summary \
+		build-coverage/coverage.info
 
 .PHONY: fuzzer
 fuzzer: $(FUZZER_BINS) | $(FUZZER_CORPUSES)
