@@ -161,7 +161,7 @@ Macros</h2></td></tr>
 <div class="line"><span class="lineno">  106</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (YY - <a class="code hl_define" href="lint__yymmd0_8c.html#a916b9f5d8c141fdb31021b395a238536">CURRENT_YEAR</a> &gt; -50) {</div>
 <div class="line"><span class="lineno">  107</span>                yyyymmdd[0] = <span class="charliteral">&#39;2&#39;</span>; yyyymmdd[1] = <span class="charliteral">&#39;0&#39;</span>;</div>
 <div class="line"><span class="lineno">  108</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  109</span>                yyyymmdd[0] = <span class="charliteral">&#39;2&#39;</span>; yyyymmdd[1] = <span class="charliteral">&#39;1&#39;</span>;</div>
+<div class="line"><span class="lineno">  109</span>                yyyymmdd[0] = <span class="charliteral">&#39;2&#39;</span>; yyyymmdd[1] = <span class="charliteral">&#39;1&#39;</span>;   <span class="comment">/* LCOV_EXCL_LINE */</span></div>
 <div class="line"><span class="lineno">  110</span>        }</div>
 <div class="line"><span class="lineno">  111</span> </div>
 <div class="line"><span class="lineno">  112</span>        ret = <a class="code hl_function" href="gs1syntaxdictionary_8h.html#a1c7094db272d52374932305626a4aa5c">gs1_lint_yyyymmd0</a>(yyyymmdd, 8, err_pos, err_len);</div>
