@@ -1,5 +1,5 @@
 /*
- * GS1 Barcode Syntax Dictionary. Copyright (c) 2022-2025 GS1 AISBL.
+ * GS1 Barcode Syntax Dictionary. Copyright (c) 2022-2026 GS1 AISBL.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1420,6 +1420,37 @@ void test_lint_couponcode(void)
 	UNIT_TEST_PASS(gs1_lint_couponcode, "106141411234562891101201212085010048000214025610048000310123191000");
 	UNIT_TEST_PASS(gs1_lint_couponcode, "1061414154321031501101201211014092110256100126663101231");
 	UNIT_TEST_PASS(gs1_lint_couponcode, "106141416543213500110000310123196000");
+
+#ifdef GS1_LINTER_CUSTOM_GCP_LOOKUP_H
+{
+	extern int test_gcp_lookup_result;
+	extern int test_gcp_lookup_countdown;
+
+	/* Primary GCP */
+	test_gcp_lookup_result = 1;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123", GS1_LINTER_INVALID_GCP_PREFIX, "0*123456*12345611110123");
+	test_gcp_lookup_result = 2;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123", GS1_LINTER_GCP_DATASOURCE_OFFLINE, "0*123456*12345611110123");
+
+	/* 2nd Purchase GCP */
+	test_gcp_lookup_countdown = 1;
+	test_gcp_lookup_result = 1;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123101101230123456", GS1_LINTER_INVALID_GCP_PREFIX, "012345612345611110123101101230*123456*");
+
+	/* 3rd Purchase GCP */
+	test_gcp_lookup_countdown = 1;
+	test_gcp_lookup_result = 1;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "01234561234561111012321101230123456", GS1_LINTER_INVALID_GCP_PREFIX, "01234561234561111012321101230*123456*");
+
+	/* Retailer GCP/GLN */
+	test_gcp_lookup_countdown = 1;
+	test_gcp_lookup_result = 1;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123611234567", GS1_LINTER_INVALID_GCP_PREFIX, "01234561234561111012361*1234567*");
+
+	test_gcp_lookup_result = 0;
+	test_gcp_lookup_countdown = 0;
+}
+#endif
 
 }
 

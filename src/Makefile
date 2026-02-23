@@ -1,7 +1,7 @@
 #
 # GS1 Barcode Syntax Dictionary
 #
-# @author Copyright (c) 2022-2024 GS1 AISBL.
+# @author Copyright (c) 2022-2026 GS1 AISBL.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ BUILD_DIR = build
 
 ifeq ($(MAKECMDGOALS),test)
 BUILD_DIR = build-test
-UNIT_TEST_CFLAGS = -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN
+UNIT_TEST_CFLAGS = -DUNIT_TESTS -DGS1_LINTER_ERR_STR_EN -DGS1_LINTER_CUSTOM_GCP_LOOKUP_H=test-gcp-lookup.h
 endif
 
 ifeq ($(MAKECMDGOALS),fuzzer)
@@ -227,7 +227,7 @@ coverage:
 		--output-file build-coverage/coverage.info
 	lcov --ignore-errors unused \
 		--remove build-coverage/coverage.info \
-		'*/acutest.h' '*/gs1syntaxdictionary-test.c' \
+		'*/acutest.h' '*/gs1syntaxdictionary-test.c' '/usr/include/*' \
 		--output-file build-coverage/coverage.info
 	genhtml build-coverage/coverage.info \
 		--output-directory build-coverage/coverage-report

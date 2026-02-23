@@ -1,5 +1,5 @@
 /*
- * GS1 Barcode Syntax Dictionary. Copyright (c) 2022-2025 GS1 AISBL
+ * GS1 Barcode Syntax Dictionary. Copyright (c) 2022-2026 GS1 AISBL
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -136,9 +136,9 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos1(const char* const data
 	int valid, offline;
 	GS1_LINTER_CUSTOM_GCP_LOOKUP(data, data_len, valid, offline);
 	if (GS1_LINTER_UNLIKELY(offline))
-		GS1_LINTER_RETURN_ERROR(GS1_LINTER_GCP_DATASOURCE_OFFLINE, 0, 0);
+		GS1_LINTER_RETURN_ERROR(GS1_LINTER_GCP_DATASOURCE_OFFLINE, 0, data_len);
 	else if (GS1_LINTER_UNLIKELY(!valid))
-		GS1_LINTER_RETURN_ERROR(GS1_LINTER_INVALID_GCP_PREFIX, 0, 0);
+		GS1_LINTER_RETURN_ERROR(GS1_LINTER_INVALID_GCP_PREFIX, 0, data_len);
 }
 #endif
 
@@ -215,6 +215,14 @@ void test_lint_gcppos1(void)
 		memcpy(&expect[i], "*A*A", 4);
 		UNIT_TEST_FAIL(gs1_lint_gcppos1, data, GS1_LINTER_INVALID_GCP_PREFIX, expect);
 	}
+
+#ifdef GS1_LINTER_CUSTOM_GCP_LOOKUP
+	test_gcp_lookup_result = 1;
+	UNIT_TEST_FAIL(gs1_lint_gcppos1, "1234567", GS1_LINTER_INVALID_GCP_PREFIX, "*1234567*");
+	test_gcp_lookup_result = 2;
+	UNIT_TEST_FAIL(gs1_lint_gcppos1, "1234567", GS1_LINTER_GCP_DATASOURCE_OFFLINE, "*1234567*");
+	test_gcp_lookup_result = 0;
+#endif
 
 }
 

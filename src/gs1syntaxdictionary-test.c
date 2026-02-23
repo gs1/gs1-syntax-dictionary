@@ -1,7 +1,7 @@
 /**
  * GS1 Barcode Syntax Dictionary
  *
- * @author Copyright (c) 2022-2025 GS1 AISBL.
+ * @author Copyright (c) 2022-2026 GS1 AISBL.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,9 @@
  */
 
 #include <stddef.h>
+
+int test_gcp_lookup_result = 0;
+int test_gcp_lookup_countdown = 0;
 
 
 /*
@@ -77,6 +80,8 @@ void test_lint_yyyymmd0(void);
 void test_lint_yyyymmdd(void);
 void test_lint_zero(void);
 
+void test_lint__stubs(void);
+
 void test_name_function_map_is_sorted(void);
 void test_gs1_linter_from_name(void);
 void test_gs1_linter_err_str_en_size(void);
@@ -123,6 +128,8 @@ TEST_LIST = {
 	{ "lint_yyyymmd0", test_lint_yyyymmd0 },
 	{ "lint_yyyymmdd", test_lint_yyyymmdd },
 	{ "lint_zero", test_lint_zero },
+
+	{ "lint__stubs", test_lint__stubs },
 
 	{ "name_function_map_is_sorted", test_name_function_map_is_sorted },
 	{ "gs1_linter_from_name", test_gs1_linter_from_name },
