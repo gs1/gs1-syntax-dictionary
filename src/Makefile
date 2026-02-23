@@ -47,6 +47,10 @@ ifeq ($(MAKECMDGOALS),clean-test)
 BUILD_DIR = build-test
 endif
 
+ifeq ($(MAKECMDGOALS),clean-msan)
+BUILD_DIR = build-msan
+endif
+
 CFLAGS_V = -fvisibility=hidden
 
 ifeq ($(SANITIZE),yes)
@@ -63,6 +67,20 @@ SAN_LDFLAGS = -fuse-ld=lld
 SAN_CFLAGS = -fsanitize=address,undefined$(FUZZER_SAN_OPT) -fno-omit-frame-pointer -fno-optimize-sibling-calls -O1
 SAN_ENV = ASAN_OPTIONS="symbolize=1" LSAN_OPTIONS="fast_unwind_on_malloc=0:malloc_context_size=50" ASAN_SYMBOLIZER_PATH="$(shell which llvm-symbolizer)"
 endif
+
+# MemorySanitizer: detects reads of uninitialised memory.
+# Mutually exclusive with ASAN so uses its own build directory.
+#
+#   make MSAN=yes test
+#
+ifeq ($(MSAN),yes)
+CC=clang
+BUILD_DIR = build-msan
+SAN_LDFLAGS = -fuse-ld=lld
+SAN_CFLAGS = -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -fno-optimize-sibling-calls -O1
+SAN_ENV = MSAN_SYMBOLIZER_PATH="$(shell which llvm-symbolizer)"
+endif
+
 
 ifeq ($(SLOW_TESTS),yes)
 SLOW_TESTS_CFLAGS=-DSLOW_TESTS
@@ -220,6 +238,10 @@ clean:
 
 .PHONY: clean-test
 clean-test:
+	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
+
+.PHONY: clean-msan
+clean-msan:
 	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
 
 

@@ -75,6 +75,25 @@ jobs:
             --track-origins=yes \
             -s src/build-test/gs1syntaxdictionary-test
 
+  ci-msan:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: MemorySanitizer CI
+        run: |
+
+          # For llvm-symbolizer and lld
+          sudo apt-get -y --no-install-recommends install llvm lld
+
+          make -C src -j "$(nproc)" MSAN=yes \
+            SLOW_TESTS=yes test
+
   ci-msvc:
 
     runs-on: windows-latest
@@ -196,6 +215,7 @@ jobs:
       - ci-clang
       - ci-gcc
       - ci-valgrind
+      - ci-msan
       - ci-msvc
       - ci-macos
       - ci-scan-build
