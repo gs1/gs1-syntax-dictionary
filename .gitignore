@@ -10,6 +10,9 @@ lib*.so.*
 *.vcxproj.user
 src/build/
 src/build-test/
+src/build-msan/
+src/build-coverage/
+src/*.gcov
 src/docstmp/
 src/corpus-*/
 src/crash-*

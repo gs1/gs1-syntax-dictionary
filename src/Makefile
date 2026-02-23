@@ -43,18 +43,6 @@ ifeq ($(DEBUG),yes)
 DEBUG_CFLAGS = -DPRNT
 endif
 
-ifeq ($(MAKECMDGOALS),clean-test)
-BUILD_DIR = build-test
-endif
-
-ifeq ($(MAKECMDGOALS),clean-msan)
-BUILD_DIR = build-msan
-endif
-
-ifeq ($(MAKECMDGOALS),clean-coverage)
-BUILD_DIR = build-coverage
-endif
-
 CFLAGS_V = -fvisibility=hidden
 
 ifeq ($(SANITIZE),yes)
@@ -239,7 +227,7 @@ coverage:
 		--output-file build-coverage/coverage.info
 	lcov --ignore-errors unused \
 		--remove build-coverage/coverage.info \
-		'*/gs1syntaxdictionary-test.c' \
+		'*/acutest.h' '*/gs1syntaxdictionary-test.c' \
 		--output-file build-coverage/coverage.info
 	genhtml build-coverage/coverage.info \
 		--output-directory build-coverage/coverage-report
@@ -263,19 +251,8 @@ fuzzer: $(FUZZER_BINS) | $(FUZZER_CORPUSES)
 
 .PHONY: clean
 clean:
-	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
-
-.PHONY: clean-test
-clean-test:
-	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
-
-.PHONY: clean-msan
-clean-msan:
-	$(RM) $(OBJS) $(TEST_BIN) $(TEST_OBJ) $(FUZZER_BINS) $(FUZZER_OBJS) $(LIB_STATIC) $(LIB_SHARED) $(DEPS)
-
-.PHONY: clean-coverage
-clean-coverage:
-	$(RM) -r build-coverage
+	$(RM) -r build build-test build-msan build-coverage
+	$(RM) *.gcov
 
 
 .PHONY: install
