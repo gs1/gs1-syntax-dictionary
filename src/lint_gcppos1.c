@@ -154,7 +154,7 @@ GS1_SYNTAX_DICTIONARY_API gs1_lint_err_t gs1_lint_gcppos1(const char* const data
 void test_lint_gcppos1(void)
 {
 
-	char data[GCP_MIN_LENGTH + 2], expect[GCP_MIN_LENGTH + 4];
+	char data[GCP_MIN_LENGTH + 2] = {0}, expect[GCP_MIN_LENGTH + 4] = {0};
 	int i;
 
 	/*
