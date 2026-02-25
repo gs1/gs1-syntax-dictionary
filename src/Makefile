@@ -103,6 +103,7 @@ LDFLAGS =
 LDFLAGS_SO = -shared -Wl,-install_name,lib$(NAME).so.$(MAJOR)
 CFLAGS_FORTIFY =
 NPROC = sysctl -n hw.ncpu
+FUZZER_LDLIBS = -L$(shell $(CC) --print-resource-dir)/../../c++ -lc++
 endif
 
 LDLIBS = -lc
@@ -200,7 +201,7 @@ $$(BUILD_DIR)/$$(FUZZER_PREFIX)$1.o : $$(FUZZER_LINTERS_SRC)
 	$$(CC) $$(CFLAGS) -DLINTER=gs1_$1 -c $$< -o $$@
 
 $$(BUILD_DIR)/$$(FUZZER_PREFIX)$1: $$(OBJS) $$(BUILD_DIR)/$$(FUZZER_PREFIX)$1.o
-	$$(CC) $$(CFLAGS) $$(OBJS) $$(BUILD_DIR)/$$(FUZZER_PREFIX)$1.o -o $$(BUILD_DIR)/$$(FUZZER_PREFIX)$1
+	$$(CC) $$(CFLAGS) $$(FUZZER_LDLIBS) $$(OBJS) $$(BUILD_DIR)/$$(FUZZER_PREFIX)$1.o -o $$(BUILD_DIR)/$$(FUZZER_PREFIX)$1
 endef
 
 $(foreach linter,$(FUZZER_LINTERS),$(eval $(call gen-fuzzer-target,$(linter))))
