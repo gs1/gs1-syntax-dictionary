@@ -1436,16 +1436,25 @@ void test_lint_couponcode(void)
 	test_gcp_lookup_countdown = 1;
 	test_gcp_lookup_result = 1;
 	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123101101230123456", GS1_LINTER_INVALID_GCP_PREFIX, "012345612345611110123101101230*123456*");
+	test_gcp_lookup_countdown = 1;
+	test_gcp_lookup_result = 2;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123101101230123456", GS1_LINTER_GCP_DATASOURCE_OFFLINE, "012345612345611110123101101230*123456*");
 
 	/* 3rd Purchase GCP */
 	test_gcp_lookup_countdown = 1;
 	test_gcp_lookup_result = 1;
 	UNIT_TEST_FAIL(gs1_lint_couponcode, "01234561234561111012321101230123456", GS1_LINTER_INVALID_GCP_PREFIX, "01234561234561111012321101230*123456*");
+	test_gcp_lookup_countdown = 1;
+	test_gcp_lookup_result = 2;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "01234561234561111012321101230123456", GS1_LINTER_GCP_DATASOURCE_OFFLINE, "01234561234561111012321101230*123456*");
 
 	/* Retailer GCP/GLN */
 	test_gcp_lookup_countdown = 1;
 	test_gcp_lookup_result = 1;
 	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123611234567", GS1_LINTER_INVALID_GCP_PREFIX, "01234561234561111012361*1234567*");
+	test_gcp_lookup_countdown = 1;
+	test_gcp_lookup_result = 2;
+	UNIT_TEST_FAIL(gs1_lint_couponcode, "012345612345611110123611234567", GS1_LINTER_GCP_DATASOURCE_OFFLINE, "01234561234561111012361*1234567*");
 
 	test_gcp_lookup_result = 0;
 	test_gcp_lookup_countdown = 0;
