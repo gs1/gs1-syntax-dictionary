@@ -141,4 +141,4 @@ A specific compiler can be chosen by setting the CC argument for example:
 There are a number of other targets that are useful for development purposes:
 
     make test [SANITIZE=yes]  # Run the unit test suite, optionally building using LLVM sanitizers
-    make fuzzer               # Build fuzzers for exercising the individual Linters. Requires LLVM libfuzzer.
+    make fuzzer               # Build fuzzers for the individual Linters. Requires LLVM libfuzzer.
