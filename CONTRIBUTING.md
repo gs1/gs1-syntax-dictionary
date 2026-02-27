@@ -1,4 +1,4 @@
-# GS1 Barcode Syntax Dictionary and Syntax Tests
+# GS1 Barcode Syntax Dictionary (Contributing)
 
 This document is for developers contributing to this project, not users of the
 project. It is authoritative for both human contributors and automated tools.
