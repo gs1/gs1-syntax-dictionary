@@ -288,7 +288,8 @@ cd src
 make -j $(nproc) fuzzer
 
 # Then run the printed commands, e.g.:
-ASAN_OPTIONS="symbolize=1 detect_leaks=1" ./build/gs1syntaxdictionary-fuzzer-lint_csum -jobs=$(nproc) -workers=$(nproc) corpus-lint_csum -max_len=125
+ASAN_OPTIONS="symbolize=1 detect_leaks=1" ./build/gs1syntaxdictionary-fuzzer-lint_csum \
+    -jobs=$(nproc) -workers=$(nproc) corpus-lint_csum -max_len=125
 ```
 
 ## Maintenance Tasks
