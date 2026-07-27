@@ -62,6 +62,7 @@ jobs:
         run: |
           COV_BIN="$(pwd)/cov-analysis/bin"
           export PATH="${COV_BIN}:${PATH}"
+          cov-configure --gcc
           cov-build --dir cov-int \
             make -C src -j "$(nproc)" lib CC=gcc
 
