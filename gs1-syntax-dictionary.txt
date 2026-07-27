@@ -137,7 +137,7 @@
 241         ?  X..30                             req=01,02,03,8006,8026                           # CUST. PART No.
 242         ?  N..6                              req=01,02,8006,8026                              # MTO VARIANT
 243         ?  X..20                             req=01,03                                        # PCN
-250         ?  X..30                             req=01+21,8006+21,03+21                          # SECONDARY SERIAL
+250         ?  X..30                             req=01+21,03+21,8006+21                          # SECONDARY SERIAL
 251         ?  X..30                             req=01,03,8006                                   # REF. TO SOURCE
 253         ?  N13,csum,gcppos1 [X..17]          dlpkey                                           # GDTI
 254            X..20                             req=414                                          # GLN EXTENSION COMPONENT
@@ -265,7 +265,7 @@
 7009        ?  X..10                             req=01,02                                        # FISHING GEAR TYPE
 7010        ?  X..2                              req=01,02,03                                     # PROD METHOD
 7011        ?  N6,yymmdd [N4],hhmi               req=01,02,03                                     # TEST BY DATE
-7020        ?  X..20                             req=01+416,8006+416,03+416                       # REFURB LOT
+7020        ?  X..20                             req=01+416,03+416,8006+416                       # REFURB LOT
 7021        ?  X..20                             req=01,03,8006                                   # FUNC STAT
 7022        ?  X..20                             req=01+7021,03+7021,8006+7021                    # REV STAT
 7023        ?  X..30,gcppos1                                                                      # GIAI - ASSEMBLY
@@ -330,7 +330,7 @@
 8018        ?  N18,csum,gcppos1                  ex=8017 dlpkey=8019                              # GSRN - RECIPIENT
 8019           N..10                             req=8017,8018                                    # SRIN
 8020           X..25                             req=415                                          # REF No.
-8026        ?  N14,csum,gcppos2 N4,pieceoftotal  req=37 ex=02,8006,03                             # ITIP CONTENT
+8026        ?  N14,csum,gcppos2 N4,pieceoftotal  req=37 ex=02,03,8006                             # ITIP CONTENT
 8030        ?  Z..90  req=00,01+21,03+21,253,255,8003,8004,8006+21,8010+8011,8017,8018            # DIGSIG
 8040           N15                               req=01+21                                        # IMEI
 8041           N15                               req=01+21+8040                                   # IMEI2
