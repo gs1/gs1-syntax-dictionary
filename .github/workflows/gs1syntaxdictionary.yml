@@ -30,10 +30,15 @@ jobs:
           # For llvm-symbolizer
           sudo apt-get -y --no-install-recommends install llvm
 
+          echo '::group::Linter tests (clang+ASAN+LSAN+UBSAN)'
           make -C src -j "$(nproc)" test \
             CC=clang SANITIZE=yes SLOW_TESTS=yes
+          echo '::endgroup::'
+
+          echo '::group::Build shared lib (clang+ASAN+LSAN+UBSAN)'
           make -C src -j "$(nproc)" lib \
             CC=clang SANITIZE=yes
+          echo '::endgroup::'
 
   ci-gcc:
 
@@ -47,9 +52,14 @@ jobs:
 
       - name: gcc CI
         run: |
+          echo '::group::Linter tests (gcc+analyzer)'
           make -C src -j "$(nproc)" test \
             CC=gcc ANALYZER=yes SLOW_TESTS=yes
+          echo '::endgroup::'
+
+          echo '::group::Build shared lib (gcc+analyzer)'
           make -C src -j "$(nproc)" lib CC=gcc ANALYZER=yes
+          echo '::endgroup::'
 
   ci-valgrind:
 
@@ -65,8 +75,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get -y --no-install-recommends install valgrind
+
+          echo '::group::Linter tests (gcc)'
           make -C src -j "$(nproc)" test \
             CC=gcc SLOW_TESTS=yes
+          echo '::endgroup::'
+
+          echo '::group::Linter tests under valgrind'
           valgrind --tool=memcheck \
             --leak-check=full \
             --show-leak-kinds=all \
@@ -74,6 +89,7 @@ jobs:
             --error-exitcode=1 \
             --track-origins=yes \
             -s src/build-test/gs1syntaxdictionary-test
+          echo '::endgroup::'
 
   ci-msan:
 
@@ -109,11 +125,16 @@ jobs:
       - name: MSVC CI
         working-directory: src
         run: |
+          Write-Output '::group::MSBuild solution (Release|x86)'
           msbuild /t:Restore,Build `
             /p:Configuration=release `
             /p:Platform="x86" `
             /warnaserror gs1syntaxdictionary.sln
+          Write-Output '::endgroup::'
+
+          Write-Output '::group::Linter tests (MSVC)'
           build\test\Win32\Release\gs1syntaxdictionary-test.exe
+          Write-Output '::endgroup::'
 
   ci-macos:
 
@@ -127,10 +148,15 @@ jobs:
 
       - name: clang CI
         run: |
+          echo '::group::Linter tests (clang+ASAN+UBSAN)'
           make -C src -j "$(sysctl -n hw.logicalcpu)" \
             test SANITIZE=noleak SLOW_TESTS=yes
+          echo '::endgroup::'
+
+          echo '::group::Build shared lib (clang+ASAN+UBSAN)'
           make -C src -j "$(sysctl -n hw.logicalcpu)" \
             lib SANITIZE=noleak
+          echo '::endgroup::'
 
   ci-coverage:
 
@@ -162,11 +188,17 @@ jobs:
           sudo apt-get update
           sudo apt-get -y --no-install-recommends \
             install clang-tools
+          echo '::group::Linter tests (clang+scan-build)'
           scan-build -o plist \
             make -C src -j "$(nproc)" test \
             CC=clang SLOW_TESTS=yes
+          echo '::endgroup::'
+
+          echo '::group::Build shared lib (clang+scan-build)'
           scan-build -o plist \
             make -C src -j "$(nproc)" lib CC=clang
+          echo '::endgroup::'
+
           [ "$(find plist/ -name '*.html')" = '' ];
 
       - name: "clang static analyzer: Store assets on failure"
