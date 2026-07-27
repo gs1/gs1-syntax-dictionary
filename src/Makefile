@@ -321,7 +321,6 @@ superlinter:
 		-e RUN_LOCAL=true \
 		-e VALIDATE_ALL_CODEBASE=true \
 		-e DEFAULT_BRANCH=main \
-		-e IGNORE_GITIGNORED_FILES=true \
 		-e LINTER_RULES_PATH=.github/linters \
 		-e 'FILTER_REGEX_EXCLUDE=(docs/|src/build|src/acutest\.h|corpus-|src/slow-unit-)' \
 		$(shell grep -v '^\#' ../.github/linters/superlinter-disabled.env | grep '=' | sed 's/^/-e /') \

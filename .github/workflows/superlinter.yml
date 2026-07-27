@@ -4,6 +4,7 @@ name: Super Linter
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -37,7 +38,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           VALIDATE_ALL_CODEBASE: true
-          IGNORE_GITIGNORED_FILES: true
+          # IGNORE_GITIGNORED_FILES is omitted: it makes Super Linter pass
+          # the --gitignore option, which jscpd 5 does not support:
+          # https://github.com/super-linter/super-linter/issues/7949
           SAVE_SUPER_LINTER_SUMMARY: true
           FILTER_REGEX_EXCLUDE: "\
             (docs/\

@@ -1,8 +1,10 @@
 {
   "threshold": 5,
   "noSymlinks": true,
+  "mode": "weak",
   "ignore": [
     "**/docs/**",
-    "**/src/build/**"
+    "**/src/build/**",
+    "**/src/acutest.h"
   ]
 }
